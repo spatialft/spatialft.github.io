@@ -1,6 +1,7 @@
 """Generate docs/index.html from results/baseline/scores.json,
 results/finetuned/scores.json, and results/examples.json."""
 
+import html
 import json
 from pathlib import Path
 
@@ -45,7 +46,12 @@ def render(baseline, finetuned, examples):
         "ftK": ft_k,
     })
 
-    examples_json = json.dumps(examples or [])
+    _TEXT_FIELDS = ("story", "question", "baseline", "finetuned", "answer")
+    safe_examples = [
+        {k: html.escape(str(v)) if k in _TEXT_FIELDS else v for k, v in ex.items()}
+        for ex in (examples or [])
+    ]
+    examples_json = json.dumps(safe_examples)
 
     scores_section = ""
     if has_scores:

@@ -9,8 +9,8 @@
 **Can a 1B Model Learn to Think in Space?**
 Fine-Tuning LFM2.5-1.2B for Spatial Reasoning
 
-> AIPI 590 — Project 1
-> [Your name(s)]
+> AIPI 590.03 — Project 1
+> Jonas Neves · Daniel Ros · Keming Zhou
 
 ---
 
@@ -56,7 +56,7 @@ A 1B model must chain multiple relations without losing track.
 | Set | Examples |
 |-----|----------|
 | Train | 4,000 |
-| Eval | 500 |
+| Eval | 250 (50 per hop level, k=1–5) |
 
 8 possible directions: left, right, above, below, upper-left, upper-right, lower-left, lower-right
 

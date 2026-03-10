@@ -72,7 +72,8 @@ def evaluate() -> dict[str, bool]:
 
         # Evaluation design
         "EVAL1": baseline_ok,                       # metric (accuracy) defined and measured
-        "EVAL2": True,                              # StepGame train vs validation splits — by design separate
+        "EVAL2": (ROOT / "data" / "eval" / "stepgame_eval.json").exists()
+                 and (ROOT / "data" / "processed" / "train_formatted.json").exists(),
         "EVAL3": baseline_ok,                       # baseline measured before fine-tuning
         "EVAL4": baseline_has_hops,                 # per-hop breakdown present in scores
 

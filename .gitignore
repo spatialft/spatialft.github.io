@@ -1,7 +1,8 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-# data/ is committed for reproducibility — only large artifacts excluded
+# data/ — raw JSON splits and processed files are committed for reproducibility;
+# only large binary/tabular formats excluded
 data/raw/*.csv
 data/raw/*.parquet
 results/baseline/predictions.json
