@@ -7,8 +7,9 @@ import re
 from pathlib import Path
 from typing import Any
 
-# 8 cardinal + intercardinal directions StepGame uses
-DIRECTIONS = {"left", "right", "above", "below", "upper-left", "upper-right", "lower-left", "lower-right"}
+# 8 cardinal + intercardinal directions StepGame uses, longest first to avoid
+# "left" matching inside "upper-left" during substring scans.
+DIRECTIONS = ("upper-left", "upper-right", "lower-left", "lower-right", "left", "right", "above", "below")
 
 SYSTEM_PROMPT = (
     "You are a spatial reasoning assistant. "
@@ -52,17 +53,17 @@ def extract_answer(text: str) -> str | None:
     text = text.strip().lower()
     # Strip thinking block emitted by LFM2.5-1.2B-Thinking
     text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
-    # Direct match first
+    if text in DIRECTIONS:
+        return text
+    # Match at end of output (DIRECTIONS already longest-first)
     for d in DIRECTIONS:
-        if text == d:
-            return d
-    # Look for direction at end of reasoning chain
-    for d in sorted(DIRECTIONS, key=len, reverse=True):
         if text.endswith(d):
             return d
-    # Scan for direction anywhere (last occurrence wins)
-    found = None
+    # Find last occurrence; longest match wins ties (DIRECTIONS longest-first,
+    # rfind returns last position, > not >= so earlier longer match is kept)
+    best_pos, best = -1, None
     for d in DIRECTIONS:
-        if d in text:
-            found = d
-    return found
+        idx = text.rfind(d)
+        if idx > best_pos:
+            best_pos, best = idx, d
+    return best

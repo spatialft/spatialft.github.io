@@ -16,8 +16,7 @@ notebooks/
   04_eval_comparison.ipynb
 src/
   dataset.py    StepGame loading + prompt formatting
-  eval.py       accuracy evaluation logic
-  metrics.py    per-hop-level breakdown
+  eval.py       accuracy evaluation logic (includes per-hop breakdown)
 results/
   baseline/     baseline predictions + scores
   finetuned/    post-fine-tune predictions + scores (checkpoint gitignored)

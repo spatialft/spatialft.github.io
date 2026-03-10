@@ -11,3 +11,5 @@ results/finetuned/lora_adapter/
 *.egg-info/
 .env
 .worktrees/
+docs/index.html
+docs/checklist/index.html

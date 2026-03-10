@@ -121,7 +121,6 @@ def render(baseline, finetuned, examples):
       --accent: #2563eb;
       --green: #16a34a;
       --red: #dc2626;
-      --orange: #ea580c;
       --radius: 10px;
       --shadow: 0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.04);
     }}

@@ -32,8 +32,7 @@ notebooks/
   04_eval_comparison.ipynb  compare before vs after, export examples
 src/
   dataset.py    StepGame loading + prompt formatting
-  eval.py       accuracy evaluation logic
-  metrics.py    per-hop-level breakdown
+  eval.py       accuracy evaluation logic (includes per-hop breakdown)
 results/
   baseline/     baseline predictions (gitignored) + scores
   finetuned/    fine-tuned predictions (gitignored) + scores

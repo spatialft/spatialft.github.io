@@ -5,7 +5,8 @@ on:
     branches: [main]
     paths:
       - REQUIREMENTS_CHECKLIST.md
-      - scripts/generate_checklist.py
+      - scripts/**
+      - results/**
       - docs/**
       - .github/workflows/deploy.yml
   workflow_dispatch:
