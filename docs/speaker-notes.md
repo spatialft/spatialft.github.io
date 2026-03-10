@@ -39,7 +39,7 @@ HuggingFace at the time of this project, which is a useful signal that it's well
 "StepGame is a synthetic spatial QA dataset where k is the number of hops required. At k=1,
 you have one fact: A is left of B. At k=10, you have ten chained facts and the model has to
 resolve the final relationship. There are 8 possible answer directions. We used 4,000 training
-examples and held out 500 for evaluation. The k-hop structure is valuable because it lets us
+examples and held out 250 for evaluation (50 per hop level, k=1–5). The k-hop structure is valuable because it lets us
 see exactly where the model starts to break down, and where fine-tuning helps most."
 
 ---

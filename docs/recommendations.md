@@ -95,7 +95,7 @@ text = text.replace("to the ", "").replace("of ", "")
 ```
 
 ### Statistical significance
-With 500 eval examples, a 5% accuracy difference is meaningful.
+With 250 eval examples, a 5% accuracy difference is meaningful.
 For the presentation, report confidence intervals if time allows:
 ```python
 import numpy as np

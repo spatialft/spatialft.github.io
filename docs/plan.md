@@ -3,7 +3,7 @@
 ## Overview
 
 Fine-tune **LiquidAI/LFM2.5-1.2B-Thinking** on spatial reasoning, measure improvement on
-StepGame, and present findings in a 10-minute video.
+StepGame, and present findings in a 10-minute live presentation.
 
 ## Files in this directory
 
@@ -40,7 +40,7 @@ StepGame, and present findings in a 10-minute video.
 ## Phase 3 — Dataset preparation
 
 - [ ] Run `notebooks/02_dataset_prep.ipynb`
-- [ ] Confirm 4000 training / 500 eval split loaded correctly
+- [ ] Confirm 4000 training / 250 eval examples (stratified across k=1–5) loaded correctly
 - [ ] Inspect formatted prompts — ensure they match the model's expected chat template
 - [ ] If LFM2.5 uses a different chat template than `<|im_start|>`, update `src/dataset.py`
 
@@ -55,13 +55,13 @@ StepGame, and present findings in a 10-minute video.
 
 - [ ] Run `notebooks/04_eval_comparison.ipynb`
 - [ ] Save `results/finetuned/scores.json`
-- [ ] Generate `results/comparison.png` chart
+- [ ] Verify results page at spatialft.github.io shows before/after chart
 - [ ] Document delta in `README.md` results table
 
 ## Phase 6 — Presentation
 
-- [ ] Record 10-minute video (see `docs/slides.md` and `docs/speaker-notes.md`)
-- [ ] Upload video and submit Canvas link + repo link
+- [ ] Deliver 10-minute live presentation (see `docs/slides.md` and `docs/speaker-notes.md`)
+- [ ] Submit Canvas link + repo link
 
 ---
 

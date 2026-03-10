@@ -464,9 +464,9 @@ def main():
     finetuned = load_json(FINETUNED_SCORES)
     examples = load_json(EXAMPLES_PATH)
 
-    html = render(baseline, finetuned, examples)
+    output = render(baseline, finetuned, examples)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(html)
+    OUT.write_text(output)
     print(f"Generated {OUT}")
 
 

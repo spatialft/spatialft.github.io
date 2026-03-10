@@ -93,7 +93,7 @@ A 1B model must chain multiple relations without losing track.
 Key observation: accuracy drops sharply as k increases — the model loses
 track of the chain.
 
-[Include bar chart from results/comparison.png left half]
+[Include bar chart — baseline accuracy per hop level]
 
 ---
 
@@ -127,7 +127,7 @@ track of the chain.
 | k=10 | _% | _% | +_% |
 | **Overall** | **_%** | **_%** | **+_%** |
 
-[Include full before/after bar chart from results/comparison.png]
+[Include full before/after bar chart — baseline vs fine-tuned per hop level]
 
 ---
 

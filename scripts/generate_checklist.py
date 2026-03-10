@@ -129,7 +129,7 @@ def render_html(sections: list[dict], generated_at: str) -> str:
                 f'<tr class="{cls}"{src_attrs}>'
                 f'<td class="item-glyph">{glyph}</td>'
                 f'<td class="item-id">{item["id"]}</td>'
-                f'<td class="item-label">{item["label"]}</td>'
+                f'<td class="item-label">{html.escape(item["label"])}</td>'
                 f"</tr>\n"
             )
 
@@ -305,9 +305,9 @@ def main() -> None:
     if not sections:
         raise SystemExit(f"ERROR: no items parsed from {SOURCE} — check the format")
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    html = render_html(sections, generated_at)
+    output = render_html(sections, generated_at)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(html)
+    OUT.write_text(output)
     print(f"Written → {OUT}")
 
 
