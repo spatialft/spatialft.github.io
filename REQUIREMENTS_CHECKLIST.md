@@ -30,10 +30,10 @@
 
 ## 4. Evaluation Design
 
-- [ ] **EVAL1** — Evaluation metric clearly defined
+- [x] **EVAL1** — Evaluation metric clearly defined
 - [x] **EVAL2** — Separate datasets used for fine-tuning and evaluation (no data leakage)
-- [ ] **EVAL3** — Baseline performance measured before fine-tuning
-- [ ] **EVAL4** — Per-category or per-difficulty breakdown of results
+- [x] **EVAL3** — Baseline performance measured before fine-tuning
+- [x] **EVAL4** — Per-category or per-difficulty breakdown of results
 
 ---
 
