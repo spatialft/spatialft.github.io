@@ -59,11 +59,16 @@ def extract_answer(text: str) -> str | None:
     for d in DIRECTIONS:
         if text.endswith(d):
             return d
-    # Find last occurrence; longest match wins ties (DIRECTIONS longest-first,
-    # rfind returns last position, > not >= so earlier longer match is kept)
-    best_pos, best = -1, None
+    # Find last occurrence by end position. Using end position (idx + len(d))
+    # means "upper-left" and "left" tie when "left" is a suffix of "upper-left"
+    # at the same location; length then breaks the tie in favour of the longer
+    # match (DIRECTIONS is longest-first, so the first candidate wins ties).
+    best_end, best_len, best = -1, 0, None
     for d in DIRECTIONS:
         idx = text.rfind(d)
-        if idx > best_pos:
-            best_pos, best = idx, d
+        if idx < 0:
+            continue
+        end = idx + len(d)
+        if end > best_end or (end == best_end and len(d) > best_len):
+            best_end, best_len, best = end, len(d), d
     return best

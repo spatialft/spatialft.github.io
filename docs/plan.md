@@ -32,7 +32,7 @@ StepGame, and present findings in a 10-minute live presentation.
 
 - [ ] Run `notebooks/01_baseline_eval.ipynb` end to end
 - [ ] Save `results/baseline/scores.json`
-- [ ] Note overall accuracy and per-hop accuracy for k=1,3,5,10
+- [ ] Note overall accuracy and per-hop accuracy for k=1 through k=5
 - [ ] Spot-check 10 predictions manually — understand failure modes
 
 ## Phase 3 — Dataset preparation

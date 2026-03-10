@@ -59,7 +59,7 @@ and speeds training up 2x, which is why the whole thing fits on a T4."
 
 "Here's where the model starts. [Read out overall accuracy.] The important pattern is what
 happens as k increases. At k=1 the model does reasonably well — it's seen directional
-language in pretraining. But by k=5 or k=10, accuracy drops significantly. The model isn't
+language in pretraining. But by k=4 or k=5, accuracy drops significantly. The model isn't
 tracking intermediate steps; it's making a guess based on the last fact it read. This is
 the behavior we want to fix."
 

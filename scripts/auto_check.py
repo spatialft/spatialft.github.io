@@ -92,7 +92,11 @@ def evaluate() -> dict[str, bool]:
 
 
 def mark_item(text: str, item_id: str) -> tuple[str, bool]:
-    """Change '- [ ] **ITEM_ID**' to '- [x] **ITEM_ID**'. Returns (text, changed)."""
+    """Change '- [ ] **ITEM_ID**' to '- [x] **ITEM_ID**'. Returns (text, changed).
+
+    Assumes list-item format. REQUIREMENTS_CHECKLIST.md uses list items;
+    if it is ever converted to table rows, update this regex accordingly.
+    """
     pattern = rf"(- )\[ \]( \*\*{re.escape(item_id)}\*\*)"
     new_text = re.sub(pattern, r"\1[x]\2", text)
     return new_text, new_text != text
