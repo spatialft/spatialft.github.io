@@ -14,6 +14,7 @@
       --bg: #f8f7f4; --surface: #ffffff; --border: #e5e2db;
       --text: #1a1916; --text-muted: #6b6860;
       --green: #16a34a; --green-bg: #f0fdf4;
+      --accent: #2563eb;
       --radius-sm: 6px; --radius-md: 12px;
       --shadow-sm: 0 1px 3px rgba(0,0,0,.07);
       --font: 'Inter', system-ui, -apple-system, sans-serif;
@@ -45,7 +46,7 @@
     .checklist-section .progress-bar { margin-bottom: 16px; }
 
     .item-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .item-table tr { border-top: 1px solid var(--border); }
+    .item-table tr { border-top: 1px solid var(--border); position: relative; }
     .item-table tr:first-child { border-top: none; }
     .item-table td { padding: 7px 4px; vertical-align: top; }
     .item-glyph { width: 20px; color: var(--text-muted); font-size: 0.75rem; padding-top: 8px; }
@@ -54,6 +55,29 @@
     tr.done .item-glyph { color: var(--green); }
     tr.done .item-id { color: var(--text); }
     tr.done .item-label { color: var(--text); }
+    tr.has-source { cursor: default; }
+
+    /* Tooltip */
+    .tooltip {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      background: #1a1916;
+      color: #f5f4f1;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      padding: 8px 12px;
+      border-radius: 6px;
+      max-width: 320px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    }
+    .tooltip.visible { display: block; }
+    .tooltip a {
+      display: inline-block;
+      margin-top: 4px;
+      color: #93c5fd;
+      text-decoration: underline;
+    }
 
     .page-footer { text-align: center; font-size: 0.8rem; color: var(--text-muted); padding: 32px 0 48px; }
   </style>
@@ -66,26 +90,28 @@
     </div>
   </header>
 
+  <div id="tooltip" class="tooltip"></div>
+
   <main style="padding-bottom: 48px;">
     <div class="container">
       <div class="overall">
         <div class="overall-row">
-          <span class="overall-pct">0%</span>
-          <span class="overall-label">0 of 32 items complete</span>
+          <span class="overall-pct">31%</span>
+          <span class="overall-label">10 of 32 items complete</span>
         </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:31%"></div></div>
       </div>
       
     <section class="checklist-section">
       <div class="section-header">
         <h2>1. Property & Motivation</h2>
-        <span class="section-count">0/3</span>
+        <span class="section-count">2/3</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
       <table class="item-table">
-        <tbody><tr class="open"><td class="item-glyph">○</td><td class="item-id">PROP1</td><td class="item-label">One specific, measurable LLM property selected</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PROP2</td><td class="item-label">Clear justification for why the property matters</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PROP3</td><td class="item-label">Property evaluable with a defined metric</td></tr>
+        <tbody><tr class="done has-source" data-src="Defined in CLAUDE.md — spatial reasoning as the target property" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/CLAUDE.md"><td class="item-glyph">✓</td><td class="item-id">PROP1</td><td class="item-label">One specific, measurable LLM property selected</td></tr>
+<tr class="open has-source" data-src="Justified in docs/slides.md — motivation section" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">PROP2</td><td class="item-label">Clear justification for why the property matters</td></tr>
+<tr class="done has-source" data-src="src/eval.py — accuracy over 8 spatial directions" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/src/eval.py"><td class="item-glyph">✓</td><td class="item-id">PROP3</td><td class="item-label">Property evaluable with a defined metric</td></tr>
 </tbody>
       </table>
     </section>
@@ -97,8 +123,8 @@
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
       <table class="item-table">
-        <tbody><tr class="open"><td class="item-glyph">○</td><td class="item-id">LIT1</td><td class="item-label">At least 2 papers cited on prior work for this property</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">LIT2</td><td class="item-label">Literature findings included in presentation slides</td></tr>
+        <tbody><tr class="open has-source" data-src="docs/references.md — cited papers" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/references.md"><td class="item-glyph">○</td><td class="item-id">LIT1</td><td class="item-label">At least 2 papers cited on prior work for this property</td></tr>
+<tr class="open has-source" data-src="docs/slides.md — literature review section" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">LIT2</td><td class="item-label">Literature findings included in presentation slides</td></tr>
 </tbody>
       </table>
     </section>
@@ -106,13 +132,13 @@
     <section class="checklist-section">
       <div class="section-header">
         <h2>3. Model Selection</h2>
-        <span class="section-count">0/3</span>
+        <span class="section-count">3/3</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
       <table class="item-table">
-        <tbody><tr class="open"><td class="item-glyph">○</td><td class="item-id">MOD1</td><td class="item-label">At least one open-source model selected and justified</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">MOD2</td><td class="item-label">Model is ≤8B parameters (suitable for available compute)</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">MOD3</td><td class="item-label">Model fine-tuned directly — no API-based fine-tuning (e.g., no OpenAI fine-tune API)</td></tr>
+        <tbody><tr class="done has-source" data-src="CLAUDE.md + README — LFM2.5-1.2B-Instruct selected and justified" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/README.md"><td class="item-glyph">✓</td><td class="item-id">MOD1</td><td class="item-label">At least one open-source model selected and justified</td></tr>
+<tr class="done has-source" data-src="LFM2.5-1.2B is 1.2B parameters — always satisfied" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/CLAUDE.md"><td class="item-glyph">✓</td><td class="item-id">MOD2</td><td class="item-label">Model is ≤8B parameters (suitable for available compute)</td></tr>
+<tr class="done has-source" data-src="notebooks/03_finetune.ipynb — local SFTTrainer, no API" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/notebooks/03_finetune.ipynb"><td class="item-glyph">✓</td><td class="item-id">MOD3</td><td class="item-label">Model fine-tuned directly — no API-based fine-tuning (e.g., no OpenAI fine-tune API)</td></tr>
 </tbody>
       </table>
     </section>
@@ -120,14 +146,14 @@
     <section class="checklist-section">
       <div class="section-header">
         <h2>4. Evaluation Design</h2>
-        <span class="section-count">0/4</span>
+        <span class="section-count">1/4</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
       <table class="item-table">
-        <tbody><tr class="open"><td class="item-glyph">○</td><td class="item-id">EVAL1</td><td class="item-label">Evaluation metric clearly defined</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">EVAL2</td><td class="item-label">Separate datasets used for fine-tuning and evaluation (no data leakage)</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">EVAL3</td><td class="item-label">Baseline performance measured before fine-tuning</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">EVAL4</td><td class="item-label">Per-category or per-difficulty breakdown of results</td></tr>
+        <tbody><tr class="open has-source" data-src="results/baseline/scores.json — accuracy key present" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/results/baseline/scores.json"><td class="item-glyph">○</td><td class="item-id">EVAL1</td><td class="item-label">Evaluation metric clearly defined</td></tr>
+<tr class="done has-source" data-src="notebooks/02_dataset_prep.ipynb — ZhengyanShi/StepGame train vs validation splits" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/notebooks/02_dataset_prep.ipynb"><td class="item-glyph">✓</td><td class="item-id">EVAL2</td><td class="item-label">Separate datasets used for fine-tuning and evaluation (no data leakage)</td></tr>
+<tr class="open has-source" data-src="results/baseline/scores.json — baseline measured before fine-tuning" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/results/baseline/scores.json"><td class="item-glyph">○</td><td class="item-id">EVAL3</td><td class="item-label">Baseline performance measured before fine-tuning</td></tr>
+<tr class="open has-source" data-src="results/baseline/scores.json — accuracy_k{{n}} keys per hop level" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/results/baseline/scores.json"><td class="item-glyph">○</td><td class="item-id">EVAL4</td><td class="item-label">Per-category or per-difficulty breakdown of results</td></tr>
 </tbody>
       </table>
     </section>
@@ -135,13 +161,13 @@
     <section class="checklist-section">
       <div class="section-header">
         <h2>5. Fine-Tuning</h2>
-        <span class="section-count">0/3</span>
+        <span class="section-count">3/3</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
       <table class="item-table">
-        <tbody><tr class="open"><td class="item-glyph">○</td><td class="item-id">FT1</td><td class="item-label">Fine-tuning method documented (e.g., LoRA, QLoRA, instruction tuning)</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">FT2</td><td class="item-label">Hyperparameters documented</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">FT3</td><td class="item-label">Training procedure documented</td></tr>
+        <tbody><tr class="done has-source" data-src="notebooks/03_finetune.ipynb — LoRA via SFTTrainer, r=16" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/notebooks/03_finetune.ipynb"><td class="item-glyph">✓</td><td class="item-id">FT1</td><td class="item-label">Fine-tuning method documented (e.g., LoRA, QLoRA, instruction tuning)</td></tr>
+<tr class="done has-source" data-src="notebooks/03_finetune.ipynb — LORA_RANK=16, lr=2e-4, batch=4, epochs=3" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/notebooks/03_finetune.ipynb"><td class="item-glyph">✓</td><td class="item-id">FT2</td><td class="item-label">Hyperparameters documented</td></tr>
+<tr class="done has-source" data-src="notebooks/03_finetune.ipynb — SFTTrainer.train() with full config" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/notebooks/03_finetune.ipynb"><td class="item-glyph">✓</td><td class="item-id">FT3</td><td class="item-label">Training procedure documented</td></tr>
 </tbody>
       </table>
     </section>
@@ -153,11 +179,11 @@
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
       <table class="item-table">
-        <tbody><tr class="open"><td class="item-glyph">○</td><td class="item-id">RES1</td><td class="item-label">Quantitative before/after comparison reported</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">RES2</td><td class="item-label">Per-category breakdown of results</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">RES3</td><td class="item-label">Analysis of what worked and what did not</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">RES4</td><td class="item-label">Conclusions drawn about fine-tuning effectiveness</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">RES5</td><td class="item-label">If no improvement: detailed explanation of why and what could be done differently</td></tr>
+        <tbody><tr class="open has-source" data-src="results/baseline/scores.json + results/finetuned/scores.json" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/results"><td class="item-glyph">○</td><td class="item-id">RES1</td><td class="item-label">Quantitative before/after comparison reported</td></tr>
+<tr class="open has-source" data-src="notebooks/04_eval_comparison.ipynb — per-hop accuracy chart" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/notebooks/04_eval_comparison.ipynb"><td class="item-glyph">○</td><td class="item-id">RES2</td><td class="item-label">Per-category breakdown of results</td></tr>
+<tr class="open has-source" data-src="notebooks/04_eval_comparison.ipynb — analysis section" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/notebooks/04_eval_comparison.ipynb"><td class="item-glyph">○</td><td class="item-id">RES3</td><td class="item-label">Analysis of what worked and what did not</td></tr>
+<tr class="open has-source" data-src="docs/slides.md — conclusions section" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">RES4</td><td class="item-label">Conclusions drawn about fine-tuning effectiveness</td></tr>
+<tr class="open has-source" data-src="docs/slides.md — failure analysis if no improvement" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">RES5</td><td class="item-label">If no improvement: detailed explanation of why and what could be done differently</td></tr>
 </tbody>
       </table>
     </section>
@@ -169,15 +195,15 @@
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
       <table class="item-table">
-        <tbody><tr class="open"><td class="item-glyph">○</td><td class="item-id">PRES1</td><td class="item-label">Property and motivation clearly stated</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PRES2</td><td class="item-label">Literature review presented (at least 2 papers referenced)</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PRES3</td><td class="item-label">Model and dataset described</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PRES4</td><td class="item-label">Baseline and fine-tuned results shown visually (charts or tables)</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PRES5</td><td class="item-label">Methodology and lessons learned discussed</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PRES6</td><td class="item-label">No code shown in slides (unless explicitly asked)</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PRES7</td><td class="item-label">Professional tone — suitable for a manager-level audience</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PRES8</td><td class="item-label">Presentation fits within 10 minutes</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">PRES9</td><td class="item-label">Live Q&A prepared</td></tr>
+        <tbody><tr class="open has-source" data-src="docs/slides.md — property and motivation slide" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">PRES1</td><td class="item-label">Property and motivation clearly stated</td></tr>
+<tr class="open has-source" data-src="docs/slides.md — literature review slide" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">PRES2</td><td class="item-label">Literature review presented (at least 2 papers referenced)</td></tr>
+<tr class="open has-source" data-src="docs/slides.md — model and dataset slide" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">PRES3</td><td class="item-label">Model and dataset described</td></tr>
+<tr class="open has-source" data-src="spatialft.github.io — live results page with charts" data-src-url="https://spatialft.github.io/"><td class="item-glyph">○</td><td class="item-id">PRES4</td><td class="item-label">Baseline and fine-tuned results shown visually (charts or tables)</td></tr>
+<tr class="open has-source" data-src="docs/slides.md — methodology and lessons learned" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">PRES5</td><td class="item-label">Methodology and lessons learned discussed</td></tr>
+<tr class="open has-source" data-src="docs/slides.md — verify no code blocks" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">PRES6</td><td class="item-label">No code shown in slides (unless explicitly asked)</td></tr>
+<tr class="open has-source" data-src="docs/slides.md" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/slides.md"><td class="item-glyph">○</td><td class="item-id">PRES7</td><td class="item-label">Professional tone — suitable for a manager-level audience</td></tr>
+<tr class="open has-source" data-src="docs/speaker-notes.md — timing notes" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/speaker-notes.md"><td class="item-glyph">○</td><td class="item-id">PRES8</td><td class="item-label">Presentation fits within 10 minutes</td></tr>
+<tr class="open has-source" data-src="docs/speaker-notes.md — Q&A preparation" data-src-url="https://github.com/spatialft/spatialft.github.io/blob/main/docs/speaker-notes.md"><td class="item-glyph">○</td><td class="item-id">PRES9</td><td class="item-label">Live Q&A prepared</td></tr>
 </tbody>
       </table>
     </section>
@@ -185,13 +211,13 @@
     <section class="checklist-section">
       <div class="section-header">
         <h2>8. GitHub Repository</h2>
-        <span class="section-count">0/3</span>
+        <span class="section-count">1/3</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
       <table class="item-table">
-        <tbody><tr class="open"><td class="item-glyph">○</td><td class="item-id">REPO1</td><td class="item-label">Repository is public or accessible to graders</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">REPO2</td><td class="item-label">Code matches what was presented</td></tr>
-<tr class="open"><td class="item-glyph">○</td><td class="item-id">REPO3</td><td class="item-label">Repository is suitable as a portfolio artifact</td></tr>
+        <tbody><tr class="done has-source" data-src="github.com/spatialft/spatialft.github.io — public repository" data-src-url="https://github.com/spatialft/spatialft.github.io"><td class="item-glyph">✓</td><td class="item-id">REPO1</td><td class="item-label">Repository is public or accessible to graders</td></tr>
+<tr class="open has-source" data-src="github.com/spatialft/spatialft.github.io — code matches presentation" data-src-url="https://github.com/spatialft/spatialft.github.io"><td class="item-glyph">○</td><td class="item-id">REPO2</td><td class="item-label">Code matches what was presented</td></tr>
+<tr class="open has-source" data-src="spatialft.github.io — live project portfolio page" data-src-url="https://spatialft.github.io/"><td class="item-glyph">○</td><td class="item-id">REPO3</td><td class="item-label">Repository is suitable as a portfolio artifact</td></tr>
 </tbody>
       </table>
     </section>
@@ -200,7 +226,45 @@
   </main>
 
   <footer class="page-footer">
-    Auto-generated from <code>REQUIREMENTS_CHECKLIST.md</code> · 2026-03-09 13:33 UTC
+    Auto-generated from <code>REQUIREMENTS_CHECKLIST.md</code> · 2026-03-10 18:41 UTC
   </footer>
+
+  <script>
+    const tip = document.getElementById('tooltip');
+    let hideTimer;
+
+    document.querySelectorAll('tr.has-source').forEach(row => {
+      const text = row.dataset.src;
+      const url  = row.dataset.srcUrl;
+
+      row.addEventListener('mouseenter', () => {
+        clearTimeout(hideTimer);
+        tip.innerHTML = url
+          ? `${text}<br><a href="${url}" target="_blank" rel="noopener noreferrer">Open ↗</a>`
+          : text;
+        tip.classList.add('visible');
+        position(row);
+      });
+
+      row.addEventListener('mouseleave', () => {
+        hideTimer = setTimeout(() => tip.classList.remove('visible'), 200);
+      });
+    });
+
+    tip.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+    tip.addEventListener('mouseleave', () => tip.classList.remove('visible'));
+
+    function position(row) {
+      const pad = 8;
+      const rect = row.getBoundingClientRect();
+      const tw = tip.offsetWidth, th = tip.offsetHeight;
+      let x = rect.right + pad;
+      let y = rect.top;
+      if (x + tw > window.innerWidth - pad) x = rect.left - tw - pad;
+      if (y + th > window.innerHeight - pad) y = window.innerHeight - th - pad;
+      tip.style.left = x + 'px';
+      tip.style.top  = y + 'px';
+    }
+  </script>
 </body>
 </html>

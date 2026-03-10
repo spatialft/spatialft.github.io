@@ -1,3 +1,4 @@
+# AI-assisted (Claude Code, claude.ai) — https://claude.ai
 """Parse REQUIREMENTS_CHECKLIST.md and write docs/checklist/index.html."""
 
 from __future__ import annotations
@@ -9,6 +10,45 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 SOURCE = ROOT / "REQUIREMENTS_CHECKLIST.md"
 OUT = ROOT / "docs" / "checklist" / "index.html"
+
+GH = "https://github.com/spatialft/spatialft.github.io/blob/main"
+
+# (description, url) for each item — shown as tooltip on hover.
+# url=None for items with no single concrete link.
+SOURCES: dict[str, tuple[str, str | None]] = {
+    "PROP1": ("Defined in CLAUDE.md — spatial reasoning as the target property", f"{GH}/CLAUDE.md"),
+    "PROP2": ("Justified in docs/slides.md — motivation section", f"{GH}/docs/slides.md"),
+    "PROP3": ("src/eval.py — accuracy over 8 spatial directions", f"{GH}/src/eval.py"),
+    "LIT1":  ("docs/references.md — cited papers", f"{GH}/docs/references.md"),
+    "LIT2":  ("docs/slides.md — literature review section", f"{GH}/docs/slides.md"),
+    "MOD1":  ("CLAUDE.md + README — LFM2.5-1.2B-Instruct selected and justified", f"{GH}/README.md"),
+    "MOD2":  ("LFM2.5-1.2B is 1.2B parameters — always satisfied", f"{GH}/CLAUDE.md"),
+    "MOD3":  ("notebooks/03_finetune.ipynb — local SFTTrainer, no API", f"{GH}/notebooks/03_finetune.ipynb"),
+    "EVAL1": ("results/baseline/scores.json — accuracy key present", f"{GH}/results/baseline/scores.json"),
+    "EVAL2": ("notebooks/02_dataset_prep.ipynb — ZhengyanShi/StepGame train vs validation splits", f"{GH}/notebooks/02_dataset_prep.ipynb"),
+    "EVAL3": ("results/baseline/scores.json — baseline measured before fine-tuning", f"{GH}/results/baseline/scores.json"),
+    "EVAL4": ("results/baseline/scores.json — accuracy_k{{n}} keys per hop level", f"{GH}/results/baseline/scores.json"),
+    "FT1":   ("notebooks/03_finetune.ipynb — LoRA via SFTTrainer, r=16", f"{GH}/notebooks/03_finetune.ipynb"),
+    "FT2":   ("notebooks/03_finetune.ipynb — LORA_RANK=16, lr=2e-4, batch=4, epochs=3", f"{GH}/notebooks/03_finetune.ipynb"),
+    "FT3":   ("notebooks/03_finetune.ipynb — SFTTrainer.train() with full config", f"{GH}/notebooks/03_finetune.ipynb"),
+    "RES1":  ("results/baseline/scores.json + results/finetuned/scores.json", f"{GH}/results"),
+    "RES2":  ("notebooks/04_eval_comparison.ipynb — per-hop accuracy chart", f"{GH}/notebooks/04_eval_comparison.ipynb"),
+    "RES3":  ("notebooks/04_eval_comparison.ipynb — analysis section", f"{GH}/notebooks/04_eval_comparison.ipynb"),
+    "RES4":  ("docs/slides.md — conclusions section", f"{GH}/docs/slides.md"),
+    "RES5":  ("docs/slides.md — failure analysis if no improvement", f"{GH}/docs/slides.md"),
+    "PRES1": ("docs/slides.md — property and motivation slide", f"{GH}/docs/slides.md"),
+    "PRES2": ("docs/slides.md — literature review slide", f"{GH}/docs/slides.md"),
+    "PRES3": ("docs/slides.md — model and dataset slide", f"{GH}/docs/slides.md"),
+    "PRES4": ("spatialft.github.io — live results page with charts", "https://spatialft.github.io/"),
+    "PRES5": ("docs/slides.md — methodology and lessons learned", f"{GH}/docs/slides.md"),
+    "PRES6": ("docs/slides.md — verify no code blocks", f"{GH}/docs/slides.md"),
+    "PRES7": ("docs/slides.md", f"{GH}/docs/slides.md"),
+    "PRES8": ("docs/speaker-notes.md — timing notes", f"{GH}/docs/speaker-notes.md"),
+    "PRES9": ("docs/speaker-notes.md — Q&A preparation", f"{GH}/docs/speaker-notes.md"),
+    "REPO1": ("github.com/spatialft/spatialft.github.io — public repository", "https://github.com/spatialft/spatialft.github.io"),
+    "REPO2": ("github.com/spatialft/spatialft.github.io — code matches presentation", "https://github.com/spatialft/spatialft.github.io"),
+    "REPO3": ("spatialft.github.io — live project portfolio page", "https://spatialft.github.io/"),
+}
 
 
 def parse_checklist(text: str) -> list[dict]:
@@ -58,6 +98,16 @@ def _progress(items: list[dict]) -> tuple[int, int]:
     return done, len(items)
 
 
+def _source_attrs(item_id: str) -> tuple[str, bool]:
+    """Return (extra HTML attributes string, has_source)."""
+    if item_id not in SOURCES:
+        return "", False
+    text, url = SOURCES[item_id]
+    escaped_text = text.replace('"', "&quot;")
+    url_attr = f' data-src-url="{url}"' if url else ""
+    return f' data-src="{escaped_text}"{url_attr}', True
+
+
 def render_html(sections: list[dict], generated_at: str) -> str:
     total_done = sum(i["done"] for s in sections for i in s["items"])
     total_all = sum(len(s["items"]) for s in sections)
@@ -72,8 +122,10 @@ def render_html(sections: list[dict], generated_at: str) -> str:
         for item in sec["items"]:
             status_cls = "done" if item["done"] else "open"
             glyph = "✓" if item["done"] else "○"
+            src_attrs, has_source = _source_attrs(item["id"])
+            cls = f"{status_cls} has-source" if has_source else status_cls
             rows += (
-                f'<tr class="{status_cls}">'
+                f'<tr class="{cls}"{src_attrs}>'
                 f'<td class="item-glyph">{glyph}</td>'
                 f'<td class="item-id">{item["id"]}</td>'
                 f'<td class="item-label">{item["label"]}</td>'
@@ -109,6 +161,7 @@ def render_html(sections: list[dict], generated_at: str) -> str:
       --bg: #f8f7f4; --surface: #ffffff; --border: #e5e2db;
       --text: #1a1916; --text-muted: #6b6860;
       --green: #16a34a; --green-bg: #f0fdf4;
+      --accent: #2563eb;
       --radius-sm: 6px; --radius-md: 12px;
       --shadow-sm: 0 1px 3px rgba(0,0,0,.07);
       --font: 'Inter', system-ui, -apple-system, sans-serif;
@@ -140,7 +193,7 @@ def render_html(sections: list[dict], generated_at: str) -> str:
     .checklist-section .progress-bar {{ margin-bottom: 16px; }}
 
     .item-table {{ width: 100%; border-collapse: collapse; font-size: 0.85rem; }}
-    .item-table tr {{ border-top: 1px solid var(--border); }}
+    .item-table tr {{ border-top: 1px solid var(--border); position: relative; }}
     .item-table tr:first-child {{ border-top: none; }}
     .item-table td {{ padding: 7px 4px; vertical-align: top; }}
     .item-glyph {{ width: 20px; color: var(--text-muted); font-size: 0.75rem; padding-top: 8px; }}
@@ -149,6 +202,29 @@ def render_html(sections: list[dict], generated_at: str) -> str:
     tr.done .item-glyph {{ color: var(--green); }}
     tr.done .item-id {{ color: var(--text); }}
     tr.done .item-label {{ color: var(--text); }}
+    tr.has-source {{ cursor: default; }}
+
+    /* Tooltip */
+    .tooltip {{
+      display: none;
+      position: fixed;
+      z-index: 100;
+      background: #1a1916;
+      color: #f5f4f1;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      padding: 8px 12px;
+      border-radius: 6px;
+      max-width: 320px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    }}
+    .tooltip.visible {{ display: block; }}
+    .tooltip a {{
+      display: inline-block;
+      margin-top: 4px;
+      color: #93c5fd;
+      text-decoration: underline;
+    }}
 
     .page-footer {{ text-align: center; font-size: 0.8rem; color: var(--text-muted); padding: 32px 0 48px; }}
   </style>
@@ -160,6 +236,8 @@ def render_html(sections: list[dict], generated_at: str) -> str:
       <span class="header-title">Requirements Checklist</span>
     </div>
   </header>
+
+  <div id="tooltip" class="tooltip"></div>
 
   <main style="padding-bottom: 48px;">
     <div class="container">
@@ -177,6 +255,44 @@ def render_html(sections: list[dict], generated_at: str) -> str:
   <footer class="page-footer">
     Auto-generated from <code>REQUIREMENTS_CHECKLIST.md</code> · {generated_at}
   </footer>
+
+  <script>
+    const tip = document.getElementById('tooltip');
+    let hideTimer;
+
+    document.querySelectorAll('tr.has-source').forEach(row => {{
+      const text = row.dataset.src;
+      const url  = row.dataset.srcUrl;
+
+      row.addEventListener('mouseenter', () => {{
+        clearTimeout(hideTimer);
+        tip.innerHTML = url
+          ? `${{text}}<br><a href="${{url}}" target="_blank" rel="noopener noreferrer">Open ↗</a>`
+          : text;
+        tip.classList.add('visible');
+        position(row);
+      }});
+
+      row.addEventListener('mouseleave', () => {{
+        hideTimer = setTimeout(() => tip.classList.remove('visible'), 200);
+      }});
+    }});
+
+    tip.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+    tip.addEventListener('mouseleave', () => tip.classList.remove('visible'));
+
+    function position(row) {{
+      const pad = 8;
+      const rect = row.getBoundingClientRect();
+      const tw = tip.offsetWidth, th = tip.offsetHeight;
+      let x = rect.right + pad;
+      let y = rect.top;
+      if (x + tw > window.innerWidth - pad) x = rect.left - tw - pad;
+      if (y + th > window.innerHeight - pad) y = window.innerHeight - th - pad;
+      tip.style.left = x + 'px';
+      tip.style.top  = y + 'px';
+    }}
+  </script>
 </body>
 </html>
 """
