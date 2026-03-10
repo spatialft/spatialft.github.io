@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -44,8 +45,13 @@ def format_for_training(example: dict[str, Any]) -> dict[str, str]:
 
 
 def extract_answer(text: str) -> str | None:
-    """Extract the direction answer from model output."""
+    """Extract the direction answer from model output.
+
+    Strips <think>...</think> blocks emitted by the Thinking model before scanning.
+    """
     text = text.strip().lower()
+    # Strip thinking block emitted by LFM2.5-1.2B-Thinking
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
     # Direct match first
     for d in DIRECTIONS:
         if text == d:

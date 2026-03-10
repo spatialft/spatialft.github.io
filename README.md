@@ -16,7 +16,7 @@ Small models struggle to reliably track multi-hop directional relationships ("A 
 
 ## Model
 
-`LiquidAI/LFM2.5-1.2B-Instruct` — LoRA fine-tuning on a single T4 GPU. Uses [Unsloth](https://github.com/unslothai/unsloth) when the architecture is supported, falling back to `transformers`+`peft` otherwise.
+`LiquidAI/LFM2.5-1.2B-Thinking` — LoRA fine-tuning on a single T4 GPU. Uses [Unsloth](https://github.com/unslothai/unsloth) when the architecture is supported, falling back to `transformers`+`peft` otherwise.
 
 ## Project structure
 
