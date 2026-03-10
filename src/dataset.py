@@ -1,0 +1,60 @@
+"""StepGame dataset loading and prompt formatting."""
+
+import json
+from pathlib import Path
+from typing import Any
+
+# 8 cardinal + intercardinal directions StepGame uses
+DIRECTIONS = {"left", "right", "above", "below", "upper-left", "upper-right", "lower-left", "lower-right"}
+
+SYSTEM_PROMPT = (
+    "You are a spatial reasoning assistant. "
+    "Given a sequence of positional relationships between objects, "
+    "determine the spatial relationship between two specified objects. "
+    "Think step by step, then answer with a single direction from: "
+    "left, right, above, below, upper-left, upper-right, lower-left, lower-right."
+)
+
+
+def load_stepgame(split_path: str | Path) -> list[dict[str, Any]]:
+    """Load a StepGame JSON split file."""
+    with open(split_path) as f:
+        data = json.load(f)
+    return data
+
+
+def format_prompt(story: str, question: str) -> str:
+    """Format a StepGame example as a chat prompt."""
+    return (
+        f"<|im_start|>system\n{SYSTEM_PROMPT}<|im_end|>\n"
+        f"<|im_start|>user\n{story}\n\n{question}<|im_end|>\n"
+        f"<|im_start|>assistant\n"
+    )
+
+
+def format_for_training(example: dict[str, Any]) -> dict[str, str]:
+    """Convert a raw StepGame example to prompt/completion pair."""
+    story = example["story"]
+    question = example["question"]
+    answer = example["answer"]
+    prompt = format_prompt(story, question)
+    return {"prompt": prompt, "completion": answer, "full_text": prompt + answer + "<|im_end|>"}
+
+
+def extract_answer(text: str) -> str | None:
+    """Extract the direction answer from model output."""
+    text = text.strip().lower()
+    # Direct match first
+    for d in DIRECTIONS:
+        if text == d:
+            return d
+    # Look for direction at end of reasoning chain
+    for d in sorted(DIRECTIONS, key=len, reverse=True):
+        if text.endswith(d):
+            return d
+    # Scan for direction anywhere (last occurrence wins)
+    found = None
+    for d in DIRECTIONS:
+        if d in text:
+            found = d
+    return found

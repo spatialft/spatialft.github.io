@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+data/raw/
+data/processed/
+data/eval/
+results/baseline/predictions.json
+results/finetuned/predictions.json
+results/finetuned/checkpoint/
+results/finetuned/lora_adapter/
+*.egg-info/
+.env
