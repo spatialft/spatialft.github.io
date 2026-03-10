@@ -10,6 +10,11 @@ index:
 
 generate: checklist index
 
+# NOTE: `make deploy` pushes to the gh-pages branch. This only works if GitHub
+# Pages is configured to deploy from the gh-pages branch (not GitHub Actions).
+# The normal CI path (deploy.yml) uses GitHub Actions deployment — the two
+# configurations are mutually exclusive. Only use `make deploy` if you have
+# temporarily switched the Pages source setting in the repo settings.
 deploy: generate
 	@git worktree add .worktrees/gh-pages gh-pages 2>/dev/null || true; \
 	trap 'git worktree remove --force .worktrees/gh-pages 2>/dev/null || true' EXIT; \

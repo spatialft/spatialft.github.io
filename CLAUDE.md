@@ -6,9 +6,9 @@ AIPI 590.03 Intelligent Agents — Project 1: fine-tune **LiquidAI/LFM2.5-1.2B-T
 
 ```
 data/
-  raw/          StepGame splits (gitignored)
-  processed/    prompt/completion pairs (gitignored)
-  eval/         held-out evaluation set (gitignored)
+  raw/          StepGame splits (committed — JSON only; CSV/parquet excluded)
+  processed/    prompt/completion pairs (committed)
+  eval/         held-out evaluation set (committed)
 notebooks/
   01_baseline_eval.ipynb
   02_dataset_prep.ipynb
@@ -40,7 +40,8 @@ scripts/
 GitHub Pages is deployed by `.github/workflows/deploy.yml` on every push to `main` that touches `scripts/`, `results/`, `docs/`, or `REQUIREMENTS_CHECKLIST.md`. It runs both generators and uploads the `docs/` directory.
 
 `make generate` regenerates both HTML files locally.
-`make deploy` is a manual fallback if CI is unavailable.
+`make deploy` pushes to the gh-pages branch — only works if the repo's
+Pages source is set to "gh-pages branch" instead of "GitHub Actions".
 
 Auto-check: `.github/workflows/auto-check.yml` runs `auto_check.py` on every push to `main` and commits back to `REQUIREMENTS_CHECKLIST.md` if any new items are satisfied. Uses `GITHUB_TOKEN` (not a PAT), so its commits do not re-trigger workflows.
 
