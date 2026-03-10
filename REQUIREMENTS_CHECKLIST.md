@@ -7,9 +7,9 @@
 
 ## 1. Property & Motivation
 
-- [ ] **PROP1** — One specific, measurable LLM property selected
+- [x] **PROP1** — One specific, measurable LLM property selected
 - [ ] **PROP2** — Clear justification for why the property matters
-- [ ] **PROP3** — Property evaluable with a defined metric
+- [x] **PROP3** — Property evaluable with a defined metric
 
 ---
 
@@ -22,16 +22,16 @@
 
 ## 3. Model Selection
 
-- [ ] **MOD1** — At least one open-source model selected and justified
-- [ ] **MOD2** — Model is ≤8B parameters (suitable for available compute)
-- [ ] **MOD3** — Model fine-tuned directly — no API-based fine-tuning (e.g., no OpenAI fine-tune API)
+- [x] **MOD1** — At least one open-source model selected and justified
+- [x] **MOD2** — Model is ≤8B parameters (suitable for available compute)
+- [x] **MOD3** — Model fine-tuned directly — no API-based fine-tuning (e.g., no OpenAI fine-tune API)
 
 ---
 
 ## 4. Evaluation Design
 
 - [ ] **EVAL1** — Evaluation metric clearly defined
-- [ ] **EVAL2** — Separate datasets used for fine-tuning and evaluation (no data leakage)
+- [x] **EVAL2** — Separate datasets used for fine-tuning and evaluation (no data leakage)
 - [ ] **EVAL3** — Baseline performance measured before fine-tuning
 - [ ] **EVAL4** — Per-category or per-difficulty breakdown of results
 
@@ -39,9 +39,9 @@
 
 ## 5. Fine-Tuning
 
-- [ ] **FT1** — Fine-tuning method documented (e.g., LoRA, QLoRA, instruction tuning)
-- [ ] **FT2** — Hyperparameters documented
-- [ ] **FT3** — Training procedure documented
+- [x] **FT1** — Fine-tuning method documented (e.g., LoRA, QLoRA, instruction tuning)
+- [x] **FT2** — Hyperparameters documented
+- [x] **FT3** — Training procedure documented
 
 ---
 
@@ -71,6 +71,6 @@
 
 ## 8. GitHub Repository
 
-- [ ] **REPO1** — Repository is public or accessible to graders
+- [x] **REPO1** — Repository is public or accessible to graders
 - [ ] **REPO2** — Code matches what was presented
 - [ ] **REPO3** — Repository is suitable as a portfolio artifact
