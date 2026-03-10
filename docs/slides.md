@@ -64,11 +64,7 @@ A 1B model must chain multiple relations without losing track.
 
 ## Slide 5 — Methodology
 
-**Pipeline:**
-
-```
-Baseline eval → Dataset prep → LoRA fine-tuning → Re-eval → Compare
-```
+**Pipeline:** Baseline eval → Dataset prep → LoRA fine-tuning → Re-eval → Compare
 
 **Fine-tuning approach:**
 - LoRA (rank 16) via Unsloth — 4-bit quantized, T4-compatible

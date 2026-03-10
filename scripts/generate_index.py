@@ -361,7 +361,7 @@ def render(baseline, finetuned, examples):
   <header>
     <div class="eyebrow">AIPI 590.03 · Intelligent Agents · Project 1</div>
     <h1>Spatial Reasoning Fine-Tuning</h1>
-    <p>Fine-tuning LFM2.5-1.2B-Instruct on StepGame to improve spatial reasoning accuracy.</p>
+    <p>Fine-tuning LFM2.5-1.2B-Thinking on StepGame to improve spatial reasoning accuracy.</p>
     <nav>
       <a class="btn primary" href="/checklist/">Requirements Checklist</a>
       <a class="btn" href="https://colab.research.google.com/github/spatialft/spatialft.github.io/blob/main/notebooks/01_baseline_eval.ipynb" target="_blank" rel="noopener noreferrer">01 Baseline Eval</a>

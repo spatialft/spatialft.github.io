@@ -63,7 +63,7 @@ def evaluate() -> dict[str, bool]:
     return {
         # Property — spatial reasoning is named and described in CLAUDE.md
         "PROP1": "spatial reasoning" in claude_md.lower(),
-        "PROP3": "accuracy" in claude_md.lower() or "stepgame" in claude_md.lower(),
+        "PROP3": baseline_ok,  # metric is defined when baseline scores exist
 
         # Model selection
         "MOD1": "LFM2.5" in readme or "LFM2.5" in claude_md,

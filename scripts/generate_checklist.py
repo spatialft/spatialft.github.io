@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import html
 import re
 from datetime import datetime, timezone
 from pathlib import Path
@@ -21,7 +22,7 @@ SOURCES: dict[str, tuple[str, str | None]] = {
     "PROP3": ("src/eval.py — accuracy over 8 spatial directions", f"{GH}/src/eval.py"),
     "LIT1":  ("docs/references.md — cited papers", f"{GH}/docs/references.md"),
     "LIT2":  ("docs/slides.md — literature review section", f"{GH}/docs/slides.md"),
-    "MOD1":  ("CLAUDE.md + README — LFM2.5-1.2B-Instruct selected and justified", f"{GH}/README.md"),
+    "MOD1":  ("CLAUDE.md + README — LFM2.5-1.2B-Thinking selected and justified", f"{GH}/README.md"),
     "MOD2":  ("LFM2.5-1.2B is 1.2B parameters — always satisfied", f"{GH}/CLAUDE.md"),
     "MOD3":  ("notebooks/03_finetune.ipynb — local SFTTrainer, no API", f"{GH}/notebooks/03_finetune.ipynb"),
     "EVAL1": ("results/baseline/scores.json — accuracy key present", f"{GH}/results/baseline/scores.json"),
@@ -103,7 +104,7 @@ def _source_attrs(item_id: str) -> tuple[str, bool]:
     if item_id not in SOURCES:
         return "", False
     text, url = SOURCES[item_id]
-    escaped_text = text.replace('"', "&quot;")
+    escaped_text = html.escape(text, quote=True)
     url_attr = f' data-src-url="{url}"' if url else ""
     return f' data-src="{escaped_text}"{url_attr}', True
 

@@ -59,13 +59,7 @@ After running 01 and 04, commit `results/*/scores.json` and `results/examples.js
 
 ## Results
 
-| Split | Baseline | Fine-tuned |
-|-------|----------|------------|
-| k=1   | —        | —          |
-| k=3   | —        | —          |
-| k=5   | —        | —          |
-| k=10  | —        | —          |
-| **avg** | —      | —          |
+*Pending — run notebooks 01 and 04 to populate. See the [live results page](https://spatialft.github.io/) once scores are committed.*
 
 ## Team
 
