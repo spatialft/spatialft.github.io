@@ -1,9 +1,9 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-data/raw/
-data/processed/
-data/eval/
+# data/ is committed for reproducibility — only large artifacts excluded
+data/raw/*.csv
+data/raw/*.parquet
 results/baseline/predictions.json
 results/finetuned/predictions.json
 results/finetuned/checkpoint/
