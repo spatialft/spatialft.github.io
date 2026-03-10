@@ -10,3 +10,4 @@ results/finetuned/checkpoint/
 results/finetuned/lora_adapter/
 *.egg-info/
 .env
+.worktrees/

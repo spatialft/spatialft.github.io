@@ -1,4 +1,7 @@
-# AIPI 590 — Project 1: Spatial Reasoning Fine-Tuning
+# AIPI 590.03 Intelligent Agents — Project 1: Spatial Reasoning Fine-Tuning
+
+[![Generate Checklist](https://github.com/spatialft/spatialft.github.io/actions/workflows/checklist.yml/badge.svg)](https://github.com/spatialft/spatialft.github.io/actions/workflows/checklist.yml)
+[![Checklist](https://img.shields.io/badge/requirements-checklist-blue)](https://spatialft.github.io/checklist/)
 
 Fine-tune **LiquidAI/LFM2.5-1.2B-Thinking** to improve spatial reasoning, measure baseline performance, then re-evaluate to show improvement.
 
@@ -51,3 +54,7 @@ pip install -r requirements.txt
 | k=5   | —        | —          |
 | k=10  | —        | —          |
 | **avg** | —      | —          |
+
+## Team
+
+Jonas Neves · Daniel Ros · Keming Zhou
