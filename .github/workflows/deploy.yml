@@ -5,9 +5,11 @@ on:
     branches: [main]
     paths:
       - REQUIREMENTS_CHECKLIST.md
-      - scripts/**
-      - results/**
-      - docs/**
+      - scripts/generate_checklist.py
+      - scripts/generate_index.py
+      - results/baseline/scores.json
+      - results/finetuned/scores.json
+      - results/examples.json
       - .github/workflows/deploy.yml
   workflow_dispatch:
 

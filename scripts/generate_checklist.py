@@ -28,7 +28,7 @@ SOURCES: dict[str, tuple[str, str | None]] = {
     "EVAL1": ("results/baseline/scores.json — accuracy key present", f"{GH}/results/baseline/scores.json"),
     "EVAL2": ("notebooks/02_dataset_prep.ipynb — ZhengyanShi/StepGame train vs validation splits", f"{GH}/notebooks/02_dataset_prep.ipynb"),
     "EVAL3": ("results/baseline/scores.json — baseline measured before fine-tuning", f"{GH}/results/baseline/scores.json"),
-    "EVAL4": ("results/baseline/scores.json — accuracy_k{{n}} keys per hop level", f"{GH}/results/baseline/scores.json"),
+    "EVAL4": ("results/baseline/scores.json — accuracy_k{n} keys per hop level", f"{GH}/results/baseline/scores.json"),
     "FT1":   ("notebooks/03_finetune.ipynb — LoRA via SFTTrainer, r=16", f"{GH}/notebooks/03_finetune.ipynb"),
     "FT2":   ("notebooks/03_finetune.ipynb — LORA_RANK=16, lr=2e-4, batch=4, epochs=3", f"{GH}/notebooks/03_finetune.ipynb"),
     "FT3":   ("notebooks/03_finetune.ipynb — SFTTrainer.train() with full config", f"{GH}/notebooks/03_finetune.ipynb"),

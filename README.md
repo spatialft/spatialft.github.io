@@ -48,7 +48,7 @@ docs/
 
 ## Quickstart (Colab T4)
 
-Each notebook has an **Open in Colab** badge at the top. Run them in order:
+Each notebook has an **Open in Colab** badge at the top. Run 02 first (it generates the data 01 depends on):
 
 1. `02_dataset_prep` — downloads StepGame, saves splits to `data/`
 2. `01_baseline_eval` — measures baseline accuracy

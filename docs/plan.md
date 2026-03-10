@@ -21,9 +21,7 @@ StepGame, and present findings in a 10-minute live presentation.
 - [ ] Verify `LiquidAI/LFM2.5-1.2B-Thinking` exists on HuggingFace
       - If only `-Instruct` is available, use that and note it in the presentation
       - Check: https://huggingface.co/LiquidAI
-- [ ] Verify StepGame dataset ID on HuggingFace datasets
-      - Primary candidate: `sagi21805/StepGame`
-      - Fallback: clone original repo https://github.com/ZhengxiangShi/StepGame and load from JSON
+- [ ] Dataset: `ZhengyanShi/StepGame` on HuggingFace (confirmed working)
 - [ ] Open a free Colab notebook, confirm T4 GPU is available
 - [ ] Run `pip install -r requirements.txt` and confirm no conflicts
 - [ ] Confirm Unsloth supports LFM2.5 architecture (check their GitHub issues/README)

@@ -51,6 +51,7 @@ A 1B model must chain multiple relations without losing track.
 - Spatial QA benchmark with **k-hop difficulty levels** (k = 1 to 10)
 - k = 1: single relation ("A is left of B")
 - k = 10: chain of 10 relations to resolve
+- We evaluate on k = 1 to 5 (50 examples per level)
 
 **Our split:**
 | Set | Examples |
@@ -85,9 +86,10 @@ A 1B model must chain multiple relations without losing track.
 | Hop level | Accuracy |
 |-----------|----------|
 | k=1 | _% |
+| k=2 | _% |
 | k=3 | _% |
+| k=4 | _% |
 | k=5 | _% |
-| k=10 | _% |
 | **Overall** | **_%** |
 
 Key observation: accuracy drops sharply as k increases — the model loses
@@ -122,9 +124,10 @@ track of the chain.
 | Hop level | Baseline | Fine-tuned | Delta |
 |-----------|----------|------------|-------|
 | k=1 | _% | _% | +_% |
+| k=2 | _% | _% | +_% |
 | k=3 | _% | _% | +_% |
+| k=4 | _% | _% | +_% |
 | k=5 | _% | _% | +_% |
-| k=10 | _% | _% | +_% |
 | **Overall** | **_%** | **_%** | **+_%** |
 
 [Include full before/after bar chart — baseline vs fine-tuned per hop level]

@@ -440,11 +440,11 @@ def render(baseline, finetuned, examples):
             <div class="story">${{ex.story}}</div>
             <div class="question">${{ex.question}}</div>
             <div class="predictions">
-              <div class="pred-box wrong">
+              <div class="pred-box ${{ex.baseline === ex.answer ? 'right' : 'wrong'}}">
                 <div class="pred-label">Baseline</div>
                 <div class="pred-value">${{ex.baseline}}</div>
               </div>
-              <div class="pred-box right">
+              <div class="pred-box ${{ex.finetuned === ex.answer ? 'right' : 'wrong'}}">
                 <div class="pred-label">Fine-tuned</div>
                 <div class="pred-value">${{ex.finetuned}}</div>
               </div>
