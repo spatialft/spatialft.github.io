@@ -1,5 +1,8 @@
 # Project Plan
 
+> Phase checklists below are planning notes — they are not connected to
+> `REQUIREMENTS_CHECKLIST.md` and are not auto-tracked by CI.
+
 ## Overview
 
 Fine-tune **LiquidAI/LFM2.5-1.2B-Thinking** on spatial reasoning, measure improvement on

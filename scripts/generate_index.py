@@ -1,9 +1,11 @@
 """Generate docs/index.html from results/baseline/scores.json,
 results/finetuned/scores.json, and results/examples.json."""
 
-import html
+from __future__ import annotations
+
 import json
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).parent.parent
 BASELINE_SCORES = ROOT / "results" / "baseline" / "scores.json"
@@ -12,14 +14,14 @@ EXAMPLES_PATH = ROOT / "results" / "examples.json"
 OUT = ROOT / "docs" / "index.html"
 
 
-def load_json(path):
+def load_json(path: Path) -> dict[str, Any] | list[Any] | None:
     if path.exists():
         with open(path) as f:
             return json.load(f)
     return None
 
 
-def render(baseline, finetuned, examples):
+def render(baseline: dict | None, finetuned: dict | None, examples: list | None) -> str:
     has_scores = baseline is not None and finetuned is not None
     has_examples = examples is not None and len(examples) > 0
 
@@ -46,12 +48,9 @@ def render(baseline, finetuned, examples):
         "ftK": ft_k,
     })
 
-    _TEXT_FIELDS = ("story", "question", "baseline", "finetuned", "answer")
-    safe_examples = [
-        {k: html.escape(str(v)) if k in _TEXT_FIELDS else v for k, v in ex.items()}
-        for ex in (examples or [])
-    ]
-    examples_json = json.dumps(safe_examples)
+    # No server-side HTML escaping needed — all user-controlled fields are
+    # inserted via textContent in the client JS, not innerHTML.
+    examples_json = json.dumps(examples or [])
 
     scores_section = ""
     if has_scores:
@@ -430,27 +429,55 @@ def render(baseline, finetuned, examples):
       }});
     }}
 
-    // Render example cards
+    // Render example cards — use textContent for all user-controlled fields
+    // to avoid template-literal injection (backticks / ${} in model output).
     const grid = document.getElementById('exampleGrid');
     if (grid && examples.length > 0) {{
       examples.forEach(ex => {{
-        grid.innerHTML += `
-          <div class="example-card">
-            <span class="k-badge">k=${{ex.k}} hop${{ex.k !== 1 ? 's' : ''}}</span>
-            <div class="story">${{ex.story}}</div>
-            <div class="question">${{ex.question}}</div>
-            <div class="predictions">
-              <div class="pred-box ${{ex.baseline === ex.answer ? 'right' : 'wrong'}}">
-                <div class="pred-label">Baseline</div>
-                <div class="pred-value">${{ex.baseline}}</div>
-              </div>
-              <div class="pred-box ${{ex.finetuned === ex.answer ? 'right' : 'wrong'}}">
-                <div class="pred-label">Fine-tuned</div>
-                <div class="pred-value">${{ex.finetuned}}</div>
-              </div>
-            </div>
-            <div class="answer-row">Ground truth: <strong>${{ex.answer}}</strong></div>
-          </div>`;
+        const card = document.createElement('div');
+        card.className = 'example-card';
+
+        const badge = document.createElement('span');
+        badge.className = 'k-badge';
+        badge.textContent = `k=${{ex.k}} hop${{ex.k !== 1 ? 's' : ''}}`;
+        card.appendChild(badge);
+
+        const story = document.createElement('div');
+        story.className = 'story';
+        story.textContent = ex.story;
+        card.appendChild(story);
+
+        const question = document.createElement('div');
+        question.className = 'question';
+        question.textContent = ex.question;
+        card.appendChild(question);
+
+        const preds = document.createElement('div');
+        preds.className = 'predictions';
+        [['Baseline', ex.baseline], ['Fine-tuned', ex.finetuned]].forEach(([label, pred]) => {{
+          const box = document.createElement('div');
+          box.className = 'pred-box ' + (pred === ex.answer ? 'right' : 'wrong');
+          const lbl = document.createElement('div');
+          lbl.className = 'pred-label';
+          lbl.textContent = label;
+          const val = document.createElement('div');
+          val.className = 'pred-value';
+          val.textContent = pred;
+          box.appendChild(lbl);
+          box.appendChild(val);
+          preds.appendChild(box);
+        }});
+        card.appendChild(preds);
+
+        const answerRow = document.createElement('div');
+        answerRow.className = 'answer-row';
+        answerRow.textContent = 'Ground truth: ';
+        const strong = document.createElement('strong');
+        strong.textContent = ex.answer;
+        answerRow.appendChild(strong);
+        card.appendChild(answerRow);
+
+        grid.appendChild(card);
       }});
     }}
   </script>

@@ -37,7 +37,7 @@ scripts/
 
 ## Deploy
 
-GitHub Pages is deployed by `.github/workflows/deploy.yml` on every push to `main` that touches `scripts/`, `results/`, `docs/`, or `REQUIREMENTS_CHECKLIST.md`. It runs both generators and uploads the `docs/` directory.
+GitHub Pages is deployed by `.github/workflows/deploy.yml` on every push to `main` that touches `scripts/generate_*.py`, `results/*.json`, or `REQUIREMENTS_CHECKLIST.md`. It runs both generators and uploads the `docs/` directory.
 
 `make generate` regenerates both HTML files locally.
 `make deploy` pushes to the gh-pages branch — only works if the repo's
