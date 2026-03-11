@@ -85,12 +85,12 @@ A 1B model must chain multiple relations without losing track.
 
 | Hop level | Accuracy |
 |-----------|----------|
-| k=1 | _% |
-| k=2 | _% |
-| k=3 | _% |
-| k=4 | _% |
-| k=5 | _% |
-| **Overall** | **_%** |
+| k=1 | 62% |
+| k=2 | 54% |
+| k=3 | 36% |
+| k=4 | 32% |
+| k=5 | 18% |
+| **Overall** | **40.4%** |
 
 Key observation: accuracy drops sharply as k increases — the model loses
 track of the chain.
@@ -123,12 +123,12 @@ track of the chain.
 
 | Hop level | Baseline | Fine-tuned | Delta |
 |-----------|----------|------------|-------|
-| k=1 | _% | _% | +_% |
-| k=2 | _% | _% | +_% |
-| k=3 | _% | _% | +_% |
-| k=4 | _% | _% | +_% |
-| k=5 | _% | _% | +_% |
-| **Overall** | **_%** | **_%** | **+_%** |
+| k=1 | 62% | _% | +_% |
+| k=2 | 54% | _% | +_% |
+| k=3 | 36% | _% | +_% |
+| k=4 | 32% | _% | +_% |
+| k=5 | 18% | _% | +_% |
+| **Overall** | **40.4%** | **_%** | **+_%** |
 
 [Include full before/after bar chart — baseline vs fine-tuned per hop level]
 

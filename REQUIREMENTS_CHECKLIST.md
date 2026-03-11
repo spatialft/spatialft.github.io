@@ -8,15 +8,15 @@
 ## 1. Property & Motivation
 
 - [x] **PROP1** — One specific, measurable LLM property selected
-- [ ] **PROP2** — Clear justification for why the property matters
+- [x] **PROP2** — Clear justification for why the property matters
 - [x] **PROP3** — Property evaluable with a defined metric
 
 ---
 
 ## 2. Literature Review
 
-- [ ] **LIT1** — At least 2 papers cited on prior work for this property
-- [ ] **LIT2** — Literature findings included in presentation slides
+- [x] **LIT1** — At least 2 papers cited on prior work for this property
+- [x] **LIT2** — Literature findings included in presentation slides
 
 ---
 
