@@ -105,8 +105,8 @@ track of the chain.
 
 [Include training loss plot from Colab logs]
 
-- Training time: ~XX minutes on T4
-- Final training loss: ~X.XX
+- Training time: ~34.7 minutes on T4
+- Final training loss: ~0.006
 
 **What we trained on:**
 - Prompt: story + question (formatted with system instruction)
