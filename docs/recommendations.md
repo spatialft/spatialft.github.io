@@ -35,7 +35,7 @@ The presentation story changes slightly but the methodology stays the same.
 ### StepGame
 - Original paper: "StepGame: A New Benchmark for Robust Multi-Hop Spatial Reasoning in Texts"
 - k-hop difficulty: k=1 is a single relation ("A is left of B"), k=10 requires chaining 10 steps
-- Expect baseline accuracy around 40-60% at k=1, dropping to 20-35% at k=10 for a 1B model
+- Measured baseline (LFM2.5-1.2B-Thinking): 62% at k=1, dropping to 18% at k=5 (eval covers k=1..5)
 - 4000 training examples is sufficient for meaningful LoRA improvement
 
 ### Prompt format

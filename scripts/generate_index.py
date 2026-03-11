@@ -22,30 +22,40 @@ def load_json(path: Path) -> dict[str, Any] | list[Any] | None:
 
 
 def render(baseline: dict | None, finetuned: dict | None, examples: list | None) -> str:
-    has_scores = baseline is not None and finetuned is not None
+    has_baseline = baseline is not None
+    has_scores = has_baseline and finetuned is not None
     has_examples = examples is not None and len(examples) > 0
 
     # Build chart data
-    if has_scores:
+    if has_baseline:
         k_keys = sorted(
-            {k for k in list(baseline.keys()) + list(finetuned.keys()) if k.startswith("accuracy_k")},
+            {k for k in baseline.keys() if k.startswith("accuracy_k")},
             key=lambda x: int(x.replace("accuracy_k", "")),
         )
+        if has_scores:
+            k_keys = sorted(
+                {k for k in list(baseline.keys()) + list(finetuned.keys()) if k.startswith("accuracy_k")},
+                key=lambda x: int(x.replace("accuracy_k", "")),
+            )
         k_labels = [k.replace("accuracy_", "") for k in k_keys]
         base_k = [round(baseline.get(k, 0) * 100, 1) for k in k_keys]
-        ft_k = [round(finetuned.get(k, 0) * 100, 1) for k in k_keys]
+        ft_k = [round(finetuned.get(k, 0) * 100, 1) for k in k_keys] if has_scores else []
         base_overall = round(baseline["accuracy"] * 100, 1)
-        ft_overall = round(finetuned["accuracy"] * 100, 1)
-        delta = round(ft_overall - base_overall, 1)
-        delta_str = f"+{delta}" if delta >= 0 else str(delta)
+        ft_overall = round(finetuned["accuracy"] * 100, 1) if has_scores else None
+        if has_scores:
+            delta = round(ft_overall - base_overall, 1)
+            delta_str = f"+{delta}" if delta >= 0 else str(delta)
+        else:
+            delta = delta_str = None
     else:
         k_labels = base_k = ft_k = []
-        base_overall = ft_overall = delta_str = None
+        base_overall = ft_overall = delta_str = delta = None
 
     chart_data = json.dumps({
         "kLabels": k_labels,
         "baseK": base_k,
         "ftK": ft_k,
+        "hasFinetune": has_scores,
     })
 
     # No server-side HTML escaping needed — all user-controlled fields are
@@ -76,6 +86,26 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
       </div>
     </section>
 """
+    elif has_baseline:
+        scores_section = f"""
+    <section class="scores">
+      <div class="score-cards">
+        <div class="score-card">
+          <div class="score-label">Baseline</div>
+          <div class="score-value muted">{base_overall}%</div>
+        </div>
+        <div class="score-arrow pending-arrow">→</div>
+        <div class="score-card pending-card">
+          <div class="score-label">Fine-tuned</div>
+          <div class="score-value muted">—</div>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="hopChart"></canvas>
+      </div>
+      <p class="pending-note">Fine-tuning in progress — run notebooks 03 and 04 in Colab.</p>
+    </section>
+"""
     else:
         scores_section = """
     <section class="scores pending">
@@ -96,7 +126,7 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
       <div class="example-grid" id="exampleGrid"></div>
     </section>
 """
-    elif has_scores:
+    elif has_baseline:
         examples_section = """
     <section class="examples pending">
       <h2>Model Predictions</h2>
@@ -272,6 +302,8 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
 
     .pending-icon {{ font-size: 1.75rem; display: block; margin-bottom: .5rem; }}
     .pending-msg p {{ margin-bottom: 1rem; }}
+    .pending-note {{ color: var(--muted); font-size: .85rem; margin-top: .75rem; }}
+    .pending-arrow {{ opacity: .4; }}
 
     /* Example cards */
     .example-grid {{
@@ -386,24 +418,25 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
     // Render hop chart
     if (chartData.kLabels.length > 0) {{
       const ctx = document.getElementById('hopChart').getContext('2d');
+      const datasets = [{{
+        label: 'Baseline',
+        data: chartData.baseK,
+        backgroundColor: '#94a3b8',
+        borderRadius: 4,
+      }}];
+      if (chartData.hasFinetune) {{
+        datasets.push({{
+          label: 'Fine-tuned',
+          data: chartData.ftK,
+          backgroundColor: '#2563eb',
+          borderRadius: 4,
+        }});
+      }}
       new Chart(ctx, {{
         type: 'bar',
         data: {{
           labels: chartData.kLabels,
-          datasets: [
-            {{
-              label: 'Baseline',
-              data: chartData.baseK,
-              backgroundColor: '#94a3b8',
-              borderRadius: 4,
-            }},
-            {{
-              label: 'Fine-tuned',
-              data: chartData.ftK,
-              backgroundColor: '#2563eb',
-              borderRadius: 4,
-            }},
-          ],
+          datasets,
         }},
         options: {{
           responsive: true,
@@ -430,7 +463,7 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
     }}
 
     // Render example cards — use textContent for all user-controlled fields
-    // to avoid template-literal injection (backticks / ${} in model output).
+    // to avoid template-literal injection (backticks / ${{}} in model output).
     const grid = document.getElementById('exampleGrid');
     if (grid && examples.length > 0) {{
       examples.forEach(ex => {{
