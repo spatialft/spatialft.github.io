@@ -408,7 +408,7 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
   </main>
 
   <footer>
-    SpatialFT · Duke University · AIPI 590.03 Intelligent Agents · <a href="/checklist/" style="color:inherit;opacity:.6;">Requirements Checklist</a>
+    SpatialFT · Duke University · AIPI 590.03 Intelligent Agents
   </footer>
 
   <script>
