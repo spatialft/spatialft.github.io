@@ -49,18 +49,28 @@ docs/
 
 ## Quickstart (Colab T4)
 
-Each notebook has an **Open in Colab** badge at the top. Run 02 first (it generates the data 01 depends on):
+**Before opening any notebook:** set the runtime to T4 GPU (Runtime → Change runtime type → T4 GPU).
+
+Each notebook has an **Open in Colab** badge at the top. Run in order:
 
 1. `02_dataset_prep` — downloads StepGame, saves splits to `data/`
 2. `01_baseline_eval` — measures baseline accuracy
-3. `03_finetune` — LoRA fine-tunes the model, saves the adapter in `results/finetuned/lora_adapter/`, and can publish it to GitHub
+3. `03_finetune` — LoRA fine-tunes the model, saves the adapter to `results/finetuned/lora_adapter/`, and publishes it to GitHub
 4. `04_eval_comparison` — pulls latest `main`, loads the published adapter, evaluates the fine-tuned model, and exports examples
 
-The notebooks share common Colab setup through `src/colab_utils.py`. If you set a Colab
-secret named `GITHUB_TOKEN`, each notebook that generates committed artifacts can push them
-to `main` directly from its final cell.
+The notebooks share common setup via `src/colab_utils.py`. Notebooks 03 and 04 can push results to `main` from their final cell if a `GITHUB_TOKEN` secret is set.
 
-After running 01 and 04, commit the generated baseline predictions, scores, and examples to update the [live results page](https://spatialft.github.io/).
+**Setting up the GitHub token (one-time):**
+
+```sh
+make colab-pat   # opens the pre-filled GitHub fine-grained PAT form
+```
+
+Create the token (GitHub will still ask you to confirm repository access — select `spatialft.github.io`), then add it to Colab: open the key icon in the left sidebar → **Secrets** → **Add new secret**, name it `GITHUB_TOKEN`, paste the token, and enable notebook access.
+
+![Colab Secrets panel showing GITHUB_TOKEN](docs/assets/colab-secrets.png)
+
+After running 01 and 04, commit the generated scores and examples to update the [live results page](https://spatialft.github.io/).
 
 ## Results
 
