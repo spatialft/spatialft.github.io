@@ -72,6 +72,8 @@ Create the token (GitHub will still ask you to confirm repository access — sel
 
 After running 01 and 04, commit the generated scores and examples to update the [live results page](https://spatialft.github.io/).
 
+For packaging the fine-tuned adapter as a GGUF model for `lm-arena`, see [docs/lm-arena-export.md](/Users/jonasneves/Github/organizations/spatialft.github.io/docs/lm-arena-export.md).
+
 ## Results
 
 *Pending — run notebooks 01 and 04 to populate. See the [live results page](https://spatialft.github.io/) once scores are committed.*

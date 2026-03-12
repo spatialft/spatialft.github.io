@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: checklist index generate deploy colab-pat help
+.PHONY: checklist index generate deploy colab-pat export-lm-arena help
 
 GITHUB_COLAB_PAT_URL := https://github.com/settings/personal-access-tokens/new?name=SpatialFT%20Colab&description=Colab%20token%20for%20spatialft.github.io&target_name=spatialft&expires_in=30&contents=write
 
@@ -39,6 +39,9 @@ colab-pat:
 	fi
 	@echo "GitHub will still ask you to confirm repository access. Select spatialft.github.io, create the token, then save it in Colab secrets as GITHUB_TOKEN."
 
+export-lm-arena:
+	python3 scripts/export_lm_arena_model.py $(ARGS)
+
 help:
 	@echo ""
 	@echo "\033[2mContent\033[0m"
@@ -49,4 +52,5 @@ help:
 	@echo "\033[2mDeploy\033[0m"
 	@echo "  \033[36mdeploy\033[0m     Push full site to gh-pages (fallback if CI unavailable)"
 	@echo "  \033[36mcolab-pat\033[0m  Open the fine-grained GitHub PAT form for Colab publishing"
+	@echo "  \033[36mexport-lm-arena\033[0m Export merged/GGUF weights for lm-arena. Pass ARGS='...'."
 	@echo ""
