@@ -75,6 +75,13 @@ def publish_artifacts(paths: Iterable[str | Path], message: str, repo_dir: str |
 
     repo_path = Path(repo_dir)
     rel_paths = [str(Path(p)) for p in paths]
+    missing_paths = [path for path in rel_paths if not (repo_path / path).exists()]
+    if missing_paths:
+        raise FileNotFoundError(
+            "Cannot publish notebook artifacts because these files do not exist yet: "
+            + ", ".join(missing_paths)
+        )
+
     repo_url = f"https://x-access-token:{token}@github.com/spatialft/spatialft.github.io.git"
     stash_name = "colab-artifacts-publish"
 
