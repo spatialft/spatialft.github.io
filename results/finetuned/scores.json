@@ -1,0 +1,9 @@
+{
+  "accuracy": 0.152,
+  "total": 250,
+  "accuracy_k1": 0.34,
+  "accuracy_k2": 0.08,
+  "accuracy_k3": 0.1,
+  "accuracy_k4": 0.1,
+  "accuracy_k5": 0.14
+}

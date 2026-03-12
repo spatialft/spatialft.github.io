@@ -1,0 +1,66 @@
+[
+  {
+    "story": "The object labeled R is positioned to the left of the object labeled L.",
+    "question": "What is the relation of the agent L to the agent R?",
+    "answer": "right",
+    "baseline": "left",
+    "finetuned": "right",
+    "k": 1
+  },
+  {
+    "story": "O and L are in a horizontal line with L on the right.",
+    "question": "What is the relation of the agent L to the agent O?",
+    "answer": "right",
+    "baseline": "above",
+    "finetuned": "right",
+    "k": 1
+  },
+  {
+    "story": "J is sitting at the 12:00 position to H. J is over there and R is at the bottom of it.",
+    "question": "What is the relation of the agent R to the agent J?",
+    "answer": "below",
+    "baseline": "above",
+    "finetuned": "below",
+    "k": 2
+  },
+  {
+    "story": "L is slightly off center to the top left and V is slightly off center to the bottom right. A is to the bottom right of V.",
+    "question": "What is the relation of the agent L to the agent A?",
+    "answer": "upper-left",
+    "baseline": "right",
+    "finetuned": "upper-left",
+    "k": 2
+  },
+  {
+    "story": "S is placed in the left direction of K. If K is the center of a clock face, U is located between 7 and 8. U is at a 45 degree angle to H, in the lower lefthand corner.",
+    "question": "What is the relation of the agent S to the agent K?",
+    "answer": "left",
+    "baseline": "above",
+    "finetuned": "left",
+    "k": 3
+  },
+  {
+    "story": "G is to the top right of J. T is directly south west of R. The object G and T are there. The object G is below and slightly to the right of the object T.",
+    "question": "What is the relation of the agent T to the agent G?",
+    "answer": "upper-left",
+    "baseline": "above",
+    "finetuned": "upper-left",
+    "k": 3
+  },
+  {
+    "story": "M is at a 45 degree angle to F, in the lower lefthand corner. R is above O at 2 o'clock. U is to the right and above M at an angle of about 45 degrees. F is above and to the left of R.",
+    "question": "What is the relation of the agent M to the agent F?",
+    "answer": "lower-left",
+    "baseline": "above",
+    "finetuned": "lower-left",
+    "k": 4
+  },
+  {
+    "story": "A is on the upper right of I. I and W are parallel, and W is below I. W is below and to the left of B. A is below K and to the right of K.",
+    "question": "What is the relation of the agent W to the agent B?",
+    "answer": "lower-left",
+    "baseline": "",
+    "finetuned": "lower-left",
+    "k": 4
+  }
+]
