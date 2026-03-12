@@ -7,6 +7,10 @@ data/raw/*.csv
 data/raw/*.parquet
 results/finetuned/predictions.json
 results/finetuned/checkpoint/
+# LoRA adapter binaries — large files that should not be in git history.
+# Re-generate by running notebook 03 or download from HuggingFace Hub.
+results/finetuned/lora_adapter/*.safetensors
+results/finetuned/lora_adapter/tokenizer.json
 *.egg-info/
 .env
 .worktrees/

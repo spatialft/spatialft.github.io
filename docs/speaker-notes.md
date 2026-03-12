@@ -16,10 +16,10 @@ LFM2-350M because it is small, fast, and realistic for edge deployment."
 
 "Spatial reasoning is one of those capabilities that seems simple but degrades fast in small
 models. Ask a model where Alice is relative to Carol after three intermediate hops, and it
-often loses the thread. This is well-studied — there's a benchmark called StepGame that
-was specifically designed to measure it — and it's practically relevant for robotics and
-navigation. It also gives us a clean story for a 10-minute presentation: pick a difficulty
-level, measure, improve, compare."
+often loses the thread. This is well-studied. There is a benchmark called StepGame
+specifically designed to measure it. It is practically relevant for robotics and navigation,
+and it gives us a clean story for a 10-minute presentation: pick a difficulty level,
+measure, fine-tune, compare."
 
 ---
 
@@ -47,9 +47,9 @@ see exactly where the model starts to break down, and where fine-tuning helps mo
 "The pipeline is straightforward. Baseline eval first. Always measure before you touch
 anything. Then we prepared the data using the StepGame dataset, formatted it with the
 model's chat template, and ran LoRA fine-tuning using PEFT. LoRA is a parameter-efficient
-method that adds small adapter matrices to the frozen base model — so we're not retraining
-the full base model, we're training a small set of adapter weights. That is why the whole
-thing stays cheap and easy to rerun on a T4."
+method that adds small adapter matrices to the frozen base model. We are not retraining
+the full base model, just a small set of adapter weights. That is why the whole thing
+stays cheap and easy to rerun on a T4."
 
 ---
 
@@ -73,12 +73,13 @@ The LoRA adapter is about [X MB], which is a fraction of the base model size."
 
 ## Slide 8 — Fine-Tuned Results (~75 sec)
 
-"After fine-tuning. [Read out the delta.] Overall accuracy went up by [X] percentage points.
-The per-hop breakdown is more interesting. [Walk through the chart.] At low k, the model
-was already decent and improved moderately. At higher k, [describe what you see — either
-it improved more than expected, or it plateaued, or a specific k level jumped]. This tells
-us [interpretation]. The chart makes this visually clear — you can see the fine-tuned bars
-are consistently higher, with the gap [widening/narrowing] at harder hop levels."
+"After fine-tuning. Overall accuracy: 15.2% vs 14.4% baseline, a 0.8 percentage point
+difference on 250 examples. The per-hop breakdown is the more useful number. At k=1,
+accuracy jumped from 16% to 34%. That is a real signal: the adapter learned single-hop
+directional patterns. At k=2, 3, and 4, accuracy fell by 4 to 8 points each. The model
+got better at short chains at the cost of medium ones. k=5 recovered slightly. The chart
+shows the trade-off clearly. The overall number is within noise; the shape of the
+per-hop curve is the actual finding."
 
 ---
 
@@ -95,12 +96,11 @@ the model struggles most. Both are straightforward extensions."
 
 ## Slide 10 — Conclusions (~45 sec)
 
-"To wrap up: we picked spatial reasoning as a measurable, practically relevant property.
-We fine-tuned a 350M LiquidAI model on 4,000 examples using efficient LoRA
-training. We got a [X]% improvement overall, with clear gains across hop levels. The main
-lesson is that targeted fine-tuning on a focused dataset moves the needle even at small
-scale. The repo is at [link] — all four notebooks are runnable end to end on a free Colab
-T4. Thanks."
+"To wrap up: we measured spatial reasoning on a 350M LiquidAI model before and after
+LoRA fine-tuning on 4,000 StepGame examples. The adapter improved k=1 accuracy by 18
+points and shifted k=5 slightly, but regressed on k=2 through k=4. The per-hop structure
+of StepGame is what made that visible. An overall accuracy number would have hidden it.
+The repo is at [link], all four notebooks run end to end on a free Colab T4. Thanks."
 
 ---
 

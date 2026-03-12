@@ -35,10 +35,10 @@ A 350M model must chain multiple relations without losing track.
 
 **Why this model?**
 
-- 354M parameters — materially smaller and faster to iterate on
+- 354M parameters, materially smaller and faster to iterate on
 - 32k context window with an edge-focused LFM2 architecture
 - Good fit for on-device and low-latency deployment constraints
-- Stronger experimental story: can a very small model learn the task after tuning?
+- If targeted tuning works at 350M, the result generalizes to cheap, fast inference
 
 [Include screenshot of HuggingFace model card]
 
@@ -68,7 +68,7 @@ A 350M model must chain multiple relations without losing track.
 **Pipeline:** Baseline eval → Dataset prep → LoRA fine-tuning → Re-eval → Compare
 
 **Fine-tuning approach:**
-- LoRA (rank 16) via `transformers` + `peft` — 4-bit quantized, T4-compatible
+- LoRA (rank 16) via `transformers` + `peft`, 4-bit quantized, T4-compatible
 - 3 epochs, batch size 4 + gradient accumulation
 - Learning rate 2e-4 with warmup
 
@@ -81,19 +81,17 @@ A 350M model must chain multiple relations without losing track.
 
 **Before fine-tuning**
 
-[Replace with actual numbers]
-
 | Hop level | Accuracy |
 |-----------|----------|
-| k=1 | 62% |
-| k=2 | 54% |
-| k=3 | 36% |
-| k=4 | 32% |
-| k=5 | 18% |
-| **Overall** | **40.4%** |
+| k=1 | 16% |
+| k=2 | 16% |
+| k=3 | 18% |
+| k=4 | 14% |
+| k=5 | 8% |
+| **Overall** | **14.4%** |
 
-Key observation: accuracy drops sharply as k increases. The model loses
-track of the chain.
+Key observation: accuracy is low across all hop levels, with a further drop at k=5.
+A 350M model with no spatial fine-tuning is close to random on this benchmark (1-in-8 directions).
 
 [Include bar chart — baseline accuracy per hop level]
 
@@ -119,16 +117,16 @@ track of the chain.
 
 **After fine-tuning**
 
-[Replace with actual numbers]
-
 | Hop level | Baseline | Fine-tuned | Delta |
 |-----------|----------|------------|-------|
-| k=1 | 62% | _% | +_% |
-| k=2 | 54% | _% | +_% |
-| k=3 | 36% | _% | +_% |
-| k=4 | 32% | _% | +_% |
-| k=5 | 18% | _% | +_% |
-| **Overall** | **40.4%** | **_%** | **+_%** |
+| k=1 | 16% | 34% | +18% |
+| k=2 | 16% | 8% | −8% |
+| k=3 | 18% | 10% | −8% |
+| k=4 | 14% | 10% | −4% |
+| k=5 | 8% | 14% | +6% |
+| **Overall** | **14.4%** | **15.2%** | **+0.8%** |
+
+The adapter learns k=1 well, but at the cost of k=2–4. The 0.8pp overall gain is within noise (n=250).
 
 [Include full before/after bar chart — baseline vs fine-tuned per hop level]
 
@@ -136,19 +134,18 @@ track of the chain.
 
 ## Slide 9 — Analysis
 
-**Where did it improve most?**
+**What the results show:**
 
-- Expected: larger gains at low k (simpler cases), model learns the relation vocabulary
-- Expected: smaller gains at high k (still struggles with long chains)
-- Surprising finding (fill in after running): [e.g., "k=5 improved more than k=3"]
+- k=1 improved sharply (+18pp): the adapter learns single-hop relation vocabulary
+- k=2–4 regressed (−4 to −8pp): multi-hop chaining appears to have been disrupted
+- k=5 recovered slightly (+6pp): unclear whether meaningful at this sample size
 
-**Failure modes that remain:**
-- [e.g., model outputs "to the left" instead of "left"]
-- [e.g., model confuses upper-left vs left on diagonal cases]
+**Likely cause:**
+The training set has more k=1 and k=2 examples; the adapter may have overfit short-context patterns at the expense of the intermediate hop range.
 
 **What would help further:**
 - Chain-of-thought training data (step-by-step reasoning)
-- More training examples at high k
+- Balanced training across all k levels
 - Larger LoRA rank
 
 ---
@@ -157,15 +154,15 @@ track of the chain.
 
 **Summary**
 
-- LFM2-350M shows how far a very small edge model can be pushed with targeted tuning
-- LoRA fine-tuning on 4,000 examples improved accuracy by ~X% overall
-- Gains are [larger/smaller/consistent] across hop levels
+- LoRA fine-tuning on 4,000 examples shifted the distribution: strong gain at k=1, regressions at k=2–4
+- Overall accuracy moved from 14.4% to 15.2% (+0.8pp on n=250 — within noise)
+- The k-hop breakdown tells the more useful story: the adapter specializes rather than generalizes
 
 **Takeaways**
 
-- Fine-tuning a small model on domain-specific data is practical and effective
-- StepGame's k-hop structure makes evaluation principled and reproducible
-- Small, fast edge models can still benefit from focused fine-tuning
+- Small models can pick up short-range spatial patterns with targeted tuning
+- Multi-hop generalization requires more than format-matched training data
+- StepGame's per-hop structure exposes trade-offs that an overall accuracy number hides
 
 **Repo:** [link]
 

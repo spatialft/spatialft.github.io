@@ -12,11 +12,11 @@ Small models struggle to reliably track multi-hop directional relationships ("A 
 
 ## Dataset
 
-[StepGame](https://github.com/ZhengxiangShi/StepGame) — multi-step spatial QA with k-hop difficulty levels (k=1..10).
+[StepGame](https://github.com/ZhengxiangShi/StepGame): multi-step spatial QA with k-hop difficulty levels (k=1..10).
 
 ## Model
 
-`LiquidAI/LFM2-350M` — a 354M-parameter LFM2 checkpoint optimized for low-latency edge deployment. The smaller model makes baseline evaluation and LoRA iteration cheaper while staying easy to run on a single T4 GPU with `transformers` + `peft`.
+`LiquidAI/LFM2-350M`: a 354M-parameter LFM2 checkpoint optimized for low-latency edge deployment. The smaller model makes baseline evaluation and LoRA iteration cheaper while staying easy to run on a single T4 GPU with `transformers` + `peft`.
 
 ## Project structure
 
@@ -53,10 +53,10 @@ docs/
 
 Each notebook has an **Open in Colab** badge at the top. Run in order:
 
-1. `02_dataset_prep` — downloads StepGame, saves splits to `data/`
-2. `01_baseline_eval` — measures baseline accuracy
-3. `03_finetune` — LoRA fine-tunes the model, saves the adapter to `results/finetuned/lora_adapter/`, and publishes it to GitHub
-4. `04_eval_comparison` — pulls latest `main`, loads the published adapter, evaluates the fine-tuned model, and exports examples
+1. `02_dataset_prep`: downloads StepGame, saves splits to `data/`
+2. `01_baseline_eval`: measures baseline accuracy
+3. `03_finetune`: LoRA fine-tunes the model, saves the adapter to `results/finetuned/lora_adapter/`, and publishes it to GitHub
+4. `04_eval_comparison`: pulls latest `main`, loads the published adapter, evaluates the fine-tuned model, and exports examples
 
 The notebooks share common setup via `src/colab_utils.py`. Notebooks 03 and 04 can push results to `main` from their final cell if a `GITHUB_TOKEN` secret is set.
 

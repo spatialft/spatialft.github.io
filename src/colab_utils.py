@@ -59,9 +59,15 @@ def require_local_adapter(repo_root: str | Path = DEFAULT_REPO_DIR) -> Path:
     )
 
 
-def publish_artifacts(paths: Iterable[str | Path], message: str, repo_dir: str | Path = DEFAULT_REPO_DIR) -> bool:
+def publish_artifacts(
+    paths: Iterable[str | Path],
+    message: str,
+    repo_dir: str | Path = DEFAULT_REPO_DIR,
+    dry_run: bool = False,
+) -> bool:
     """Commit and push generated notebook artifacts from Colab.
 
+    Pass ``dry_run=True`` to print what would be committed without pushing.
     Returns ``True`` when a commit was created and pushed, otherwise ``False``.
     """
 
@@ -120,6 +126,11 @@ def publish_artifacts(paths: Iterable[str | Path], message: str, repo_dir: str |
         return False
     if diff.returncode != 1:
         raise RuntimeError("git diff --cached failed while checking staged notebook artifacts.")
+
+    if dry_run:
+        print(f"[dry_run] Would commit to main: {', '.join(rel_paths)}")
+        print(f"[dry_run] Message: {message}")
+        return False
 
     subprocess.run(["git", "commit", "-m", message], check=True, cwd=repo_path)
     subprocess.run(["git", "push", "origin", "main"], check=True, cwd=repo_path)

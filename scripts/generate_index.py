@@ -77,10 +77,11 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
           <div class="score-value accent">{ft_overall}%</div>
         </div>
         <div class="score-card delta">
-          <div class="score-label">Improvement</div>
-          <div class="score-value {'positive' if delta >= 0 else 'negative'}">{delta_str}%</div>
+          <div class="score-label">Change</div>
+          <div class="score-value muted">{delta_str}%</div>
         </div>
       </div>
+      <p class="pending-note">Overall accuracy on {baseline.get('total', 250)} held-out examples (50 per hop level, k=1–5). Per-hop breakdown in chart.</p>
       <div class="chart-wrap">
         <canvas id="hopChart"></canvas>
       </div>
@@ -122,7 +123,7 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
         examples_section = """
     <section class="examples">
       <h2>Model Predictions</h2>
-      <p class="subtitle">Cases where fine-tuning corrected the model's spatial reasoning.</p>
+      <p class="subtitle">Sample predictions from the evaluation set.</p>
       <div class="example-grid" id="exampleGrid"></div>
     </section>
 """
