@@ -395,7 +395,6 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
     <h1>Spatial Reasoning Fine-Tuning</h1>
     <p>Fine-tuning LFM2-350M on StepGame to improve spatial reasoning accuracy.</p>
     <nav>
-      <a class="btn primary" href="/checklist/">Requirements Checklist</a>
       <a class="btn" href="https://colab.research.google.com/github/spatialft/spatialft.github.io/blob/main/notebooks/01_baseline_eval.ipynb" target="_blank" rel="noopener noreferrer">01 Baseline Eval</a>
       <a class="btn" href="https://colab.research.google.com/github/spatialft/spatialft.github.io/blob/main/notebooks/02_dataset_prep.ipynb" target="_blank" rel="noopener noreferrer">02 Dataset Prep</a>
       <a class="btn" href="https://colab.research.google.com/github/spatialft/spatialft.github.io/blob/main/notebooks/03_finetune.ipynb" target="_blank" rel="noopener noreferrer">03 Fine-Tune</a>
@@ -409,7 +408,7 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
   </main>
 
   <footer>
-    SpatialFT · Duke University · AIPI 590.03 Intelligent Agents
+    SpatialFT · Duke University · AIPI 590.03 Intelligent Agents · <a href="/checklist/" style="color:inherit;opacity:.6;">Requirements Checklist</a>
   </footer>
 
   <script>
