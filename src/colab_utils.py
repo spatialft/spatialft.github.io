@@ -76,11 +76,34 @@ def publish_artifacts(paths: Iterable[str | Path], message: str, repo_dir: str |
     repo_path = Path(repo_dir)
     rel_paths = [str(Path(p)) for p in paths]
     repo_url = f"https://x-access-token:{token}@github.com/spatialft/spatialft.github.io.git"
+    stash_name = "colab-artifacts-publish"
 
     subprocess.run(["git", "config", "user.email", "colab-bot@spatialft"], check=True, cwd=repo_path)
     subprocess.run(["git", "config", "user.name", "Colab Bot"], check=True, cwd=repo_path)
     subprocess.run(["git", "remote", "set-url", "origin", repo_url], check=True, cwd=repo_path)
-    subprocess.run(["git", "pull", "--rebase", "origin", "main"], check=True, cwd=repo_path)
+
+    stash_push = subprocess.run(
+        ["git", "stash", "push", "--include-untracked", "-m", stash_name, "--", *rel_paths],
+        check=True,
+        cwd=repo_path,
+        capture_output=True,
+        text=True,
+    )
+    stashed = "No local changes to save" not in stash_push.stdout
+
+    try:
+        subprocess.run(["git", "pull", "--rebase", "origin", "main"], check=True, cwd=repo_path)
+    except subprocess.CalledProcessError as exc:
+        if stashed:
+            subprocess.run(["git", "stash", "pop"], check=True, cwd=repo_path)
+        raise RuntimeError(
+            "git pull --rebase failed while preparing to publish notebook artifacts. "
+            "Check for unrelated local changes or remote conflicts and retry."
+        ) from exc
+
+    if stashed:
+        subprocess.run(["git", "stash", "pop"], check=True, cwd=repo_path)
+
     subprocess.run(["git", "add", "--", *rel_paths], check=True, cwd=repo_path)
 
     diff = subprocess.run(["git", "diff", "--cached", "--quiet", "--", *rel_paths], cwd=repo_path)
