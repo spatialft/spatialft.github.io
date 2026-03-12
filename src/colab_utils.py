@@ -10,6 +10,7 @@ from typing import Iterable
 
 REPO_URL = "https://github.com/spatialft/spatialft.github.io.git"
 DEFAULT_REPO_DIR = Path("/content/spatialft.github.io")
+NOTEBOOK_DEPS_SENTINEL_VERSION = "v3"
 
 
 def bootstrap_colab_repo(
@@ -44,6 +45,51 @@ def get_repo_paths(repo_root: str | Path = DEFAULT_REPO_DIR) -> dict[str, Path]:
         "results_root": repo_path / "results",
         "adapter_dir": repo_path / "results" / "finetuned" / "lora_adapter",
     }
+
+
+def prepare_notebook(
+    repo_root: str | Path = DEFAULT_REPO_DIR,
+    *,
+    pull_latest: bool = False,
+) -> tuple[Path, dict[str, Path]]:
+    """Bootstrap the repo and optionally pull latest main before returning paths."""
+
+    repo_path = bootstrap_colab_repo(repo_root)
+    if pull_latest:
+        subprocess.run(["git", "pull", "origin", "main"], check=True, cwd=repo_path)
+    return repo_path, get_repo_paths(repo_path)
+
+
+def ensure_notebook_requirements(
+    notebook_name: str,
+    *,
+    requirements_path: str | Path = "../requirements.txt",
+) -> None:
+    """Install notebook dependencies once per notebook/version and restart runtime."""
+
+    sentinel = Path(f"/tmp/spatialft_{notebook_name}_deps_{NOTEBOOK_DEPS_SENTINEL_VERSION}")
+    if sentinel.exists():
+        print(f"Dependencies ready for {notebook_name}.")
+        return
+
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "-q",
+            "-U",
+            "--upgrade-strategy",
+            "only-if-needed",
+            "-r",
+            str(requirements_path),
+        ],
+        check=True,
+    )
+    sentinel.write_text("ok")
+    print("Dependencies updated. Restarting the runtime once to load clean binary wheels...")
+    os.kill(os.getpid(), 9)
 
 
 def require_local_adapter(repo_root: str | Path = DEFAULT_REPO_DIR) -> Path:

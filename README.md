@@ -16,7 +16,7 @@ Small models struggle to reliably track multi-hop directional relationships ("A 
 
 ## Model
 
-`LiquidAI/LFM2-350M`: a 354M-parameter LFM2 checkpoint optimized for low-latency edge deployment. The smaller model makes baseline evaluation and LoRA iteration cheaper while staying easy to run on a single T4 GPU with `transformers` + `peft`.
+`LiquidAI/LFM2-350M`: a 354M-parameter LFM2 checkpoint chosen because it is cheap to iterate on and small enough to fine-tune on a single T4 GPU with `transformers` + `peft`. That keeps the project close to an edge-deployment setting without treating deployment claims as the result.
 
 ## Project structure
 
@@ -76,7 +76,7 @@ For packaging the fine-tuned adapter as a GGUF model for `lm-arena`, see [docs/l
 
 ## Results
 
-*Pending — run notebooks 01 and 04 to populate. See the [live results page](https://spatialft.github.io/) once scores are committed.*
+Current committed results: baseline accuracy is 14.4%, fine-tuned accuracy is 15.2%, both measured on 250 held-out examples (50 per hop level, k=1-5). The +0.8 percentage-point change is within noise; the per-hop breakdown on the [live results page](https://spatialft.github.io/) is the more informative result.
 
 ## Team
 

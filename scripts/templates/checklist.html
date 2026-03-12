@@ -1,0 +1,166 @@
+<!-- AUTO-GENERATED — edit REQUIREMENTS_CHECKLIST.md, not this file -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Requirements Checklist — AIPI 590 Project 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f8f7f4; --surface: #ffffff; --border: #e5e2db;
+      --text: #1a1916; --text-muted: #6b6860;
+      --green: #16a34a; --green-bg: #f0fdf4;
+      --accent: #2563eb;
+      --radius-sm: 6px; --radius-md: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.07);
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100dvh; }
+    a { color: inherit; }
+    .container { width: 100%; max-width: 780px; margin: 0 auto; padding: 0 24px; }
+
+    .site-header { border-bottom: 1px solid var(--border); padding: 20px 0; background: var(--surface); }
+    .site-header .container { display: flex; align-items: center; gap: 16px; }
+    .back-link { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; }
+    .back-link:hover { color: var(--text); }
+    .header-title { font-size: 1rem; font-weight: 600; }
+
+    .overall { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 24px; margin: 32px 0 24px; box-shadow: var(--shadow-sm); }
+    .overall-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+    .overall-pct { font-size: 2rem; font-weight: 700; }
+    .overall-label { font-size: 0.9rem; color: var(--text-muted); }
+    .progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+    .progress-fill { height: 100%; background: var(--green); border-radius: 4px; transition: width .3s; }
+
+    .checklist-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 20px 24px; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+    .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .section-header h2 { font-size: 0.95rem; font-weight: 600; }
+    .section-count { font-size: 0.8rem; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+    .checklist-section .progress-bar { margin-bottom: 16px; }
+
+    .item-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .item-table tr { border-top: 1px solid var(--border); position: relative; }
+    .item-table tr:first-child { border-top: none; }
+    .item-table td { padding: 7px 4px; vertical-align: top; }
+    .item-glyph { width: 20px; color: var(--text-muted); font-size: 0.75rem; padding-top: 8px; }
+    .item-id { width: 64px; font-weight: 600; font-size: 0.78rem; white-space: nowrap; padding-top: 8px; }
+    .item-label { color: var(--text-muted); line-height: 1.45; }
+    tr.done .item-glyph { color: var(--green); }
+    tr.done .item-id { color: var(--text); }
+    tr.done .item-label { color: var(--text); }
+    tr.has-source { cursor: default; }
+
+    .tooltip {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      background: #1a1916;
+      color: #f5f4f1;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      padding: 8px 12px;
+      border-radius: 6px;
+      max-width: 320px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    }
+    .tooltip.visible { display: block; }
+    .tooltip a {
+      display: inline-block;
+      margin-top: 4px;
+      color: #93c5fd;
+      text-decoration: underline;
+    }
+
+    .page-footer { text-align: center; font-size: 0.8rem; color: var(--text-muted); padding: 32px 0 48px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="back-link" href="../">← AIPI 590 Project 1</a>
+      <span class="header-title">Requirements Checklist</span>
+    </div>
+  </header>
+
+  <div id="tooltip" class="tooltip"></div>
+
+  <main style="padding-bottom: 48px;">
+    <div class="container">
+      <div class="overall">
+        <div class="overall-row">
+          <span class="overall-pct">__TOTAL_PCT__%</span>
+          <span class="overall-label">__TOTAL_DONE__ of __TOTAL_ALL__ items complete</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:__TOTAL_PCT__%"></div></div>
+      </div>
+__SECTION_HTML__
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    Auto-generated from <code>REQUIREMENTS_CHECKLIST.md</code> · __GENERATED_AT__
+  </footer>
+
+  <script>
+    const tip = document.getElementById('tooltip');
+    let hideTimer;
+
+    function clearTooltip() {
+      while (tip.firstChild) tip.removeChild(tip.firstChild);
+    }
+
+    document.querySelectorAll('tr.has-source').forEach(row => {
+      const text = row.dataset.src;
+      const url = row.dataset.srcUrl;
+
+      row.addEventListener('mouseenter', () => {
+        clearTimeout(hideTimer);
+        clearTooltip();
+
+        const textNode = document.createElement('div');
+        textNode.textContent = text;
+        tip.appendChild(textNode);
+
+        if (url) {
+          const link = document.createElement('a');
+          link.href = url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = 'Open ↗';
+          tip.appendChild(link);
+        }
+
+        tip.classList.add('visible');
+        position(row);
+      });
+
+      row.addEventListener('mouseleave', () => {
+        hideTimer = setTimeout(() => tip.classList.remove('visible'), 200);
+      });
+    });
+
+    tip.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+    tip.addEventListener('mouseleave', () => tip.classList.remove('visible'));
+
+    function position(row) {
+      const pad = 8;
+      const rect = row.getBoundingClientRect();
+      const tw = tip.offsetWidth;
+      const th = tip.offsetHeight;
+      let x = rect.right + pad;
+      let y = rect.top;
+      if (x + tw > window.innerWidth - pad) x = rect.left - tw - pad;
+      if (y + th > window.innerHeight - pad) y = window.innerHeight - th - pad;
+      tip.style.left = x + 'px';
+      tip.style.top = y + 'px';
+    }
+  </script>
+</body>
+</html>

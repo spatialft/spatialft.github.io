@@ -160,9 +160,8 @@ The training set has more k=1 and k=2 examples; the adapter may have overfit sho
 
 **Takeaways**
 
-- Small models can pick up short-range spatial patterns with targeted tuning
-- Multi-hop generalization requires more than format-matched training data
-- StepGame's per-hop structure exposes trade-offs that an overall accuracy number hides
+- Targeted tuning can teach a small model some short-range spatial patterns, especially at k=1.
+- That same adapter does not generalize cleanly to multi-hop chaining, so overall accuracy hides the trade-off unless the results are broken out by hop level.
 
 **Repo:** [link]
 
