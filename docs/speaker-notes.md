@@ -65,9 +65,10 @@ the behavior we want to fix."
 
 ## Slide 7 — Training (~45 sec)
 
-"Training took about [X] minutes on a T4. [Point to loss curve.] Loss decreased steadily,
-which is what we want — no instability, no divergence. We ran 3 epochs on 4,000 examples.
-The LoRA adapter is about [X MB], which is a fraction of the base model size."
+"Training took about 34.7 minutes on a T4. [Point to loss curve.] Loss decreased steadily,
+which is what we want: no instability, no divergence. We ran 3 epochs on 4,000 examples.
+The LoRA adapter is about 11.5 megabytes, which is tiny compared with the base model and
+helps explain why this setup is easy to store, share, and rerun."
 
 ---
 
@@ -85,11 +86,13 @@ per-hop curve is the actual finding."
 
 ## Slide 9 — Analysis (~60 sec)
 
-"A few things worth noting. First, [mention the most interesting finding from your run].
-Second, there are still failure modes — [mention the most common error pattern you saw in
-spot-checking]. The two most obvious things that would improve results further are: one,
-reasoning-augmented training data where the completion includes intermediate steps, and two,
-more training examples at high k, since that's where
+"A few things worth noting. First, the adapter clearly learned something real at k equals 1:
+that jump from 16 to 34 percent is too large to ignore. Second, there are still failure
+modes. In spot-checking, many medium-hop mistakes collapse a diagonal answer into a simpler
+axis-aligned guess like 'above' or 'right.' That suggests the model is dropping part of the
+relation chain instead of composing all the steps. The two most obvious things that would
+improve results further are: one, reasoning-augmented training data where the completion
+includes intermediate steps, and two, more training examples at high k, since that's where
 the model struggles most. Both are straightforward extensions."
 
 ---

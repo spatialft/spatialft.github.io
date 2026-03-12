@@ -101,10 +101,11 @@ A 350M model with no spatial fine-tuning is close to random on this benchmark (1
 
 **Loss curve during fine-tuning**
 
-[Include training loss plot from Colab logs]
+<img src="../results/finetuned/loss_curve.png" alt="Training loss curve for LoRA fine-tuning" width="620" />
 
 - Training time: ~34.7 minutes on T4
 - Final training loss: ~0.006
+- LoRA adapter size: ~11.5 MB (`adapter_model.safetensors`)
 
 **What we trained on:**
 - Prompt: story + question (formatted with system instruction)
@@ -128,7 +129,7 @@ A 350M model with no spatial fine-tuning is close to random on this benchmark (1
 
 The adapter learns k=1 well, but at the cost of k=2–4. The 0.8pp overall gain is within noise (n=250).
 
-[Include full before/after bar chart — baseline vs fine-tuned per hop level]
+<img src="../results/comparison.png" alt="Baseline and fine-tuned accuracy by hop level" width="620" />
 
 ---
 
@@ -142,6 +143,9 @@ The adapter learns k=1 well, but at the cost of k=2–4. The 0.8pp overall gain 
 
 **Likely cause:**
 The training set has more k=1 and k=2 examples; the adapter may have overfit short-context patterns at the expense of the intermediate hop range.
+
+**Observed failure pattern:**
+On medium-hop questions, wrong answers often collapse diagonal relations into simpler axis-aligned guesses like `above` or `right`, which suggests the model is dropping part of the relation chain instead of composing it.
 
 **What would help further:**
 - Chain-of-thought training data (step-by-step reasoning)
