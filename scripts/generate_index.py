@@ -93,7 +93,7 @@ def render_scores_section(baseline: dict | None, finetuned: dict | None) -> str:
       <div class="chart-wrap">
         <img
           class="comparison-chart"
-          src="./results/comparison.png"
+          src="./assets/comparison.png"
           alt="Baseline and fine-tuned accuracy by hop level"
         />
       </div>
@@ -112,7 +112,7 @@ def render_training_section(finetuned: dict | None) -> str:
       <div class="chart-wrap training-wrap">
         <img
           class="training-chart"
-          src="./results/finetuned/loss_curve.png"
+          src="./assets/loss-curve.png"
           alt="Training loss curve during LoRA fine-tuning"
         />
       </div>

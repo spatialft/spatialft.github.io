@@ -18,7 +18,7 @@ That command:
 After exporting:
 
 1. upload the quantized GGUF to a Hugging Face repo
-2. add a new model entry in `lm-arena.github.io/config/models.py`
+2. add a new model entry in `config/models.py` in the `lm-arena.github.io` repository
 3. set `hf_repo` to that repo and `hf_file` to the GGUF filename
 
 Example `lm-arena` config values:
