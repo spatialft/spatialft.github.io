@@ -1,6 +1,8 @@
 .DEFAULT_GOAL := help
 
-.PHONY: checklist index generate deploy help
+.PHONY: checklist index generate deploy colab-pat help
+
+GITHUB_COLAB_PAT_URL := https://github.com/settings/personal-access-tokens/new?name=SpatialFT%20Colab&description=Colab%20token%20for%20spatialft.github.io&target_name=spatialft&expires_in=30&contents=write
 
 checklist:
 	python3 scripts/generate_checklist.py
@@ -26,6 +28,17 @@ deploy: generate
 	(git diff --cached --quiet && echo "Nothing to deploy — site is up to date." || \
 		(git commit -m "regen site" && git push origin gh-pages))
 
+colab-pat:
+	@url='$(GITHUB_COLAB_PAT_URL)'; \
+	if command -v open >/dev/null 2>&1; then \
+		open "$$url"; \
+	elif command -v xdg-open >/dev/null 2>&1; then \
+		xdg-open "$$url"; \
+	else \
+		printf '%s\n' "$$url"; \
+	fi
+	@echo "GitHub will still ask you to confirm repository access. Select spatialft.github.io, create the token, then save it in Colab secrets as GITHUB_TOKEN."
+
 help:
 	@echo ""
 	@echo "\033[2mContent\033[0m"
@@ -35,4 +48,5 @@ help:
 	@echo ""
 	@echo "\033[2mDeploy\033[0m"
 	@echo "  \033[36mdeploy\033[0m     Push full site to gh-pages (fallback if CI unavailable)"
+	@echo "  \033[36mcolab-pat\033[0m  Open the fine-grained GitHub PAT form for Colab publishing"
 	@echo ""
