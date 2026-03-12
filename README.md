@@ -33,6 +33,7 @@ notebooks/
 src/
   dataset.py    StepGame loading + prompt formatting
   eval.py       accuracy evaluation logic (includes per-hop breakdown)
+  colab_utils.py shared Colab bootstrap, shared-storage, and GitHub publish helpers
 results/
   baseline/     baseline predictions (gitignored) + scores
   finetuned/    fine-tuned predictions (gitignored) + scores
@@ -52,8 +53,12 @@ Each notebook has an **Open in Colab** badge at the top. Run 02 first (it genera
 
 1. `02_dataset_prep` — downloads StepGame, saves splits to `data/`
 2. `01_baseline_eval` — measures baseline accuracy
-3. `03_finetune` — LoRA fine-tunes the model, saves adapter to Google Drive
+3. `03_finetune` — LoRA fine-tunes the model, saves the adapter locally in `results/finetuned/lora_adapter/`
 4. `04_eval_comparison` — evaluates fine-tuned model, exports examples
+
+The notebooks share common Colab setup through `src/colab_utils.py`. If you set a Colab
+secret named `GITHUB_TOKEN`, each notebook that generates committed artifacts can push them
+to `main` directly from its final cell.
 
 After running 01 and 04, commit `results/*/scores.json` and `results/examples.json` to update the [live results page](https://spatialft.github.io/).
 
