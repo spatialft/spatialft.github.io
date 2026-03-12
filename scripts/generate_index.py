@@ -421,19 +421,27 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list | None)
       const datasets = [{{
         label: 'Baseline',
         data: chartData.baseK,
-        backgroundColor: '#94a3b8',
-        borderRadius: 4,
+        borderColor: '#94a3b8',
+        backgroundColor: 'rgba(148, 163, 184, 0.18)',
+        tension: 0.25,
+        fill: false,
+        pointRadius: 3,
+        pointHoverRadius: 5,
       }}];
       if (chartData.hasFinetune) {{
         datasets.push({{
           label: 'Fine-tuned',
           data: chartData.ftK,
-          backgroundColor: '#2563eb',
-          borderRadius: 4,
+          borderColor: '#2563eb',
+          backgroundColor: 'rgba(37, 99, 235, 0.18)',
+          tension: 0.25,
+          fill: false,
+          pointRadius: 3,
+          pointHoverRadius: 5,
         }});
       }}
       new Chart(ctx, {{
-        type: 'bar',
+        type: 'line',
         data: {{
           labels: chartData.kLabels,
           datasets,
