@@ -5,7 +5,6 @@ __pycache__/
 # only large binary/tabular formats excluded
 data/raw/*.csv
 data/raw/*.parquet
-results/baseline/predictions.json
 results/finetuned/predictions.json
 results/finetuned/checkpoint/
 *.egg-info/

@@ -35,7 +35,7 @@ src/
   eval.py       accuracy evaluation logic (includes per-hop breakdown)
   colab_utils.py shared Colab bootstrap, shared-storage, and GitHub publish helpers
 results/
-  baseline/     baseline predictions (gitignored) + scores
+  baseline/     baseline predictions + scores
   finetuned/    fine-tuned predictions (gitignored) + scores
   examples.json showcase examples for the landing page
 scripts/
@@ -60,7 +60,7 @@ The notebooks share common Colab setup through `src/colab_utils.py`. If you set 
 secret named `GITHUB_TOKEN`, each notebook that generates committed artifacts can push them
 to `main` directly from its final cell.
 
-After running 01 and 04, commit `results/*/scores.json` and `results/examples.json` to update the [live results page](https://spatialft.github.io/).
+After running 01 and 04, commit the generated baseline predictions, scores, and examples to update the [live results page](https://spatialft.github.io/).
 
 ## Results
 
