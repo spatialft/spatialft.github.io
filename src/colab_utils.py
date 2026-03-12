@@ -53,8 +53,9 @@ def require_local_adapter(repo_root: str | Path = DEFAULT_REPO_DIR) -> Path:
     if adapter_dir.exists():
         return adapter_dir
     raise FileNotFoundError(
-        "LoRA adapter not found in the repo workspace. Run notebook 03 before notebook 04 "
-        f"so the adapter exists at {adapter_dir}."
+        "LoRA adapter not found in the repo workspace. Run notebook 03 and publish the "
+        "adapter, then pull latest main in notebook 04 so the adapter exists at "
+        f"{adapter_dir}."
     )
 
 

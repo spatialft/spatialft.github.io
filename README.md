@@ -53,8 +53,8 @@ Each notebook has an **Open in Colab** badge at the top. Run 02 first (it genera
 
 1. `02_dataset_prep` — downloads StepGame, saves splits to `data/`
 2. `01_baseline_eval` — measures baseline accuracy
-3. `03_finetune` — LoRA fine-tunes the model, saves the adapter locally in `results/finetuned/lora_adapter/`
-4. `04_eval_comparison` — evaluates fine-tuned model, exports examples
+3. `03_finetune` — LoRA fine-tunes the model, saves the adapter in `results/finetuned/lora_adapter/`, and can publish it to GitHub
+4. `04_eval_comparison` — pulls latest `main`, loads the published adapter, evaluates the fine-tuned model, and exports examples
 
 The notebooks share common Colab setup through `src/colab_utils.py`. If you set a Colab
 secret named `GITHUB_TOKEN`, each notebook that generates committed artifacts can push them

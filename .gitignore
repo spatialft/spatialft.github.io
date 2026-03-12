@@ -8,7 +8,6 @@ data/raw/*.parquet
 results/baseline/predictions.json
 results/finetuned/predictions.json
 results/finetuned/checkpoint/
-results/finetuned/lora_adapter/
 *.egg-info/
 .env
 .worktrees/
