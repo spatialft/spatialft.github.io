@@ -5,7 +5,7 @@
 
 ## Overview
 
-Fine-tune **LiquidAI/LFM2.5-1.2B-Thinking** on spatial reasoning, measure improvement on
+Fine-tune **LiquidAI/LFM2-350M** on spatial reasoning, measure improvement on
 StepGame, and present findings in a 10-minute live presentation.
 
 ## Files in this directory
@@ -21,15 +21,15 @@ StepGame, and present findings in a 10-minute live presentation.
 
 ## Phase 1 — Setup (do this first)
 
-- [ ] Verify `LiquidAI/LFM2.5-1.2B-Thinking` exists on HuggingFace
-      - If only `-Instruct` is available, use that and note it in the presentation
+- [ ] Verify `LiquidAI/LFM2-350M` exists on HuggingFace
+      - If unavailable, use `LiquidAI/LFM2-700M` and note it in the presentation
       - Check: https://huggingface.co/LiquidAI
 - [ ] Dataset: `ZhengyanShi/StepGame` on HuggingFace (confirmed working)
 - [ ] Open a free Colab notebook, confirm T4 GPU is available
 - [ ] Run `pip install -r requirements.txt` and confirm no conflicts
-- [ ] Confirm Unsloth supports LFM2.5 architecture (check their GitHub issues/README)
-      - Unsloth works best with Llama/Mistral/Qwen architectures
-      - LFM2.5 is a liquid neural network — may need fallback to standard HF + PEFT
+- [ ] Confirm the training path supports `LiquidAI/LFM2-350M`
+      - Prefer the existing `transformers` + `peft` notebook path
+      - If an accelerated path works, treat it as optional rather than required
 
 ## Phase 2 — Baseline evaluation
 
@@ -43,7 +43,7 @@ StepGame, and present findings in a 10-minute live presentation.
 - [ ] Run `notebooks/02_dataset_prep.ipynb`
 - [ ] Confirm 4000 training / 250 eval examples (stratified across k=1–5) loaded correctly
 - [ ] Inspect formatted prompts — ensure they match the model's expected chat template
-- [ ] If LFM2.5 uses a different chat template than `<|im_start|>`, update `src/dataset.py`
+- [ ] If LFM2-350M uses a different chat template than `<|im_start|>`, update `src/dataset.py`
 
 ## Phase 4 — Fine-tuning
 
@@ -70,8 +70,8 @@ StepGame, and present findings in a 10-minute live presentation.
 
 | Decision | Choice | Reason |
 |----------|--------|--------|
-| Property | Spatial reasoning | Measurable, well-benchmarked, LFM "Thinking" angle |
-| Model | LFM2.5-1.2B-Thinking | Novel architecture, small enough for T4, Colab-friendly |
+| Property | Spatial reasoning | Measurable, well-benchmarked, clear difficulty gradient |
+| Model | LFM2-350M | Fastest model in the project setup, cheap to iterate, edge-friendly |
 | Dataset | StepGame | Multi-hop structure gives clear difficulty gradient |
-| Fine-tuning | LoRA via Unsloth | Memory efficient, fast on T4 |
+| Fine-tuning | LoRA via PEFT | Memory efficient and architecture-agnostic |
 | Evaluation metric | Accuracy per hop level k | Reveals where improvement occurs |

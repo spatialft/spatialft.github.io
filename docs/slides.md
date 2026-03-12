@@ -6,8 +6,8 @@
 
 ## Slide 1 — Title
 
-**Can a 1B Model Learn to Think in Space?**
-Fine-Tuning LFM2.5-1.2B for Spatial Reasoning
+**Can a 350M Model Learn Spatial Reasoning?**
+Fine-Tuning LFM2-350M for Spatial Reasoning
 
 > AIPI 590.03 — Project 1
 > Jonas Neves · Daniel Ros · Keming Zhou
@@ -27,18 +27,18 @@ Fine-Tuning LFM2.5-1.2B for Spatial Reasoning
 > "Alice is to the left of Bob. Bob is above Carol. Dave is to the right of Alice.
 > What is the relationship between Dave and Carol?"
 
-A 1B model must chain multiple relations without losing track.
+A 350M model must chain multiple relations without losing track.
 
 ---
 
-## Slide 3 — The Model: LFM2.5-1.2B-Thinking
+## Slide 3 — The Model: LFM2-350M
 
 **Why this model?**
 
-- Novel **Liquid Neural Network** architecture (not a transformer)
-- 1.2B parameters — fits on a free Colab T4 GPU
-- **Thinking** variant adds explicit reasoning traces at inference
-- Trending on HuggingFace — frontier of small-model research
+- 354M parameters — materially smaller and faster to iterate on
+- 32k context window with an edge-focused LFM2 architecture
+- Good fit for on-device and low-latency deployment constraints
+- Stronger experimental story: can a very small model learn the task after tuning?
 
 [Include screenshot of HuggingFace model card]
 
@@ -68,7 +68,7 @@ A 1B model must chain multiple relations without losing track.
 **Pipeline:** Baseline eval → Dataset prep → LoRA fine-tuning → Re-eval → Compare
 
 **Fine-tuning approach:**
-- LoRA (rank 16) via Unsloth — 4-bit quantized, T4-compatible
+- LoRA (rank 16) via `transformers` + `peft` — 4-bit quantized, T4-compatible
 - 3 epochs, batch size 4 + gradient accumulation
 - Learning rate 2e-4 with warmup
 
@@ -92,7 +92,7 @@ A 1B model must chain multiple relations without losing track.
 | k=5 | 18% |
 | **Overall** | **40.4%** |
 
-Key observation: accuracy drops sharply as k increases — the model loses
+Key observation: accuracy drops sharply as k increases. The model loses
 track of the chain.
 
 [Include bar chart — baseline accuracy per hop level]
@@ -111,7 +111,7 @@ track of the chain.
 **What we trained on:**
 - Prompt: story + question (formatted with system instruction)
 - Completion: correct direction label
-- Optional: chain-of-thought reasoning steps
+- Optional: reasoning-augmented completions if direct-answer tuning plateaus
 
 ---
 
@@ -157,7 +157,7 @@ track of the chain.
 
 **Summary**
 
-- LFM2.5-1.2B shows measurable baseline spatial reasoning capability
+- LFM2-350M shows how far a very small edge model can be pushed with targeted tuning
 - LoRA fine-tuning on 4,000 examples improved accuracy by ~X% overall
 - Gains are [larger/smaller/consistent] across hop levels
 
@@ -165,7 +165,7 @@ track of the chain.
 
 - Fine-tuning a small model on domain-specific data is practical and effective
 - StepGame's k-hop structure makes evaluation principled and reproducible
-- Liquid neural networks are a viable alternative architecture for targeted fine-tuning
+- Small, fast edge models can still benefit from focused fine-tuning
 
 **Repo:** [link]
 

@@ -4,11 +4,11 @@
 [![Checklist](https://img.shields.io/badge/requirements-checklist-blue)](https://spatialft.github.io/checklist/)
 [![Site](https://img.shields.io/badge/site-spatialft.github.io-green)](https://spatialft.github.io/)
 
-Fine-tune **LiquidAI/LFM2.5-1.2B-Thinking** to improve spatial reasoning, measure baseline performance, then re-evaluate to show improvement.
+Fine-tune **LiquidAI/LFM2-350M** to improve spatial reasoning, measure baseline performance, then re-evaluate to show improvement.
 
 ## Property: Spatial Reasoning
 
-Small models struggle to reliably track multi-hop directional relationships ("A is left of B, B is above C — where is A relative to C?"). This project measures that capability, fine-tunes on chain-of-thought spatial data, and re-evaluates.
+Small models struggle to reliably track multi-hop directional relationships ("A is left of B, B is above C. Where is A relative to C?"). This project measures that capability, fine-tunes on StepGame spatial QA examples, and re-evaluates.
 
 ## Dataset
 
@@ -16,7 +16,7 @@ Small models struggle to reliably track multi-hop directional relationships ("A 
 
 ## Model
 
-`LiquidAI/LFM2.5-1.2B-Thinking` — LoRA fine-tuning on a single T4 GPU. Uses [Unsloth](https://github.com/unslothai/unsloth) when the architecture is supported, falling back to `transformers`+`peft` otherwise.
+`LiquidAI/LFM2-350M` — a 354M-parameter LFM2 checkpoint optimized for low-latency edge deployment. The smaller model makes baseline evaluation and LoRA iteration cheaper while staying easy to run on a single T4 GPU with `transformers` + `peft`.
 
 ## Project structure
 
@@ -28,7 +28,7 @@ data/                       committed for reproducibility (JSON splits only)
 notebooks/
   01_baseline_eval.ipynb    measure baseline accuracy
   02_dataset_prep.ipynb     download StepGame, prepare fine-tuning data
-  03_finetune.ipynb         LoRA fine-tuning (Unsloth or transformers+peft)
+  03_finetune.ipynb         LoRA fine-tuning with transformers+peft
   04_eval_comparison.ipynb  compare before vs after, export examples
 src/
   dataset.py    StepGame loading + prompt formatting

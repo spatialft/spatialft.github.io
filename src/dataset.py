@@ -15,7 +15,7 @@ SYSTEM_PROMPT = (
     "You are a spatial reasoning assistant. "
     "Given a sequence of positional relationships between objects, "
     "determine the spatial relationship between two specified objects. "
-    "Think step by step, then answer with a single direction from: "
+    "Answer with a single direction from: "
     "left, right, above, below, upper-left, upper-right, lower-left, lower-right."
 )
 
@@ -48,10 +48,11 @@ def format_for_training(example: dict[str, Any]) -> dict[str, str]:
 def extract_answer(text: str) -> str | None:
     """Extract the direction answer from model output.
 
-    Strips <think>...</think> blocks emitted by the Thinking model before scanning.
+    Strips optional <think>...</think> blocks before scanning so evaluation
+    stays robust across base models and adapters.
     """
     text = text.strip().lower()
-    # Strip thinking block emitted by LFM2.5-1.2B-Thinking
+    # Keep evaluation tolerant of adapters that emit hidden reasoning tags.
     text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
     if text in DIRECTIONS:
         return text

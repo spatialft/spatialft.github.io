@@ -1,6 +1,6 @@
 # CLAUDE.md — spatialft.github.io
 
-AIPI 590.03 Intelligent Agents — Project 1: fine-tune **LiquidAI/LFM2.5-1.2B-Thinking** to improve spatial reasoning, measure baseline accuracy, then re-evaluate to show improvement.
+AIPI 590.03 Intelligent Agents — Project 1: fine-tune **LiquidAI/LFM2-350M** to improve spatial reasoning, measure baseline accuracy, then re-evaluate to show improvement.
 
 ## Project structure
 

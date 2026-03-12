@@ -66,8 +66,8 @@ def evaluate() -> dict[str, bool]:
         "PROP3": baseline_ok,  # metric is defined when baseline scores exist
 
         # Model selection
-        "MOD1": "LFM2.5" in readme or "LFM2.5" in claude_md,
-        "MOD2": True,  # LFM2.5-1.2B is 1.2B parameters — always satisfied
+        "MOD1": "LFM2-350M" in readme or "LFM2-350M" in claude_md,
+        "MOD2": True,  # LFM2-350M is 354M parameters — always satisfied
         "MOD3": "trainer.train()" in nb03 or "SFTTrainer" in nb03,  # local fine-tuning, not API
 
         # Evaluation design

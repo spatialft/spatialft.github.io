@@ -6,9 +6,9 @@ Target: 10 minutes. Each slide ~1 minute. Keep transitions brisk.
 
 ## Slide 1 — Title (~20 sec)
 
-"For project 1, we looked at spatial reasoning — specifically, whether a 1-billion-parameter
+"For project 1, we looked at spatial reasoning. Specifically, whether a 350-million-parameter
 model can learn to chain together multiple positional relationships. We used LiquidAI's
-LFM2.5, which is a novel architecture that's been getting attention on HuggingFace."
+LFM2-350M because it is small, fast, and realistic for edge deployment."
 
 ---
 
@@ -25,12 +25,10 @@ level, measure, improve, compare."
 
 ## Slide 3 — The Model (~75 sec)
 
-"Most fine-tuning projects use Llama or Qwen. We went with LFM2.5 from LiquidAI. It's
-based on liquid neural networks — a continuous-time architecture originally developed at
-MIT — rather than the standard transformer. At 1.2B parameters it runs on a free Colab T4,
-and LiquidAI released a 'Thinking' variant that produces explicit reasoning steps. That
-made it a natural fit for a task where reasoning chains matter. It was also trending on
-HuggingFace at the time of this project, which is a useful signal that it's well-maintained."
+"Most fine-tuning projects use Llama or Qwen. We went with LFM2-350M from LiquidAI because
+the smaller checkpoint gives us a harder and more practical test. If fine-tuning helps here,
+the result is useful for fast, low-cost deployments. It also keeps the full project easy to
+run on a free Colab T4 without stretching memory or runtime."
 
 ---
 
@@ -46,12 +44,12 @@ see exactly where the model starts to break down, and where fine-tuning helps mo
 
 ## Slide 5 — Methodology (~60 sec)
 
-"The pipeline is straightforward. Baseline eval first — always measure before you touch
+"The pipeline is straightforward. Baseline eval first. Always measure before you touch
 anything. Then we prepared the data using the StepGame dataset, formatted it with the
-model's chat template, and ran LoRA fine-tuning using Unsloth. LoRA is a parameter-efficient
+model's chat template, and ran LoRA fine-tuning using PEFT. LoRA is a parameter-efficient
 method that adds small adapter matrices to the frozen base model — so we're not retraining
-1.2 billion parameters, we're training maybe 10 million. Unsloth cuts memory by about 70%
-and speeds training up 2x, which is why the whole thing fits on a T4."
+the full base model, we're training a small set of adapter weights. That is why the whole
+thing stays cheap and easy to rerun on a T4."
 
 ---
 
@@ -89,8 +87,8 @@ are consistently higher, with the gap [widening/narrowing] at harder hop levels.
 "A few things worth noting. First, [mention the most interesting finding from your run].
 Second, there are still failure modes — [mention the most common error pattern you saw in
 spot-checking]. The two most obvious things that would improve results further are: one,
-chain-of-thought training data where the completion includes step-by-step reasoning rather
-than just the final answer, and two, more training examples at high k, since that's where
+reasoning-augmented training data where the completion includes intermediate steps, and two,
+more training examples at high k, since that's where
 the model struggles most. Both are straightforward extensions."
 
 ---
@@ -98,7 +96,7 @@ the model struggles most. Both are straightforward extensions."
 ## Slide 10 — Conclusions (~45 sec)
 
 "To wrap up: we picked spatial reasoning as a measurable, practically relevant property.
-We fine-tuned a novel 1.2B liquid neural network on 4,000 examples using efficient LoRA
+We fine-tuned a 350M LiquidAI model on 4,000 examples using efficient LoRA
 training. We got a [X]% improvement overall, with clear gains across hop levels. The main
 lesson is that targeted fine-tuning on a focused dataset moves the needle even at small
 scale. The repo is at [link] — all four notebooks are runnable end to end on a free Colab
@@ -127,16 +125,16 @@ T4. Thanks."
 ## Common questions to prepare for
 
 **"Why not just use a bigger model?"**
-The point is fine-tuning — a 1.2B model with targeted training should outperform a larger
-base model on this specific task. That's the value of fine-tuning.
+The point is fine-tuning. A 350M model is cheap, fast, and realistic for deployment, so the
+question is how much task-specific accuracy we can recover with targeted training.
 
 **"Why LoRA instead of full fine-tuning?"**
-Memory. Full fine-tuning a 1.2B model in float16 needs ~12GB just for weights. LoRA
-with 4-bit quantization uses ~4GB total, fitting on a free T4.
+Memory and speed. LoRA with 4-bit loading keeps the experiment lightweight and repeatable on
+free Colab hardware.
 
-**"Why LFM2.5 specifically?"**
-It's a genuine alternative architecture to transformers, which makes for a more interesting
-project. The Thinking variant also aligns with the multi-hop nature of the task.
+**"Why LFM2-350M specifically?"**
+It is the smallest model in the family that still has a serious instruction-tuned release.
+That makes it the best test of whether focused fine-tuning can rescue a very constrained model.
 
 **"How do you know the eval set isn't in the training set?"**
 StepGame examples are generated programmatically. We shuffled and split before formatting,

@@ -2,16 +2,18 @@
 
 ## Model
 
-### Primary: LiquidAI/LFM2.5-1.2B-Thinking
+### Primary: LiquidAI/LFM2-350M
 - Check availability at https://huggingface.co/LiquidAI before committing
-- The `-Thinking` variant adds chain-of-thought reasoning at inference time
-- If unavailable, fall back to `LiquidAI/LFM2.5-1.2B-Instruct` and note it
+- 354M parameters, 32k context, and explicitly positioned for edge deployment
+- Better fit for this project if the goal is cheap iteration and fast inference
+- If unavailable, fall back to `LiquidAI/LFM2-700M` and note the swap
 
 ### Unsloth compatibility risk
-Unsloth optimizes Llama/Mistral/Qwen architectures natively. LFM2.5 uses a liquid neural
-network (LNN) architecture, which may not be recognized.
+LFM2 uses LiquidAI's hybrid architecture rather than a standard Llama-style stack. Keep
+the `transformers` + `peft` path as the default implementation unless you confirm the exact
+checkpoint works in your Colab runtime.
 
-**If Unsloth rejects LFM2.5:**
+**If an accelerated path fails:**
 ```python
 # Fall back to standard PEFT without Unsloth
 from peft import get_peft_model, LoraConfig
@@ -22,9 +24,10 @@ model = get_peft_model(base_model, config)
 ```
 This is slower but will work on any HF-compatible model.
 
-**Alternative model if LFM2.5 proves incompatible:**
-- `Qwen/Qwen3-0.6B` or `Qwen/Qwen3-1.7B` — Unsloth-native, strong baselines
-- `meta-llama/Llama-3.2-1B-Instruct` — proven, widely documented
+**Alternative model if LFM2-350M proves too weak:**
+- `LiquidAI/LFM2-700M` — same family, more headroom
+- `Qwen/Qwen3-0.6B` — strong baseline in a similar size class
+- `meta-llama/Llama-3.2-1B-Instruct` — mature fallback with broad tooling support
 
 The presentation story changes slightly but the methodology stays the same.
 
@@ -35,20 +38,21 @@ The presentation story changes slightly but the methodology stays the same.
 ### StepGame
 - Original paper: "StepGame: A New Benchmark for Robust Multi-Hop Spatial Reasoning in Texts"
 - k-hop difficulty: k=1 is a single relation ("A is left of B"), k=10 requires chaining 10 steps
-- Measured baseline (LFM2.5-1.2B-Thinking): 62% at k=1, dropping to 18% at k=5 (eval covers k=1..5)
+- Expect the 350M baseline to be materially weaker than larger checkpoints, especially at higher k
 - 4000 training examples is sufficient for meaningful LoRA improvement
 
 ### Prompt format
 The default prompt in `src/dataset.py` uses the ChatML format (`<|im_start|>`).
-Check what format LFM2.5 expects — it may differ. Look for `tokenizer.chat_template`
+Check what format LFM2 expects. Look for `tokenizer.chat_template`
 after loading:
 ```python
 print(tokenizer.chat_template)
 ```
 If it prints a different template, update `format_prompt()` in `src/dataset.py` accordingly.
 
-### Chain-of-thought augmentation (optional, improves results significantly)
-Instead of just training on `answer`, include a reasoning chain in the completion:
+### Reasoning augmentation (optional)
+Start with direct-answer supervision because it matches the lightweight deployment goal.
+If accuracy stalls, include a reasoning chain in the completion:
 ```
 The story says A is left of B, and B is above C.
 Step 1: A is left of B → A.x < B.x
@@ -76,8 +80,8 @@ Defaults in notebook 3 are conservative and should work. If you see issues:
 | Loss drops then spikes | Add `weight_decay=0.01` |
 | Very slow convergence | Increase `lora_alpha` to `LORA_RANK * 4` |
 
-LoRA rank 16 is a good default for a 1.2B model. If you have time for ablations,
-try rank 8 (faster, slightly lower quality) and rank 32 (slower, potentially better).
+LoRA rank 16 is a good default for a 350M model. If you have time for ablations,
+try rank 8 for a lighter adapter and rank 32 if the baseline underfits.
 
 ---
 
@@ -116,6 +120,6 @@ print(f"{acc:.3f} ± {ci:.3f}")
   drive.mount('/content/drive')
   OUTPUT_DIR = '/content/drive/MyDrive/aipi590/checkpoint'
   ```
-- Colab T4 has 15GB VRAM. 4-bit quantized 1.2B + LoRA uses ~4GB — well within limits.
+- Colab T4 has 15GB VRAM. 4-bit quantized 350M + LoRA should fit comfortably.
 - Colab free tier disconnects after ~90 minutes idle. Notebook 3 training at 4000 examples
-  should complete in ~30-45 minutes.
+  should complete faster than larger-model variants of the same workflow.
