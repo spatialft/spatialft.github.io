@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SpatialFT — AIPI 590.03</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -149,6 +148,50 @@
       box-shadow: var(--shadow);
     }
 
+    .comparison-chart {
+      display: block;
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    .training-wrap {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .training-chart {
+      display: block;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    .training-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: .75rem;
+    }
+
+    .training-stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .9rem 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .training-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -.02em;
+    }
+
     .pending-msg {
       background: var(--surface);
       border: 1px dashed var(--border);
@@ -275,6 +318,7 @@
 
   <main>
 __SCORES_SECTION__
+__TRAINING_SECTION__
 __EXAMPLES_SECTION__
   </main>
 
@@ -283,7 +327,6 @@ __EXAMPLES_SECTION__
   </footer>
 
   <script>
-    const chartData = __CHART_DATA__;
     const examples = __EXAMPLES_JSON__;
 
     const outcomeLabels = {
@@ -292,54 +335,6 @@ __EXAMPLES_SECTION__
       stable_correct: 'Both correct',
       stable_wrong: 'Both wrong',
     };
-
-    if (chartData.kLabels.length > 0) {
-      const ctx = document.getElementById('hopChart').getContext('2d');
-      const datasets = [{
-        label: 'Baseline',
-        data: chartData.baseK,
-        backgroundColor: 'rgba(148, 163, 184, 0.65)',
-        borderColor: '#94a3b8',
-        borderWidth: 1,
-      }];
-      if (chartData.hasFinetune) {
-        datasets.push({
-          label: 'Fine-tuned',
-          data: chartData.ftK,
-          backgroundColor: 'rgba(37, 99, 235, 0.75)',
-          borderColor: '#2563eb',
-          borderWidth: 1,
-        });
-      }
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: chartData.kLabels,
-          datasets,
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { position: 'top' },
-            title: {
-              display: true,
-              text: 'Accuracy by Hop Level (k)',
-              font: { size: 13, weight: '600' },
-              color: '#1a202c',
-            },
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
-              ticks: { callback: v => v + '%' },
-              grid: { color: '#f1f5f9' },
-            },
-            x: { grid: { display: false } },
-          },
-        },
-      });
-    }
 
     const grid = document.getElementById('exampleGrid');
     if (grid && examples.length > 0) {

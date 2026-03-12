@@ -57,9 +57,6 @@ def render_scores_section(baseline: dict | None, finetuned: dict | None) -> str:
           <div class="score-value muted">—</div>
         </div>
       </div>
-      <div class="chart-wrap">
-        <canvas id="hopChart"></canvas>
-      </div>
       <p class="pending-note">Fine-tuning in progress. Run notebooks 03 and 04 in Colab.</p>
     </section>
 """
@@ -94,7 +91,44 @@ def render_scores_section(baseline: dict | None, finetuned: dict | None) -> str:
         baseline {baseline_ci}, fine-tuned {finetuned_ci}. Treat the {delta_str}% overall change as exploratory.
       </p>
       <div class="chart-wrap">
-        <canvas id="hopChart"></canvas>
+        <img
+          class="comparison-chart"
+          src="./results/comparison.png"
+          alt="Baseline and fine-tuned accuracy by hop level"
+        />
+      </div>
+    </section>
+"""
+
+
+def render_training_section(finetuned: dict | None) -> str:
+    if finetuned is None:
+        return ""
+
+    return """
+    <section class="training">
+      <h2>Training Details</h2>
+      <p class="subtitle">Loss decreased steadily over 3 epochs, so optimization was stable. That stability did not translate into a strong overall evaluation gain.</p>
+      <div class="chart-wrap training-wrap">
+        <img
+          class="training-chart"
+          src="./results/finetuned/loss_curve.png"
+          alt="Training loss curve during LoRA fine-tuning"
+        />
+      </div>
+      <div class="training-stats">
+        <div class="training-stat">
+          <div class="score-label">Training Time</div>
+          <div class="training-value">34.7 min</div>
+        </div>
+        <div class="training-stat">
+          <div class="score-label">Final Loss</div>
+          <div class="training-value">~0.006</div>
+        </div>
+        <div class="training-stat">
+          <div class="score-label">Adapter Size</div>
+          <div class="training-value">11.5 MB</div>
+        </div>
       </div>
     </section>
 """
@@ -142,32 +176,6 @@ def render_template(template: str, replacements: dict[str, str]) -> str:
 
 def render(baseline: dict | None, finetuned: dict | None, examples: list[Any] | None) -> str:
     has_baseline = baseline is not None
-    has_scores = has_baseline and finetuned is not None
-
-    if has_baseline:
-        key_source = list(baseline.keys())
-        if has_scores:
-            key_source += list(finetuned.keys())
-        k_keys = sorted(
-            {key for key in key_source if key.startswith("accuracy_k")},
-            key=lambda key: int(key.replace("accuracy_k", "")),
-        )
-        k_labels = [key.replace("accuracy_", "") for key in k_keys]
-        base_k = [round(baseline.get(key, 0) * 100, 1) for key in k_keys]
-        ft_k = [round(finetuned.get(key, 0) * 100, 1) for key in k_keys] if has_scores else []
-    else:
-        k_labels = []
-        base_k = []
-        ft_k = []
-
-    chart_data = json.dumps(
-        {
-            "kLabels": k_labels,
-            "baseK": base_k,
-            "ftK": ft_k,
-            "hasFinetune": has_scores,
-        }
-    )
     examples_json = json.dumps(examples or [])
     template = TEMPLATE.read_text()
 
@@ -175,8 +183,8 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list[Any] | 
         template,
         {
             "__SCORES_SECTION__": render_scores_section(baseline, finetuned),
+            "__TRAINING_SECTION__": render_training_section(finetuned),
             "__EXAMPLES_SECTION__": render_examples_section(examples, has_baseline),
-            "__CHART_DATA__": chart_data,
             "__EXAMPLES_JSON__": examples_json,
         },
     )
