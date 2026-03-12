@@ -47,8 +47,8 @@
 
 ## 6. Results & Discussion
 
-- [ ] **RES1** — Quantitative before/after comparison reported
-- [ ] **RES2** — Per-category breakdown of results
+- [x] **RES1** — Quantitative before/after comparison reported
+- [x] **RES2** — Per-category breakdown of results
 - [ ] **RES3** — Analysis of what worked and what did not
 - [ ] **RES4** — Conclusions drawn about fine-tuning effectiveness
 - [ ] **RES5** — If no improvement: detailed explanation of why and what could be done differently
