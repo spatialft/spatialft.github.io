@@ -16,7 +16,7 @@ Small models struggle to reliably track multi-hop directional relationships ("A 
 
 ## Model
 
-`LiquidAI/LFM2-350M`: a 354M-parameter LFM2 checkpoint chosen because it is cheap to iterate on and small enough to fine-tune on a single T4 GPU with `transformers` + `peft`. That keeps the project close to an edge-deployment setting without treating deployment claims as the result.
+`LiquidAI/LFM2-350M`: a 354M-parameter LFM2 checkpoint. It fits on a single T4 GPU with `transformers` + `peft`, which keeps iteration fast and stays close to an edge-deployment setting without treating deployment claims as the result.
 
 ## Project structure
 
