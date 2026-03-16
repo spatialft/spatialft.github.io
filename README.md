@@ -3,6 +3,7 @@
 [![Deploy](https://github.com/spatialft/spatialft.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/spatialft/spatialft.github.io/actions/workflows/deploy.yml)
 [![Checklist](https://img.shields.io/badge/requirements-checklist-blue)](https://spatialft.github.io/checklist/)
 [![Site](https://img.shields.io/badge/site-spatialft.github.io-green)](https://spatialft.github.io/)
+[![Model](https://img.shields.io/badge/%F0%9F%A4%97-GGUF_Model-yellow)](https://huggingface.co/spatialft/LFM2-350M-StepGame-GGUF)
 
 Fine-tune **LiquidAI/LFM2-350M** to improve spatial reasoning, measure baseline performance, then re-evaluate to show improvement.
 
@@ -17,6 +18,8 @@ Small models struggle to reliably track multi-hop directional relationships ("A 
 ## Model
 
 `LiquidAI/LFM2-350M`: a 354M-parameter LFM2 checkpoint. It fits on a single T4 GPU with `transformers` + `peft`, which keeps iteration fast and stays close to an edge-deployment setting without treating deployment claims as the result.
+
+The fine-tuned model is available as a merged GGUF at [spatialft/LFM2-350M-StepGame-GGUF](https://huggingface.co/spatialft/LFM2-350M-StepGame-GGUF).
 
 ## Project structure
 
@@ -76,7 +79,18 @@ For packaging the fine-tuned adapter as a GGUF model for `lm-arena`, see [docs/l
 
 ## Results
 
-Current committed results: baseline accuracy is 14.4%, fine-tuned accuracy is 15.2%, both measured on 250 held-out examples (50 per hop level, k=1-5). The +0.8 percentage-point change is within noise; the per-hop breakdown on the [live results page](https://spatialft.github.io/) is the more informative result.
+Measured on 250 held-out examples (50 per hop level, k=1..5):
+
+| | Baseline | Fine-tuned |
+|---|---|---|
+| **Overall** | 16.0% | 74.4% |
+| k=1 | 24% | 94% |
+| k=2 | 14% | 90% |
+| k=3 | 14% | 76% |
+| k=4 | 18% | 54% |
+| k=5 | 10% | 58% |
+
+Per-hop breakdown and examples on the [live results page](https://spatialft.github.io/).
 
 ## Team
 
