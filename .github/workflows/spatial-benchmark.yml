@@ -45,6 +45,7 @@ jobs:
         env:
           REGISTRY: https://tunnel-registry.jonasneves.workers.dev
           MODEL: ${{ matrix.model }}
+          PYTHONUNBUFFERED: "1"
         run: python scripts/spatial_benchmark.py --model "$MODEL"
       - uses: actions/upload-artifact@v4
         with:

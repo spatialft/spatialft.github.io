@@ -151,7 +151,14 @@ def benchmark_model(model_id: str) -> dict:
 
         hit = "✓" if pred == gold else "✗"
         print(f"  [{i+1:3d}/{len(examples)}] k={ex['k']} {result['latency_ms']:.0f}ms  "
-              f"pred={pred!r} gold={gold!r} {hit}")
+              f"pred={pred!r} gold={gold!r} {hit}", flush=True)
+
+        if (i + 1) % 50 == 0:
+            correct_so_far = sum(1 for p in predictions if extract_answer(p["prediction"]) == p["answer"])
+            running_acc = correct_so_far / (i + 1)
+            avg_lat = statistics.mean(latencies) if latencies else 0
+            print(f"\n  ── {i+1}/{len(examples)} examples | accuracy so far: {running_acc:.1%} | avg latency: {avg_lat:.0f}ms ──\n",
+                  flush=True)
 
     scores = evaluate(predictions)
 
