@@ -78,9 +78,4 @@ jobs:
           git diff --cached --quiet || git commit -m "chore: spatial benchmark $(date -u +%Y-%m-%d)"
           git pull --rebase origin main
           git push
-      - name: Trigger deploy
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh workflow run deploy.yml --ref main
-          echo "✓ Deploy triggered"
+      # deploy.yml triggers automatically on push to main when results/live/** changes
