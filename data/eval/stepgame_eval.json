@@ -1,482 +1,314 @@
 [
   {
-    "story": "T is placed at the upper left of U.",
+    "story": "H is over there and A is on the top of it.",
+    "question": "What is the relation of the agent H to the agent A?",
+    "answer": "below",
+    "k": 1
+  },
+  {
+    "story": "X is above T.",
+    "question": "What is the relation of the agent X to the agent T?",
+    "answer": "above",
+    "k": 1
+  },
+  {
+    "story": "J and A are in a vertical line with A below J.",
+    "question": "What is the relation of the agent A to the agent J?",
+    "answer": "below",
+    "k": 1
+  },
+  {
+    "story": "N presents over B.",
+    "question": "What is the relation of the agent N to the agent B?",
+    "answer": "above",
+    "k": 1
+  },
+  {
+    "story": "Q is placed in the right direction of R.",
+    "question": "What is the relation of the agent R to the agent Q?",
+    "answer": "left",
+    "k": 1
+  },
+  {
+    "story": "V is on the top side to T.",
+    "question": "What is the relation of the agent T to the agent V?",
+    "answer": "below",
+    "k": 1
+  },
+  {
+    "story": "I and W are next to each other with W on the right and I on the left.",
+    "question": "What is the relation of the agent W to the agent I?",
+    "answer": "right",
+    "k": 1
+  },
+  {
+    "story": "M is over there with U below.",
+    "question": "What is the relation of the agent M to the agent U?",
+    "answer": "above",
+    "k": 1
+  },
+  {
+    "story": "Z and J are in a horizontal line with Z on the left.",
+    "question": "What is the relation of the agent J to the agent Z?",
+    "answer": "right",
+    "k": 1
+  },
+  {
+    "story": "M is diagonally above I to the left at a 45 degree angle.",
+    "question": "What is the relation of the agent M to the agent I?",
+    "answer": "upper-left",
+    "k": 1
+  },
+  {
+    "story": "Object I is below object B and to the right of it, too.",
+    "question": "What is the relation of the agent B to the agent I?",
+    "answer": "upper-left",
+    "k": 1
+  },
+  {
+    "story": "K is over P.",
+    "question": "What is the relation of the agent K to the agent P?",
+    "answer": "above",
+    "k": 1
+  },
+  {
+    "story": "T is sitting at the upper left position to Z.",
+    "question": "What is the relation of the agent T to the agent Z?",
+    "answer": "upper-left",
+    "k": 1
+  },
+  {
+    "story": "M presents left to O.",
+    "question": "What is the relation of the agent M to the agent O?",
+    "answer": "left",
+    "k": 1
+  },
+  {
+    "story": "N is to the left of M with a small gap between them.",
+    "question": "What is the relation of the agent M to the agent N?",
+    "answer": "right",
+    "k": 1
+  },
+  {
+    "story": "V is above F.",
+    "question": "What is the relation of the agent F to the agent V?",
+    "answer": "below",
+    "k": 1
+  },
+  {
+    "story": "N and H are both there with the object H below the object N.",
+    "question": "What is the relation of the agent N to the agent H?",
+    "answer": "above",
+    "k": 1
+  },
+  {
+    "story": "N is above V and to the right of V.",
+    "question": "What is the relation of the agent V to the agent N?",
+    "answer": "lower-left",
+    "k": 1
+  },
+  {
+    "story": "N is to the right and above P at an angle of about 45 degrees.",
+    "question": "What is the relation of the agent N to the agent P?",
+    "answer": "upper-left",
+    "k": 1
+  },
+  {
+    "story": "D is above L and to the right of L.",
+    "question": "What is the relation of the agent L to the agent D?",
+    "answer": "lower-left",
+    "k": 1
+  },
+  {
+    "story": "T presents upper left to U.",
     "question": "What is the relation of the agent T to the agent U?",
     "answer": "upper-left",
     "k": 1
   },
   {
-    "story": "G is above and to the right of Q.",
-    "question": "What is the relation of the agent G to the agent Q?",
+    "story": "W is lower left to X.",
+    "question": "What is the relation of the agent X to the agent W?",
     "answer": "upper-right",
     "k": 1
   },
   {
-    "story": "The object labeled R is positioned to the left of the object labeled L.",
-    "question": "What is the relation of the agent L to the agent R?",
-    "answer": "right",
-    "k": 1
-  },
-  {
-    "story": "J is directly south east of Z.",
-    "question": "What is the relation of the agent Z to the agent J?",
-    "answer": "upper-left",
-    "k": 1
-  },
-  {
-    "story": "O and L are in a horizontal line with L on the right.",
-    "question": "What is the relation of the agent L to the agent O?",
-    "answer": "right",
-    "k": 1
-  },
-  {
-    "story": "The object N is positioned below and to the left of the object Q.",
-    "question": "What is the relation of the agent Q to the agent N?",
-    "answer": "upper-right",
-    "k": 1
-  },
-  {
-    "story": "V is positioned above S.",
-    "question": "What is the relation of the agent V to the agent S?",
+    "story": "M is at the bottom of J vertically.",
+    "question": "What is the relation of the agent J to the agent M?",
     "answer": "above",
     "k": 1
   },
   {
-    "story": "Object I is below object K and to the left of it, too.",
-    "question": "What is the relation of the agent I to the agent K?",
-    "answer": "lower-left",
-    "k": 1
-  },
-  {
-    "story": "X is to the right of D horizontally.",
-    "question": "What is the relation of the agent X to the agent D?",
-    "answer": "right",
-    "k": 1
-  },
-  {
-    "story": "The objects O and M are over there. The object O is lower and slightly to the left of the object M.",
-    "question": "What is the relation of the agent M to the agent O?",
-    "answer": "upper-right",
-    "k": 1
-  },
-  {
-    "story": "V is sitting at the lower position to B.",
-    "question": "What is the relation of the agent B to the agent V?",
-    "answer": "above",
-    "k": 1
-  },
-  {
-    "story": "C is positioned right to D.",
-    "question": "What is the relation of the agent C to the agent D?",
-    "answer": "right",
-    "k": 1
-  },
-  {
-    "story": "J and R are in a horizontal line with R on the right.",
+    "story": "R is positioned in the front right corner of J.",
     "question": "What is the relation of the agent R to the agent J?",
-    "answer": "right",
-    "k": 1
-  },
-  {
-    "story": "M presents lower left to B.",
-    "question": "What is the relation of the agent B to the agent M?",
     "answer": "upper-right",
     "k": 1
   },
   {
-    "story": "Z is sitting at the 9:00 position of P.",
-    "question": "What is the relation of the agent Z to the agent P?",
-    "answer": "left",
-    "k": 1
-  },
-  {
-    "story": "K is on the upper right of V.",
-    "question": "What is the relation of the agent V to the agent K?",
-    "answer": "lower-left",
-    "k": 1
-  },
-  {
-    "story": "V is at a 45 degree angle to K, in the lower lefthand corner.",
-    "question": "What is the relation of the agent K to the agent V?",
-    "answer": "upper-right",
-    "k": 1
-  },
-  {
-    "story": "T is to the left of O and below O at approximately a 45 degree angle.",
-    "question": "What is the relation of the agent O to the agent T?",
-    "answer": "upper-right",
-    "k": 1
-  },
-  {
-    "story": "A is to the top-left of C.",
-    "question": "What is the relation of the agent C to the agent A?",
-    "answer": "lower-right",
-    "k": 1
-  },
-  {
-    "story": "Object T is below object R and to the left of it, too.",
-    "question": "What is the relation of the agent R to the agent T?",
-    "answer": "upper-right",
-    "k": 1
-  },
-  {
-    "story": "L is positioned in the front right corner of P.",
-    "question": "What is the relation of the agent L to the agent P?",
-    "answer": "upper-right",
-    "k": 1
-  },
-  {
-    "story": "X is there and Q is at the 10 position of a clock face.",
-    "question": "What is the relation of the agent X to the agent Q?",
-    "answer": "lower-right",
-    "k": 1
-  },
-  {
-    "story": "E is to the left of B.",
-    "question": "What is the relation of the agent E to the agent B?",
-    "answer": "left",
-    "k": 1
-  },
-  {
-    "story": "L is sitting at the 3:00 position to F.",
+    "story": "L is lower right of F.",
     "question": "What is the relation of the agent F to the agent L?",
-    "answer": "left",
-    "k": 1
-  },
-  {
-    "story": "J and F are vertical and J is below F.",
-    "question": "What is the relation of the agent J to the agent F?",
-    "answer": "below",
-    "k": 1
-  },
-  {
-    "story": "The object A is positioned directly above the object C.",
-    "question": "What is the relation of the agent C to the agent A?",
-    "answer": "below",
-    "k": 1
-  },
-  {
-    "story": "R is positioned right to H.",
-    "question": "What is the relation of the agent R to the agent H?",
-    "answer": "right",
-    "k": 1
-  },
-  {
-    "story": "H is to the bottom-right of I.",
-    "question": "What is the relation of the agent I to the agent H?",
     "answer": "upper-left",
     "k": 1
   },
   {
-    "story": "L and K are both there with the object K below the object L.",
-    "question": "What is the relation of the agent K to the agent L?",
+    "story": "G is below J.",
+    "question": "What is the relation of the agent G to the agent J?",
     "answer": "below",
     "k": 1
   },
   {
-    "story": "S and Z are next to each other with S on the top and Z at the bottom.",
-    "question": "What is the relation of the agent S to the agent Z?",
-    "answer": "above",
-    "k": 1
-  },
-  {
-    "story": "If E is the center of a clock face, Q is located between 7 and 8.",
-    "question": "What is the relation of the agent Q to the agent E?",
+    "story": "Object A is above object B and to the right of it, too.",
+    "question": "What is the relation of the agent B to the agent A?",
     "answer": "lower-left",
     "k": 1
   },
   {
-    "story": "O is placed at the upper right of D.",
-    "question": "What is the relation of the agent D to the agent O?",
-    "answer": "lower-left",
+    "story": "S and V are both there with the object V below the object S.",
+    "question": "What is the relation of the agent V to the agent S?",
+    "answer": "below",
     "k": 1
   },
   {
-    "story": "R is over there and K is on the left.",
-    "question": "What is the relation of the agent K to the agent R?",
-    "answer": "left",
-    "k": 1
-  },
-  {
-    "story": "V is to the left of J horizontally.",
-    "question": "What is the relation of the agent V to the agent J?",
-    "answer": "left",
-    "k": 1
-  },
-  {
-    "story": "The object A is positioned below and to the left of the object F.",
-    "question": "What is the relation of the agent F to the agent A?",
-    "answer": "upper-right",
-    "k": 1
-  },
-  {
-    "story": "U is on the left side of and below O.",
-    "question": "What is the relation of the agent U to the agent O?",
-    "answer": "lower-left",
-    "k": 1
-  },
-  {
-    "story": "The object L is upper and slightly to the left of the object A.",
-    "question": "What is the relation of the agent A to the agent L?",
+    "story": "X is directly south east of A.",
+    "question": "What is the relation of the agent X to the agent A?",
     "answer": "lower-right",
     "k": 1
   },
   {
-    "story": "W is placed at the bottom of P.",
-    "question": "What is the relation of the agent W to the agent P?",
+    "story": "B is on the right side and top of Q.",
+    "question": "What is the relation of the agent Q to the agent B?",
+    "answer": "lower-left",
+    "k": 1
+  },
+  {
+    "story": "J is below O.",
+    "question": "What is the relation of the agent O to the agent J?",
     "answer": "above",
     "k": 1
   },
   {
-    "story": "K is diagonally below S to the left at a 45 degree angle.",
-    "question": "What is the relation of the agent S to the agent K?",
-    "answer": "upper-right",
+    "story": "R is at a 45 degree angle to N, in the upper lefthand corner.",
+    "question": "What is the relation of the agent N to the agent R?",
+    "answer": "lower-right",
     "k": 1
   },
   {
-    "story": "Q is below and to the right of L.",
-    "question": "What is the relation of the agent L to the agent Q?",
+    "story": "H and T are next to each other with H on the top and T at the bottom.",
+    "question": "What is the relation of the agent T to the agent H?",
+    "answer": "below",
+    "k": 1
+  },
+  {
+    "story": "If U is the center of a clock face, H is located between 10 and 11.",
+    "question": "What is the relation of the agent H to the agent U?",
     "answer": "upper-left",
     "k": 1
   },
   {
-    "story": "T is over J.",
-    "question": "What is the relation of the agent J to the agent T?",
+    "story": "H is positioned below X.",
+    "question": "What is the relation of the agent X to the agent H?",
+    "answer": "above",
+    "k": 1
+  },
+  {
+    "story": "K is to the right of G horizontally.",
+    "question": "What is the relation of the agent K to the agent G?",
+    "answer": "right",
+    "k": 1
+  },
+  {
+    "story": "V is at the bottom of R vertically.",
+    "question": "What is the relation of the agent V to the agent R?",
     "answer": "below",
     "k": 1
   },
   {
-    "story": "B is over there and V is directly above it.",
-    "question": "What is the relation of the agent B to the agent V?",
-    "answer": "below",
+    "story": "K and G are parallel, and K is to the left of G.",
+    "question": "What is the relation of the agent K to the agent G?",
+    "answer": "left",
     "k": 1
   },
   {
-    "story": "I is placed at the upper right of U.",
+    "story": "R is to the top-right of K.",
+    "question": "What is the relation of the agent R to the agent K?",
+    "answer": "upper-right",
+    "k": 1
+  },
+  {
+    "story": "W and Z are parallel, and W on the left of Z.",
+    "question": "What is the relation of the agent Z to the agent W?",
+    "answer": "right",
+    "k": 1
+  },
+  {
+    "story": "The object labeled M is positioned to the left of the object labeled B.",
+    "question": "What is the relation of the agent B to the agent M?",
+    "answer": "right",
+    "k": 1
+  },
+  {
+    "story": "I is over U.",
     "question": "What is the relation of the agent I to the agent U?",
-    "answer": "upper-right",
+    "answer": "above",
     "k": 1
   },
   {
-    "story": "M is diagonally to the upper left of J.",
-    "question": "What is the relation of the agent M to the agent J?",
+    "story": "Y is diagonally to the upper left of N.",
+    "question": "What is the relation of the agent Y to the agent N?",
     "answer": "upper-left",
     "k": 1
   },
   {
-    "story": "C is to the left of N.",
-    "question": "What is the relation of the agent C to the agent N?",
-    "answer": "left",
-    "k": 1
-  },
-  {
-    "story": "A is there and M is at the 10 position of a clock face.",
-    "question": "What is the relation of the agent M to the agent A?",
-    "answer": "upper-left",
-    "k": 1
-  },
-  {
-    "story": "V is to the right and above L at an angle of about 45 degrees.",
-    "question": "What is the relation of the agent L to the agent V?",
-    "answer": "lower-left",
-    "k": 1
-  },
-  {
-    "story": "Y is to the right of N horizontally.",
-    "question": "What is the relation of the agent N to the agent Y?",
-    "answer": "left",
-    "k": 1
-  },
-  {
-    "story": "W is below and to the left of V.",
-    "question": "What is the relation of the agent V to the agent W?",
-    "answer": "upper-right",
-    "k": 1
-  },
-  {
-    "story": "B is placed in the left direction of G.",
-    "question": "What is the relation of the agent G to the agent B?",
-    "answer": "right",
-    "k": 1
-  },
-  {
-    "story": "E is positioned below K. E is lower left to Q.",
-    "question": "What is the relation of the agent E to the agent K?",
-    "answer": "below",
-    "k": 2
-  },
-  {
-    "story": "S is sitting at the lower left position to F. F is at L\u2019s 9 o'clock.",
-    "question": "What is the relation of the agent S to the agent F?",
-    "answer": "lower-left",
-    "k": 2
-  },
-  {
-    "story": "J is at H's 12 o'clock. Q is above and to the right of H.",
-    "question": "What is the relation of the agent J to the agent H?",
+    "story": "B is over P.",
+    "question": "What is the relation of the agent B to the agent P?",
     "answer": "above",
-    "k": 2
+    "k": 1
   },
   {
-    "story": "E is under B. N and E are parallel, and N is on top of E.",
-    "question": "What is the relation of the agent N to the agent E?",
-    "answer": "above",
-    "k": 2
-  },
-  {
-    "story": "M is on the left side of and below N. N and E are next to each other with E at the bottom N on the top.",
-    "question": "What is the relation of the agent E to the agent N?",
-    "answer": "below",
-    "k": 2
-  },
-  {
-    "story": "V is at the lower side of L. The object D and L are there. The object D is below and slightly to the right of the object L.",
-    "question": "What is the relation of the agent V to the agent D?",
-    "answer": "left",
-    "k": 2
-  },
-  {
-    "story": "Q and G are parallel, and Q on the left of G. D and G are parallel, and D on the left of G.",
-    "question": "What is the relation of the agent Q to the agent D?",
-    "answer": "overlap",
-    "k": 2
-  },
-  {
-    "story": "C is slightly off center to the top left and H is slightly off center to the bottom right. O is over there and C is on the right of it.",
-    "question": "What is the relation of the agent O to the agent C?",
-    "answer": "left",
-    "k": 2
-  },
-  {
-    "story": "Y presents over B. B is there and A is at the 5 position of a clock face.",
-    "question": "What is the relation of the agent A to the agent B?",
+    "story": "N is to the right and above K at an angle of about 45 degrees.",
+    "question": "What is the relation of the agent K to the agent N?",
     "answer": "lower-right",
-    "k": 2
+    "k": 1
   },
   {
-    "story": "B and V are in a vertical line with B on top. V and Y are next to each other with Y on the right and V on the left.",
-    "question": "What is the relation of the agent Y to the agent V?",
-    "answer": "right",
-    "k": 2
-  },
-  {
-    "story": "U presents right to P. B presents upper left to U.",
-    "question": "What is the relation of the agent U to the agent P?",
-    "answer": "right",
-    "k": 2
-  },
-  {
-    "story": "T is to the right and above N at an angle of about 45 degrees. T is to the left of F with a small gap between them.",
-    "question": "What is the relation of the agent F to the agent T?",
-    "answer": "right",
-    "k": 2
-  },
-  {
-    "story": "I is to the right and above N at an angle of about 45 degrees. N is placed at the upper right of F.",
-    "question": "What is the relation of the agent F to the agent I?",
-    "answer": "lower-left",
-    "k": 2
-  },
-  {
-    "story": "J is sitting at the 12:00 position to H. J is over there and R is at the bottom of it.",
-    "question": "What is the relation of the agent R to the agent J?",
-    "answer": "below",
-    "k": 2
-  },
-  {
-    "story": "Q is there and H is at the 5 position of a clock face. Q is on the top side to N.",
-    "question": "What is the relation of the agent H to the agent N?",
-    "answer": "right",
-    "k": 2
-  },
-  {
-    "story": "H is diagonally above G to the right at a 45 degree. H presents left to M.",
-    "question": "What is the relation of the agent H to the agent M?",
-    "answer": "left",
-    "k": 2
-  },
-  {
-    "story": "M is diagonally to the upper right of Q. M is to the top right of D.",
-    "question": "What is the relation of the agent D to the agent Q?",
-    "answer": "overlap",
-    "k": 2
-  },
-  {
-    "story": "J is on the same horizontal plane directly left to X. J is sitting at the 3:00 position to F.",
-    "question": "What is the relation of the agent X to the agent J?",
-    "answer": "right",
-    "k": 2
-  },
-  {
-    "story": "L is slightly off center to the top left and V is slightly off center to the bottom right. A is to the bottom right of V.",
-    "question": "What is the relation of the agent L to the agent A?",
-    "answer": "upper-left",
-    "k": 2
-  },
-  {
-    "story": "The object Q is upper and slightly to the right of the object I. T presents lower right to I.",
-    "question": "What is the relation of the agent I to the agent T?",
-    "answer": "upper-left",
-    "k": 2
-  },
-  {
-    "story": "Y is to the upper left of G. P and G are horizontal and P is to the right of G.",
+    "story": "Y is to the right and above G at an angle of about 45 degrees.",
     "question": "What is the relation of the agent G to the agent Y?",
+    "answer": "upper-left",
+    "k": 1
+  },
+  {
+    "story": "K is diagonally above J to the left at a 45 degree angle.",
+    "question": "What is the relation of the agent J to the agent K?",
+    "answer": "lower-right",
+    "k": 1
+  },
+  {
+    "story": "R is to the left of K horizontally.",
+    "question": "What is the relation of the agent R to the agent K?",
+    "answer": "left",
+    "k": 1
+  },
+  {
+    "story": "Object R is below object H and to the right of it, too.",
+    "question": "What is the relation of the agent H to the agent R?",
+    "answer": "upper-left",
+    "k": 1
+  },
+  {
+    "story": "W presents left to Q.",
+    "question": "What is the relation of the agent Q to the agent W?",
+    "answer": "right",
+    "k": 1
+  },
+  {
+    "story": "M is at the 12 o'clock position relative to V. S is above M at 10 o'clock.",
+    "question": "What is the relation of the agent M to the agent S?",
     "answer": "lower-right",
     "k": 2
   },
   {
-    "story": "E is diagonally below R to the right at a 45 degree angle. R is on the lower left of M.",
-    "question": "What is the relation of the agent R to the agent M?",
-    "answer": "lower-left",
-    "k": 2
-  },
-  {
-    "story": "E is at the 3 o'clock position relative to A. A is sitting in the right direction of F.",
-    "question": "What is the relation of the agent F to the agent A?",
-    "answer": "left",
-    "k": 2
-  },
-  {
-    "story": "G is directly above H. R and H are parallel, and R is over H.",
-    "question": "What is the relation of the agent H to the agent R?",
+    "story": "R is below E at 4 o'clock. G and R are next to each other with R at the bottom G on the top.",
+    "question": "What is the relation of the agent R to the agent G?",
     "answer": "below",
-    "k": 2
-  },
-  {
-    "story": "B and I are parallel, and B on the right of I. I is at a 45 degree angle to M, in the lower righthand corner.",
-    "question": "What is the relation of the agent I to the agent B?",
-    "answer": "right",
-    "k": 2
-  },
-  {
-    "story": "U is positioned in the lower left corner of L. L is diagonally right and below X.",
-    "question": "What is the relation of the agent U to the agent X?",
-    "answer": "below",
-    "k": 2
-  },
-  {
-    "story": "R presents upper right to A. R is slightly off center to the top left and D is slightly off center to the bottom right.",
-    "question": "What is the relation of the agent R to the agent A?",
-    "answer": "upper-right",
-    "k": 2
-  },
-  {
-    "story": "The object O is upper and slightly to the right of the object V. R is slightly off center to the top left and V is slightly off center to the bottom right.",
-    "question": "What is the relation of the agent R to the agent V?",
-    "answer": "upper-left",
-    "k": 2
-  },
-  {
-    "story": "E and F are side by side with E to the left and F to the right. The object O is positioned below and to the left of the object E.",
-    "question": "What is the relation of the agent O to the agent F?",
-    "answer": "lower-left",
-    "k": 2
-  },
-  {
-    "story": "R is to the right of J and is on the same horizontal plane. R and N are next to each other with N on the right and R on the left.",
-    "question": "What is the relation of the agent R to the agent J?",
-    "answer": "right",
     "k": 2
   },
   {
@@ -486,93 +318,153 @@
     "k": 2
   },
   {
-    "story": "X is directly south east of C. G is on the right side and below X.",
-    "question": "What is the relation of the agent C to the agent G?",
-    "answer": "upper-left",
+    "story": "If T is the center of a clock face, K is located between 2 and 3. T is directly above M.",
+    "question": "What is the relation of the agent K to the agent M?",
+    "answer": "upper-right",
     "k": 2
   },
   {
-    "story": "The objects V and R are over there. The object V is above and slightly to the right of the object R. N is above R at 10 o'clock.",
-    "question": "What is the relation of the agent V to the agent N?",
-    "answer": "right",
+    "story": "V is on the top and D is at the bottom. D is positioned above and to the left of Q.",
+    "question": "What is the relation of the agent Q to the agent V?",
+    "answer": "lower-right",
     "k": 2
   },
   {
-    "story": "V presents lower left to M. L and M are side by side with L to the right and M to the left.",
-    "question": "What is the relation of the agent V to the agent M?",
-    "answer": "lower-left",
-    "k": 2
-  },
-  {
-    "story": "If N is the center of a clock face, T is located between 2 and 3. T is over there with O above.",
-    "question": "What is the relation of the agent T to the agent O?",
+    "story": "C and K are next to each other with K at the bottom C on the top. B is placed on the top of K.",
+    "question": "What is the relation of the agent K to the agent C?",
     "answer": "below",
     "k": 2
   },
   {
-    "story": "Q is on the right side and top of K. C is on the left side and above K.",
-    "question": "What is the relation of the agent Q to the agent K?",
-    "answer": "upper-right",
-    "k": 2
-  },
-  {
-    "story": "Z is sitting at the upper right position to Y. The object Z is positioned above and to the right of the object W.",
-    "question": "What is the relation of the agent Z to the agent W?",
-    "answer": "upper-right",
-    "k": 2
-  },
-  {
-    "story": "D is to the right of V. V is placed at the lower right of G.",
-    "question": "What is the relation of the agent G to the agent V?",
-    "answer": "upper-left",
-    "k": 2
-  },
-  {
-    "story": "If O is the center of a clock face, W is located between 7 and 8. W presents over P.",
-    "question": "What is the relation of the agent W to the agent O?",
-    "answer": "lower-left",
-    "k": 2
-  },
-  {
-    "story": "Object G is above object C and to the left of it, too. C and K are horizontal and C is to the left of K.",
-    "question": "What is the relation of the agent K to the agent G?",
-    "answer": "lower-right",
-    "k": 2
-  },
-  {
-    "story": "E is upper left of I. E is sitting at the lower position to Y.",
-    "question": "What is the relation of the agent I to the agent E?",
-    "answer": "lower-right",
-    "k": 2
-  },
-  {
-    "story": "K and I are side by side with K to the right and I to the left. The object labeled K is positioned to the right of the object labeled Y.",
-    "question": "What is the relation of the agent I to the agent Y?",
-    "answer": "overlap",
-    "k": 2
-  },
-  {
-    "story": "A is below G. I is to the top-right of A.",
-    "question": "What is the relation of the agent I to the agent G?",
+    "story": "B presents left to X. X and H are in a horizontal line with H on the right.",
+    "question": "What is the relation of the agent X to the agent B?",
     "answer": "right",
     "k": 2
   },
   {
-    "story": "R is there and A is at the 10 position of a clock face. L presents upper left to A.",
-    "question": "What is the relation of the agent A to the agent L?",
+    "story": "B is sitting at the 9:00 position of J. W is on top of B.",
+    "question": "What is the relation of the agent W to the agent B?",
+    "answer": "above",
+    "k": 2
+  },
+  {
+    "story": "I is there and F is at the 5 position of a clock face. T is over there and F is on the right of it.",
+    "question": "What is the relation of the agent I to the agent F?",
+    "answer": "upper-left",
+    "k": 2
+  },
+  {
+    "story": "A is to the right of C with a small gap between them. Q is diagonally right and below A.",
+    "question": "What is the relation of the agent Q to the agent A?",
     "answer": "lower-right",
     "k": 2
   },
   {
-    "story": "S is over there and O is on the right. S is to the top right of A.",
-    "question": "What is the relation of the agent A to the agent O?",
+    "story": "D is to the right of V and is on the same horizontal plane. D is to the upper left of Q.",
+    "question": "What is the relation of the agent Q to the agent V?",
+    "answer": "lower-right",
+    "k": 2
+  },
+  {
+    "story": "K and B are in a horizontal line with B on the right. Z is over there with K below.",
+    "question": "What is the relation of the agent K to the agent B?",
+    "answer": "left",
+    "k": 2
+  },
+  {
+    "story": "R is at the bottom of I and is on the same vertical plane. I is positioned down and to the left of Q.",
+    "question": "What is the relation of the agent I to the agent Q?",
     "answer": "lower-left",
     "k": 2
   },
   {
-    "story": "If T is the center of a clock face, Y is located between 2 and 3. Y is positioned right to H.",
-    "question": "What is the relation of the agent H to the agent T?",
+    "story": "V and C are horizontal and V is to the left of C. D is sitting in the left direction of V.",
+    "question": "What is the relation of the agent V to the agent C?",
+    "answer": "left",
+    "k": 2
+  },
+  {
+    "story": "X is positioned above T and to the left. T is south west of J.",
+    "question": "What is the relation of the agent J to the agent X?",
+    "answer": "right",
+    "k": 2
+  },
+  {
+    "story": "U is placed at the lower right of Q. Q is at the lower side of N.",
+    "question": "What is the relation of the agent Q to the agent N?",
+    "answer": "below",
+    "k": 2
+  },
+  {
+    "story": "H is on the same vertical plane directly above N. Z is to the right and above H at an angle of about 45 degrees.",
+    "question": "What is the relation of the agent Z to the agent H?",
+    "answer": "upper-right",
+    "k": 2
+  },
+  {
+    "story": "Z is over there and H is on the top of it. H is on the lower left of L.",
+    "question": "What is the relation of the agent Z to the agent L?",
+    "answer": "lower-left",
+    "k": 2
+  },
+  {
+    "story": "Z and R are both there with the object Z is to the left of object R. N is diagonally below Z to the left at a 45 degree angle.",
+    "question": "What is the relation of the agent R to the agent N?",
+    "answer": "upper-right",
+    "k": 2
+  },
+  {
+    "story": "E is on the same horizontal plane directly left to C. A and E are in a horizontal line with E on the right.",
+    "question": "What is the relation of the agent E to the agent C?",
+    "answer": "left",
+    "k": 2
+  },
+  {
+    "story": "I is lower right of W. The object labeled O is positioned to the left of the object labeled W.",
+    "question": "What is the relation of the agent I to the agent W?",
+    "answer": "lower-right",
+    "k": 2
+  },
+  {
+    "story": "R is above and to the left of V. The object R is positioned below and to the left of the object J.",
+    "question": "What is the relation of the agent V to the agent J?",
+    "answer": "below",
+    "k": 2
+  },
+  {
+    "story": "G is on the right side to Z. F is sitting in the left direction of Z.",
+    "question": "What is the relation of the agent F to the agent Z?",
+    "answer": "left",
+    "k": 2
+  },
+  {
+    "story": "R is over there and J is on the left. S is at the bottom and R is on the top.",
+    "question": "What is the relation of the agent S to the agent R?",
+    "answer": "below",
+    "k": 2
+  },
+  {
+    "story": "X and C are in a horizontal line with X on the left. S and C are side by side with S on the top and C at the bottom.",
+    "question": "What is the relation of the agent S to the agent C?",
     "answer": "above",
+    "k": 2
+  },
+  {
+    "story": "The object A is lower and slightly to the right of the object H. A is there and D is at the 10 position of a clock face.",
+    "question": "What is the relation of the agent A to the agent H?",
+    "answer": "lower-right",
+    "k": 2
+  },
+  {
+    "story": "W is at a 45 degree angle to F, in the lower lefthand corner. The object J is upper and slightly to the right of the object F.",
+    "question": "What is the relation of the agent J to the agent F?",
+    "answer": "upper-right",
+    "k": 2
+  },
+  {
+    "story": "M is placed at the upper left of K. P is above and to the right of K.",
+    "question": "What is the relation of the agent K to the agent P?",
+    "answer": "lower-left",
     "k": 2
   },
   {
@@ -582,273 +474,297 @@
     "k": 2
   },
   {
-    "story": "C is over there and B is on the left of it. X is below B with a small gap between them.",
-    "question": "What is the relation of the agent C to the agent B?",
+    "story": "Q is below and to the right of Y. The object X is upper and slightly to the left of the object Q.",
+    "question": "What is the relation of the agent Q to the agent X?",
+    "answer": "lower-right",
+    "k": 2
+  },
+  {
+    "story": "R is diagonally below Z to the right at a 45 degree angle. R is to the bottom-right of Y.",
+    "question": "What is the relation of the agent R to the agent Z?",
+    "answer": "lower-right",
+    "k": 2
+  },
+  {
+    "story": "V is diagonally right and below W. W is on the top of D and is on the same vertical plane.",
+    "question": "What is the relation of the agent W to the agent D?",
+    "answer": "above",
+    "k": 2
+  },
+  {
+    "story": "T is slightly off center to the top left and J is slightly off center to the bottom right. J is there and P is at the 10 position of a clock face.",
+    "question": "What is the relation of the agent J to the agent P?",
+    "answer": "upper-right",
+    "k": 2
+  },
+  {
+    "story": "M is lower right of O. Z and M are horizontal and Z is to the right of M.",
+    "question": "What is the relation of the agent M to the agent O?",
+    "answer": "lower-right",
+    "k": 2
+  },
+  {
+    "story": "N is over there and T is on the left. A and T are in a horizontal line with T on the right.",
+    "question": "What is the relation of the agent T to the agent N?",
+    "answer": "left",
+    "k": 2
+  },
+  {
+    "story": "The object A is upper and slightly to the left of the object E. The object G is upper and slightly to the right of the object A.",
+    "question": "What is the relation of the agent E to the agent G?",
+    "answer": "below",
+    "k": 2
+  },
+  {
+    "story": "H is above O and to the left of O. W is sitting at the lower right position to H.",
+    "question": "What is the relation of the agent W to the agent H?",
+    "answer": "lower-right",
+    "k": 2
+  },
+  {
+    "story": "S is to the top right of R. S is placed on the top of C.",
+    "question": "What is the relation of the agent C to the agent R?",
     "answer": "right",
     "k": 2
   },
   {
-    "story": "Z is at the 3 o'clock position relative to W. W is to the right of N and is on the same horizontal plane.",
-    "question": "What is the relation of the agent N to the agent W?",
-    "answer": "left",
-    "k": 2
-  },
-  {
-    "story": "Y presents over A. T is on the same horizontal plane directly right to Y.",
-    "question": "What is the relation of the agent Y to the agent A?",
-    "answer": "above",
-    "k": 2
-  },
-  {
-    "story": "N is sitting at the 6:00 position to R. Q is above R at 10 o'clock. Q is positioned below F and to the right.",
-    "question": "What is the relation of the agent R to the agent F?",
+    "story": "G and C are in a horizontal line with C on the right. N is sitting at the lower right position to C.",
+    "question": "What is the relation of the agent N to the agent C?",
     "answer": "lower-right",
-    "k": 3
+    "k": 2
   },
   {
-    "story": "The object O is lower and slightly to the right of the object K. P is positioned above E and to the left. E is at a 45 degree angle to O, in the lower lefthand corner.",
-    "question": "What is the relation of the agent P to the agent O?",
-    "answer": "left",
-    "k": 3
+    "story": "J and V are parallel, and V is below J. J is to the right of X.",
+    "question": "What is the relation of the agent X to the agent V?",
+    "answer": "upper-left",
+    "k": 2
   },
   {
-    "story": "Q is to the right of W and is on the same horizontal plane. Y is positioned in the top left corner of U. U is at a 45 degree angle to W, in the lower lefthand corner.",
-    "question": "What is the relation of the agent Q to the agent U?",
-    "answer": "upper-right",
-    "k": 3
-  },
-  {
-    "story": "If K is the center of a clock face, Q is located between 4 and 5. Q is positioned below V and to the left. D is above V with a small gap between them.",
-    "question": "What is the relation of the agent D to the agent V?",
+    "story": "The object G is lower and slightly to the left of the object I. B is over there with I below.",
+    "question": "What is the relation of the agent B to the agent I?",
     "answer": "above",
-    "k": 3
+    "k": 2
   },
   {
-    "story": "Y presents left to Q. Y is to the right and above U at an angle of about 45 degrees. B is at a 45 degree angle to U, in the upper lefthand corner.",
+    "story": "B is directly above H. H is on the same horizontal plane directly left to J.",
+    "question": "What is the relation of the agent J to the agent B?",
+    "answer": "lower-right",
+    "k": 2
+  },
+  {
+    "story": "X is to the right and above N at an angle of about 45 degrees. N is over there with H below.",
+    "question": "What is the relation of the agent H to the agent X?",
+    "answer": "left",
+    "k": 2
+  },
+  {
+    "story": "D is positioned above K and to the right. P and K are side by side with P on the top and K at the bottom.",
+    "question": "What is the relation of the agent P to the agent K?",
+    "answer": "above",
+    "k": 2
+  },
+  {
+    "story": "E and P are next to each other with P at the bottom E on the top. X is sitting in the right direction of P.",
+    "question": "What is the relation of the agent P to the agent X?",
+    "answer": "left",
+    "k": 2
+  },
+  {
+    "story": "A is at the bottom and B is on the top. B and R are side by side with B to the right and R to the left.",
+    "question": "What is the relation of the agent B to the agent A?",
+    "answer": "above",
+    "k": 2
+  },
+  {
+    "story": "U is to the left of J. J is diagonally to the upper right of V.",
+    "question": "What is the relation of the agent V to the agent U?",
+    "answer": "below",
+    "k": 2
+  },
+  {
+    "story": "U is to the left of B with a small gap between them. B is at the 9 o'clock position relative to J.",
     "question": "What is the relation of the agent B to the agent U?",
-    "answer": "upper-left",
-    "k": 3
+    "answer": "right",
+    "k": 2
   },
   {
-    "story": "U and O are side by side with U on the top and O at the bottom. The object H is positioned below and to the right of the object O. H and D are parallel, and H is to the right of D.",
-    "question": "What is the relation of the agent O to the agent H?",
-    "answer": "upper-left",
-    "k": 3
-  },
-  {
-    "story": "O is placed on the top of Y. D is placed at the bottom of O. H is at the 3 o'clock position relative to Y.",
-    "question": "What is the relation of the agent D to the agent H?",
-    "answer": "upper-left",
-    "k": 3
-  },
-  {
-    "story": "R is diagonally right and below I. The object R is positioned above and to the right of the object Y. I is south west of G.",
-    "question": "What is the relation of the agent I to the agent G?",
-    "answer": "lower-left",
-    "k": 3
-  },
-  {
-    "story": "C is at the bottom of J. C is over there and E is at the bottom of it. J is over there with L below.",
-    "question": "What is the relation of the agent L to the agent E?",
-    "answer": "above",
-    "k": 3
-  },
-  {
-    "story": "G is north west of T. G presents right to C. T is placed in the left direction of B.",
-    "question": "What is the relation of the agent T to the agent B?",
+    "story": "D is sitting at the 12:00 position to H. D is diagonally right and above C.",
+    "question": "What is the relation of the agent C to the agent H?",
     "answer": "left",
-    "k": 3
+    "k": 2
   },
   {
-    "story": "S is placed in the left direction of K. If K is the center of a clock face, U is located between 7 and 8. U is at a 45 degree angle to H, in the lower lefthand corner.",
-    "question": "What is the relation of the agent S to the agent K?",
-    "answer": "left",
-    "k": 3
+    "story": "B and I are parallel, and B on the right of I. I is at a 45 degree angle to M, in the lower righthand corner.",
+    "question": "What is the relation of the agent I to the agent B?",
+    "answer": "right",
+    "k": 2
   },
   {
-    "story": "O and T are vertical and O is above T. Z is to the bottom-right of O. T is to the left of L and is on the same horizontal plane.",
-    "question": "What is the relation of the agent O to the agent Z?",
-    "answer": "upper-left",
-    "k": 3
-  },
-  {
-    "story": "U is diagonally to the upper right of G. W is over there with T below. G presents over T.",
-    "question": "What is the relation of the agent G to the agent U?",
-    "answer": "lower-left",
-    "k": 3
-  },
-  {
-    "story": "O is positioned above T and to the left. O is on the top of V and is on the same vertical plane. V is on the right and X is on the left.",
-    "question": "What is the relation of the agent O to the agent V?",
-    "answer": "above",
-    "k": 3
-  },
-  {
-    "story": "T is lower left to U. W and U are both there with the object W is to the right of object U. W is to the upper left of D.",
-    "question": "What is the relation of the agent U to the agent W?",
+    "story": "G is upper left of I. If A is the center of a clock face, I is located between 2 and 3. A is positioned left to S.",
+    "question": "What is the relation of the agent S to the agent A?",
     "answer": "right",
     "k": 3
   },
   {
-    "story": "G is to the top right of J. T is directly south west of R. The object G and T are there. The object G is below and slightly to the right of the object T.",
-    "question": "What is the relation of the agent T to the agent G?",
+    "story": "K is to the left of T. M is slightly off center to the top left and I is slightly off center to the bottom right. K and M are next to each other with M on the right and K on the left.",
+    "question": "What is the relation of the agent M to the agent I?",
     "answer": "upper-left",
     "k": 3
   },
   {
-    "story": "J is lower left to X. Z is over there and X is on the left of it. I is sitting at the lower left position to Z.",
-    "question": "What is the relation of the agent I to the agent Z?",
-    "answer": "lower-left",
-    "k": 3
-  },
-  {
-    "story": "Q is north east of V. Q and G are vertical and Q is below G. The object U is positioned above and to the left of object V.",
-    "question": "What is the relation of the agent Q to the agent G?",
+    "story": "H is on the right side to R. M is directly below K. H and M are parallel, and H is under M.",
+    "question": "What is the relation of the agent M to the agent K?",
     "answer": "below",
     "k": 3
   },
   {
-    "story": "F is at C's 3 o'clock. K is to the bottom left of C. S is sitting at the 9:00 position of F.",
-    "question": "What is the relation of the agent K to the agent F?",
-    "answer": "lower-left",
-    "k": 3
-  },
-  {
-    "story": "S presents lower right to H. G is on top of H. If N is the center of a clock face, S is located between 10 and 11.",
-    "question": "What is the relation of the agent N to the agent H?",
+    "story": "A is placed in the left direction of E. A is to the bottom right of X. The object labeled S is positioned to the right of the object labeled X.",
+    "question": "What is the relation of the agent A to the agent X?",
     "answer": "lower-right",
     "k": 3
   },
   {
-    "story": "B is on the top and A is at the bottom. A is over there and F is directly below it. The object F is upper and slightly to the left of the object W.",
-    "question": "What is the relation of the agent A to the agent F?",
-    "answer": "above",
-    "k": 3
-  },
-  {
-    "story": "T is to the right of H. H is below and to the right of F. U is slightly off center to the top left and F is slightly off center to the bottom right.",
-    "question": "What is the relation of the agent T to the agent F?",
-    "answer": "lower-right",
-    "k": 3
-  },
-  {
-    "story": "C is at a 45 degree angle to Q, in the upper righthand corner. B and F are parallel, and F is below B. The object C is positioned above and to the left of object F.",
-    "question": "What is the relation of the agent Q to the agent C?",
-    "answer": "lower-left",
-    "k": 3
-  },
-  {
-    "story": "A is to the right of U and is on the same horizontal plane. Z and O are side by side with O at the bottom and Z on the top. Z is over there with A below.",
-    "question": "What is the relation of the agent Z to the agent A?",
-    "answer": "above",
-    "k": 3
-  },
-  {
-    "story": "The object O is lower and slightly to the left of the object I. L is on the lower right of I. L is diagonally to the upper left of A.",
-    "question": "What is the relation of the agent A to the agent L?",
-    "answer": "lower-right",
-    "k": 3
-  },
-  {
-    "story": "V is diagonally to the bottom right of G. K is diagonally to the bottom left of M. M is on the lower left of V.",
-    "question": "What is the relation of the agent G to the agent K?",
-    "answer": "upper-right",
-    "k": 3
-  },
-  {
-    "story": "M is above and to the right of B. A is directly south west of M. N is on the left side of and below B.",
-    "question": "What is the relation of the agent A to the agent N?",
-    "answer": "upper-right",
-    "k": 3
-  },
-  {
-    "story": "I is over there with O below. O and B are both there with the object O above the object B. G is sitting at the 6:00 position to B.",
-    "question": "What is the relation of the agent O to the agent I?",
-    "answer": "below",
-    "k": 3
-  },
-  {
-    "story": "E is positioned in the lower right corner of K. The object N is lower and slightly to the left of the object F. F presents upper left to K.",
-    "question": "What is the relation of the agent N to the agent E?",
+    "story": "S is to the left of V. K is to the bottom-right of A. S is on the left and K is on the right.",
+    "question": "What is the relation of the agent A to the agent K?",
     "answer": "upper-left",
     "k": 3
   },
   {
-    "story": "N is on the left side and above C. N is over there and D is on the top of it. Y is to the left of D and is on the same horizontal plane.",
-    "question": "What is the relation of the agent C to the agent Y?",
+    "story": "V presents upper right to W. Z is above V and to the left of V. H is over there with Z above.",
+    "question": "What is the relation of the agent Z to the agent H?",
+    "answer": "above",
+    "k": 3
+  },
+  {
+    "story": "L and G are both there with the object L is to the right of object G. E is below G. E is sitting at the lower position to S.",
+    "question": "What is the relation of the agent E to the agent L?",
     "answer": "lower-right",
     "k": 3
   },
   {
-    "story": "M is at the bottom of Q. E is upper right to Q. If M is the center of a clock face, U is located between 10 and 11.",
-    "question": "What is the relation of the agent U to the agent E?",
-    "answer": "lower-left",
+    "story": "N and C are parallel, and N is under C. W and J are parallel, and W is to the left of J. J is at C's 3 o'clock.",
+    "question": "What is the relation of the agent N to the agent C?",
+    "answer": "below",
     "k": 3
   },
   {
-    "story": "I is positioned below M and to the right. D is diagonally left and above D. O is on top of M.",
-    "question": "What is the relation of the agent O to the agent M?",
-    "answer": "above",
-    "k": 3
-  },
-  {
-    "story": "X is upper left of I. H is placed in the right direction of X. C and I are side by side with C on the top and I at the bottom.",
-    "question": "What is the relation of the agent C to the agent I?",
-    "answer": "above",
-    "k": 3
-  },
-  {
-    "story": "M is on the left side to H. W and M are horizontal and W is to the left of M. H is below N at 4 o'clock.",
-    "question": "What is the relation of the agent W to the agent M?",
+    "story": "V is placed in the right direction of K. Object V is above object F and to the right of it, too. P is over there and K is on the right.",
+    "question": "What is the relation of the agent P to the agent V?",
     "answer": "left",
     "k": 3
   },
   {
-    "story": "D and Z are side by side with D on the top and Z at the bottom. Z is diagonally left and above Z. D is at I's 12 o'clock.",
-    "question": "What is the relation of the agent D to the agent Z?",
-    "answer": "above",
+    "story": "V is on the same vertical plane directly below F. Q is at the bottom of F and is on the same vertical plane. Y is diagonally left and above Y.",
+    "question": "What is the relation of the agent F to the agent Y?",
+    "answer": "right",
     "k": 3
   },
   {
-    "story": "Z is positioned below F. V is below Z with a small gap between them. P is diagonally above V to the right at a 45 degree.",
-    "question": "What is the relation of the agent F to the agent V?",
-    "answer": "above",
+    "story": "H is to the left of I and is on the same horizontal plane. Object Y is above object H and to the left of it, too. Object L is above object Y and to the right of it, too.",
+    "question": "What is the relation of the agent I to the agent H?",
+    "answer": "right",
     "k": 3
   },
   {
-    "story": "K is placed on the top of U. K is on the left side of and below I. G is at the lower side of I.",
-    "question": "What is the relation of the agent I to the agent K?",
+    "story": "The object N is positioned directly below the object E. B is slightly off center to the top left and N is slightly off center to the bottom right. U is sitting at the upper right position to B.",
+    "question": "What is the relation of the agent U to the agent B?",
     "answer": "upper-right",
     "k": 3
   },
   {
-    "story": "Q is below O. T is positioned down and to the left of Q. O is over there with B above.",
-    "question": "What is the relation of the agent T to the agent B?",
-    "answer": "lower-left",
+    "story": "O is on the same horizontal plane directly left to C. O is directly north west of M. H is at a 45 degree angle to C, in the lower righthand corner.",
+    "question": "What is the relation of the agent H to the agent C?",
+    "answer": "lower-right",
     "k": 3
   },
   {
-    "story": "If T is the center of a clock face, H is located between 4 and 5. S is there and H is at the 2 position of a clock face. T is positioned below P and to the right.",
-    "question": "What is the relation of the agent T to the agent S?",
-    "answer": "above",
+    "story": "F is there and K is at the 2 position of a clock face. Q is positioned above and to the left of L. Q is placed in the left direction of K.",
+    "question": "What is the relation of the agent L to the agent F?",
+    "answer": "right",
     "k": 3
   },
   {
-    "story": "A is south west of M. N is diagonally left and below A. P and M are next to each other with P on the left and M on the right.",
-    "question": "What is the relation of the agent P to the agent M?",
+    "story": "W is above and to the right of A. G is at the lower side of A. G and O are both there with the object G is to the right of object O.",
+    "question": "What is the relation of the agent G to the agent O?",
     "answer": "left",
     "k": 3
   },
   {
-    "story": "D is to the right and above H at an angle of about 45 degrees. H is there and P is at the 10 position of a clock face. D is south west of B.",
-    "question": "What is the relation of the agent D to the agent B?",
+    "story": "I is to the right and above C at an angle of about 45 degrees. C presents left to E. I is at a 45 degree angle to P, in the upper lefthand corner.",
+    "question": "What is the relation of the agent P to the agent C?",
+    "answer": "lower-right",
+    "k": 3
+  },
+  {
+    "story": "N is to the top right of M. X is at E's 6 o'clock. E and N are parallel, and E on the right of N.",
+    "question": "What is the relation of the agent E to the agent X?",
+    "answer": "above",
+    "k": 3
+  },
+  {
+    "story": "X is positioned in the lower left corner of V. R is positioned above J and to the right. R is diagonally to the upper right of V.",
+    "question": "What is the relation of the agent X to the agent J?",
     "answer": "lower-left",
     "k": 3
   },
   {
-    "story": "W is on the top of A and is on the same vertical plane. W is sitting at the top position to Q. Y and A are next to each other with A on the right and Y on the left.",
-    "question": "What is the relation of the agent Y to the agent W?",
+    "story": "V is below C at 7 o'clock. V presents upper right to U. M and U are in a horizontal line with U on the right.",
+    "question": "What is the relation of the agent C to the agent U?",
+    "answer": "upper-right",
+    "k": 3
+  },
+  {
+    "story": "W and H are parallel, and W on the left of H. Object G is above object J and to the left of it, too. H is on the same horizontal plane directly left to G.",
+    "question": "What is the relation of the agent W to the agent J?",
+    "answer": "upper-left",
+    "k": 3
+  },
+  {
+    "story": "Y is placed in the right direction of Z. Z is above F. F is below and to the left of S.",
+    "question": "What is the relation of the agent F to the agent Z?",
+    "answer": "below",
+    "k": 3
+  },
+  {
+    "story": "M is directly south east of V. V is directly above R. R is to the right of Q with a small gap between them.",
+    "question": "What is the relation of the agent M to the agent R?",
+    "answer": "right",
+    "k": 3
+  },
+  {
+    "story": "W is on the upper right of H. W is there and X is at the 2 position of a clock face. H is above J and to the right of J.",
+    "question": "What is the relation of the agent J to the agent W?",
     "answer": "lower-left",
+    "k": 3
+  },
+  {
+    "story": "J presents upper left to W. R is over A. W is sitting in the left direction of R.",
+    "question": "What is the relation of the agent A to the agent J?",
+    "answer": "lower-right",
+    "k": 3
+  },
+  {
+    "story": "V is slightly off center to the top left and R is slightly off center to the bottom right. V is to the right and above C at an angle of about 45 degrees. H is at the bottom of C and is on the same vertical plane.",
+    "question": "What is the relation of the agent V to the agent R?",
+    "answer": "upper-left",
+    "k": 3
+  },
+  {
+    "story": "R presents right to B. R is to the left of A and is on the same horizontal plane. A is on the same vertical plane directly above I.",
+    "question": "What is the relation of the agent R to the agent A?",
+    "answer": "left",
+    "k": 3
+  },
+  {
+    "story": "B is sitting at the 9:00 position of Y. I is over there with P above. B is positioned below P and to the right.",
+    "question": "What is the relation of the agent P to the agent I?",
+    "answer": "above",
+    "k": 3
+  },
+  {
+    "story": "Y is positioned above E. S and H are side by side with S on the top and H at the bottom. H and Y are parallel, and H on the right of Y.",
+    "question": "What is the relation of the agent S to the agent E?",
+    "answer": "upper-left",
     "k": 3
   },
   {
@@ -858,237 +774,171 @@
     "k": 3
   },
   {
-    "story": "N is at U's 3 o'clock. H is directly north west of X. U is to the right of H with a small gap between them.",
-    "question": "What is the relation of the agent H to the agent N?",
-    "answer": "left",
-    "k": 3
-  },
-  {
-    "story": "T is diagonally to the bottom right of V. V and I are vertical and V is below I. M is to the bottom-left of T.",
-    "question": "What is the relation of the agent I to the agent T?",
-    "answer": "upper-left",
-    "k": 3
-  },
-  {
-    "story": "W is positioned below F. K is positioned right to W. I is directly south west of F.",
-    "question": "What is the relation of the agent I to the agent K?",
-    "answer": "left",
-    "k": 3
-  },
-  {
-    "story": "If B is the center of a clock face, G is located between 10 and 11. G is diagonally below X to the left at a 45 degree angle. T is diagonally to the upper right of X.",
-    "question": "What is the relation of the agent G to the agent T?",
-    "answer": "lower-left",
-    "k": 3
-  },
-  {
-    "story": "G is sitting at the lower left position to I. C is to the right and above V at an angle of about 45 degrees. C is diagonally left and above C.",
-    "question": "What is the relation of the agent V to the agent I?",
-    "answer": "upper-left",
-    "k": 3
-  },
-  {
-    "story": "F is above and to the right of G. K is on top of F. G and I are parallel, and I is below G.",
-    "question": "What is the relation of the agent G to the agent I?",
-    "answer": "above",
-    "k": 3
-  },
-  {
-    "story": "T is diagonally left and below Y. Y and W are both there with the object Y above the object W. S is diagonally to the bottom right of W.",
-    "question": "What is the relation of the agent W to the agent T?",
-    "answer": "right",
-    "k": 3
-  },
-  {
-    "story": "D is south west of Y. A is directly below I. Q and Y are side by side with Q to the left and Y to the right. A and Q are in a vertical line with A on top.",
-    "question": "What is the relation of the agent I to the agent Y?",
-    "answer": "upper-left",
-    "k": 4
-  },
-  {
-    "story": "G is over S. L is at the bottom and S is on the top. L is above R at 10 o'clock. D is diagonally left and below R.",
-    "question": "What is the relation of the agent G to the agent D?",
-    "answer": "above",
-    "k": 4
-  },
-  {
-    "story": "J is directly north west of O. D is sitting at the lower position to M. M is positioned below and to the right of R. J is directly north west of R.",
-    "question": "What is the relation of the agent D to the agent M?",
-    "answer": "below",
-    "k": 4
-  },
-  {
-    "story": "V is positioned below O and to the left. U is on the right side to V. C is diagonally right and above T. The object labeled T is positioned to the right of the object labeled U.",
-    "question": "What is the relation of the agent U to the agent T?",
-    "answer": "left",
-    "k": 4
-  },
-  {
-    "story": "U is over there and E is on the left. Z is at the 6 o'clock position relative to E. Y presents upper left to P. Y is at a 45 degree angle to Z, in the lower righthand corner.",
+    "story": "E is over there with M above. Z is on the top and P is at the bottom. P is sitting at the 6:00 position to M.",
     "question": "What is the relation of the agent Z to the agent E?",
-    "answer": "below",
-    "k": 4
-  },
-  {
-    "story": "J is lower right of F. Q is below J and to the right of J. N is placed at the lower right of Q. F is directly south east of G.",
-    "question": "What is the relation of the agent N to the agent G?",
-    "answer": "lower-right",
-    "k": 4
-  },
-  {
-    "story": "T is at the bottom of M. M presents left to W. K is at a 45 degree angle to W, in the upper lefthand corner. I is below T at 7 o'clock.",
-    "question": "What is the relation of the agent K to the agent M?",
     "answer": "above",
-    "k": 4
+    "k": 3
   },
   {
-    "story": "L is upper left of V. L and H are parallel, and L on the left of H. V and K are side by side with V on the top and K at the bottom. B is sitting in the right direction of K.",
-    "question": "What is the relation of the agent L to the agent V?",
-    "answer": "upper-left",
-    "k": 4
-  },
-  {
-    "story": "M and J are parallel, and M is on top of J. F is over G. O is positioned down and to the left of G. M is under F.",
-    "question": "What is the relation of the agent F to the agent G?",
-    "answer": "above",
-    "k": 4
-  },
-  {
-    "story": "V presents below N. W is sitting at the 6:00 position to O. V is there and K is at the 2 position of a clock face. The object W is positioned above and to the left of object K.",
-    "question": "What is the relation of the agent N to the agent O?",
-    "answer": "below",
-    "k": 4
-  },
-  {
-    "story": "If L is the center of a clock face, Q is located between 4 and 5. D is positioned below U and to the right. Q is placed on the top of D. F and L are parallel, and F is on top of L.",
-    "question": "What is the relation of the agent F to the agent L?",
-    "answer": "above",
-    "k": 4
-  },
-  {
-    "story": "W and F are in a horizontal line with F on the right. U is positioned below F. W is to the left of A and below A at approximately a 45 degree angle. I is to the top-left of U.",
-    "question": "What is the relation of the agent W to the agent U?",
-    "answer": "upper-left",
-    "k": 4
-  },
-  {
-    "story": "C is to the right and above U at an angle of about 45 degrees. S is at a 45 degree angle to Q, in the upper lefthand corner. Q is sitting at the lower left position to U. C is positioned below B and to the right.",
-    "question": "What is the relation of the agent U to the agent B?",
-    "answer": "overlap",
-    "k": 4
-  },
-  {
-    "story": "K is positioned above and to the left of E. R is sitting at the 9:00 position of K. H is diagonally to the bottom right of U. R and U are parallel, and R on the right of U.",
-    "question": "What is the relation of the agent U to the agent K?",
-    "answer": "overlap",
-    "k": 4
-  },
-  {
-    "story": "B is on the same horizontal plane directly left to U. O is over there and B is on the left. U is to the right and above A at an angle of about 45 degrees. L is below A and to the right of A.",
-    "question": "What is the relation of the agent A to the agent B?",
-    "answer": "above",
-    "k": 4
-  },
-  {
-    "story": "X presents upper right to J. M is slightly off center to the top left and H is slightly off center to the bottom right. The object H is positioned directly below the object X. V is on the right side and below J.",
-    "question": "What is the relation of the agent V to the agent M?",
-    "answer": "lower-right",
-    "k": 4
-  },
-  {
-    "story": "Y is on the top side to B. G is sitting at the lower position to X. M is positioned in the lower right corner of B. Y is on the right side and top of X.",
-    "question": "What is the relation of the agent M to the agent X?",
-    "answer": "lower-right",
-    "k": 4
-  },
-  {
-    "story": "Y is under V. D and O are next to each other with O at the bottom D on the top. Y is positioned in the top left corner of O. V presents lower left to K.",
-    "question": "What is the relation of the agent V to the agent Y?",
-    "answer": "above",
-    "k": 4
-  },
-  {
-    "story": "D and G are parallel, and G is below D. Q is to the top right of Y. Q is sitting at the upper right position to B. G is sitting at the 3:00 position to B.",
-    "question": "What is the relation of the agent D to the agent Y?",
+    "story": "W is to the left of J and is on the same horizontal plane. V is at the bottom and Q is on the top. Q is there and J is at the 2 position of a clock face.",
+    "question": "What is the relation of the agent J to the agent Q?",
     "answer": "upper-right",
-    "k": 4
+    "k": 3
   },
   {
-    "story": "N and A are horizontal and N is to the left of A. Y and J are parallel, and Y is over J. R is on the top of N and is on the same vertical plane. Object A is above object Y and to the left of it, too.",
-    "question": "What is the relation of the agent Y to the agent J?",
-    "answer": "above",
-    "k": 4
-  },
-  {
-    "story": "Q presents right to O. G is on the right side to F. S is to the top right of F. O is on the upper right of S.",
-    "question": "What is the relation of the agent S to the agent F?",
-    "answer": "upper-right",
-    "k": 4
-  },
-  {
-    "story": "U is at a 45 degree angle to D, in the upper lefthand corner. C and T are parallel, and C is over T. The object U and C are there. The object U is below and slightly to the right of the object C. T and M are both there with the object T is to the left of object M.",
-    "question": "What is the relation of the agent M to the agent C?",
-    "answer": "lower-right",
-    "k": 4
-  },
-  {
-    "story": "M is at a 45 degree angle to F, in the lower lefthand corner. R is above O at 2 o'clock. U is to the right and above M at an angle of about 45 degrees. F is above and to the left of R.",
-    "question": "What is the relation of the agent M to the agent F?",
-    "answer": "lower-left",
-    "k": 4
-  },
-  {
-    "story": "B is upper right to A. L is at the bottom and Z is on the top. Z is at the bottom and A is on the top. M is to the bottom-right of L.",
-    "question": "What is the relation of the agent B to the agent L?",
-    "answer": "upper-right",
-    "k": 4
-  },
-  {
-    "story": "H and P are side by side with H on the top and P at the bottom. P is over F. Y presents right to U. H is under U.",
-    "question": "What is the relation of the agent H to the agent U?",
-    "answer": "below",
-    "k": 4
-  },
-  {
-    "story": "D is to the left of Y horizontally. Y is north west of H. H is below O at 7 o'clock. L is below D and to the left of D.",
-    "question": "What is the relation of the agent D to the agent H?",
-    "answer": "upper-left",
-    "k": 4
-  },
-  {
-    "story": "I is placed at the upper left of M. X is placed in the left direction of I. G is directly south east of U. G is on the right and X is on the left.",
-    "question": "What is the relation of the agent U to the agent G?",
-    "answer": "upper-left",
-    "k": 4
-  },
-  {
-    "story": "J is placed at the bottom of F. J is below B. B is diagonally to the bottom right of E. F is positioned in the front right corner of Q.",
-    "question": "What is the relation of the agent F to the agent J?",
-    "answer": "below",
-    "k": 4
-  },
-  {
-    "story": "L is to the top-right of I. D is at a 45 degree angle to I, in the lower lefthand corner. N is at C's 6 o'clock. C and L are both there with the object C above the object L.",
-    "question": "What is the relation of the agent N to the agent L?",
-    "answer": "overlap",
-    "k": 4
-  },
-  {
-    "story": "Z and L are parallel, and Z on the right of L. T is to the bottom left of X. B is above T at 10 o'clock. X and Z are parallel, and X is to the left of Z.",
-    "question": "What is the relation of the agent L to the agent Z?",
+    "story": "T and X are side by side with T on the top and X at the bottom. V is placed at the upper left of X. T is over R.",
+    "question": "What is the relation of the agent T to the agent V?",
     "answer": "right",
-    "k": 4
+    "k": 3
   },
   {
-    "story": "M is over there and R is at the bottom of it. R is south west of K. S is upper left of F. S is on the same horizontal plane directly left to M.",
-    "question": "What is the relation of the agent F to the agent K?",
+    "story": "B is sitting in the left direction of G. E is positioned below and to the right of W. The objects G and W are over there. The object G is above and slightly to the right of the object W.",
+    "question": "What is the relation of the agent B to the agent W?",
+    "answer": "above",
+    "k": 3
+  },
+  {
+    "story": "D is placed at the bottom of Y. G is over there and U is on the right of it. D and G are parallel, and D is to the right of G.",
+    "question": "What is the relation of the agent D to the agent G?",
+    "answer": "left",
+    "k": 3
+  },
+  {
+    "story": "D is at E\u2019s 9 o'clock. P is at the bottom of D and is on the same vertical plane. I is at the bottom and P is on the top.",
+    "question": "What is the relation of the agent E to the agent D?",
+    "answer": "right",
+    "k": 3
+  },
+  {
+    "story": "K and I are side by side with K to the left and I to the right. K is positioned above O and to the right. O is diagonally above Q to the right at a 45 degree.",
+    "question": "What is the relation of the agent Q to the agent K?",
     "answer": "lower-left",
+    "k": 3
+  },
+  {
+    "story": "W is at S\u2019s 9 o'clock. M is on the same vertical plane directly below T. W and M are next to each other with M on the right and W on the left.",
+    "question": "What is the relation of the agent T to the agent S?",
+    "answer": "above",
+    "k": 3
+  },
+  {
+    "story": "If T is the center of a clock face, H is located between 4 and 5. S is there and H is at the 2 position of a clock face. T is positioned below P and to the right.",
+    "question": "What is the relation of the agent T to the agent S?",
+    "answer": "above",
+    "k": 3
+  },
+  {
+    "story": "The object C is positioned above and to the left of object H. C is slightly off center to the top left and K is slightly off center to the bottom right. Y is to the right and above K at an angle of about 45 degrees.",
+    "question": "What is the relation of the agent C to the agent K?",
+    "answer": "upper-left",
+    "k": 3
+  },
+  {
+    "story": "B is diagonally to the upper left of J. Y is above and to the left of B. Y is directly south east of H.",
+    "question": "What is the relation of the agent Y to the agent H?",
+    "answer": "lower-right",
+    "k": 3
+  },
+  {
+    "story": "Y and V are in a horizontal line with Y on the left. F is slightly off center to the top left and Y is slightly off center to the bottom right. V is upper right to C.",
+    "question": "What is the relation of the agent V to the agent F?",
+    "answer": "lower-right",
+    "k": 3
+  },
+  {
+    "story": "S is over E. S is to the left of A with a small gap between them. U is directly above E.",
+    "question": "What is the relation of the agent U to the agent E?",
+    "answer": "above",
+    "k": 3
+  },
+  {
+    "story": "R is diagonally right and below D. D is at the 9 o'clock position relative to V. C is on the right side and below R.",
+    "question": "What is the relation of the agent V to the agent C?",
+    "answer": "upper-left",
+    "k": 3
+  },
+  {
+    "story": "X and Q are horizontal and X is to the right of Q. Q is on the same vertical plane directly above O. O is there and V is at the 10 position of a clock face.",
+    "question": "What is the relation of the agent O to the agent X?",
+    "answer": "lower-right",
+    "k": 3
+  },
+  {
+    "story": "The object L is positioned directly above the object E. The objects E and O are over there. The object E is lower and slightly to the left of the object O. The object L and P are there. The object P is above and slightly to the left of the object L.",
+    "question": "What is the relation of the agent P to the agent O?",
+    "answer": "upper-left",
+    "k": 3
+  },
+  {
+    "story": "D and Z are side by side with D on the top and Z at the bottom. Z is diagonally left and above Z. D is at I's 12 o'clock.",
+    "question": "What is the relation of the agent D to the agent Z?",
+    "answer": "above",
+    "k": 3
+  },
+  {
+    "story": "L presents upper left to M. D is diagonally right and below L. B is sitting at the 3:00 position to M.",
+    "question": "What is the relation of the agent L to the agent D?",
+    "answer": "upper-left",
+    "k": 3
+  },
+  {
+    "story": "A is sitting at the top position to U. C presents upper right to U. D is diagonally to the upper right of A.",
+    "question": "What is the relation of the agent C to the agent D?",
+    "answer": "below",
+    "k": 3
+  },
+  {
+    "story": "V is positioned below and to the right of G. G and J are parallel, and G is under J. K is directly above J.",
+    "question": "What is the relation of the agent K to the agent G?",
+    "answer": "above",
+    "k": 3
+  },
+  {
+    "story": "Z and U are parallel, and Z on the right of U. Object U is below object K and to the left of it, too. Z is to the bottom-left of H.",
+    "question": "What is the relation of the agent U to the agent Z?",
+    "answer": "right",
+    "k": 3
+  },
+  {
+    "story": "K and I are in a horizontal line with I on the right. Z is to the top right of E. I is below L. L is sitting at the top position to E.",
+    "question": "What is the relation of the agent K to the agent E?",
+    "answer": "left",
     "k": 4
   },
   {
-    "story": "K is positioned below S and to the left. P is on the same horizontal plane directly left to D. The object D is positioned directly above the object S. The object P and Z are there. The object P is below and slightly to the right of the object Z.",
-    "question": "What is the relation of the agent P to the agent Z?",
-    "answer": "lower-right",
+    "story": "N is sitting at the lower left position to F. Z is at F's 6 o'clock. Z is to the left of M with a small gap between them. C is diagonally right and below M.",
+    "question": "What is the relation of the agent F to the agent C?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "Z is sitting in the left direction of S. S presents lower right to K. F is below J with a small gap between them. The object K is lower and slightly to the right of the object J.",
+    "question": "What is the relation of the agent J to the agent F?",
+    "answer": "above",
+    "k": 4
+  },
+  {
+    "story": "The object labeled V is positioned to the right of the object labeled I. Y is directly south west of V. L is on the right side to E. L is positioned below Y and to the left.",
+    "question": "What is the relation of the agent I to the agent V?",
+    "answer": "left",
+    "k": 4
+  },
+  {
+    "story": "N is there and D is at the 5 position of a clock face. E and C are side by side with E on the top and C at the bottom. N is north west of M. D is positioned right to C.",
+    "question": "What is the relation of the agent N to the agent M?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "The object labeled Y is positioned to the right of the object labeled G. H presents over M. W is positioned above and to the left of Y. The object labeled G is positioned to the left of the object labeled H.",
+    "question": "What is the relation of the agent Y to the agent M?",
+    "answer": "above",
+    "k": 4
+  },
+  {
+    "story": "M and D are vertical and M is above D. K is at a 45 degree angle to Z, in the upper lefthand corner. M is positioned in the top left corner of H. Z is positioned right to H.",
+    "question": "What is the relation of the agent M to the agent Z?",
+    "answer": "upper-left",
     "k": 4
   },
   {
@@ -1098,99 +948,27 @@
     "k": 4
   },
   {
-    "story": "A is on the upper right of I. I and W are parallel, and W is below I. W is below and to the left of B. A is below K and to the right of K.",
-    "question": "What is the relation of the agent W to the agent B?",
-    "answer": "lower-left",
-    "k": 4
-  },
-  {
-    "story": "O is sitting at the top position to H. L is on the right side to O. M is on the upper right of K. H is below K at 7 o'clock.",
-    "question": "What is the relation of the agent O to the agent K?",
-    "answer": "left",
-    "k": 4
-  },
-  {
-    "story": "B is there and V is at the 10 position of a clock face. N is at a 45 degree angle to Y, in the upper lefthand corner. Y is directly above B. V is positioned below U.",
-    "question": "What is the relation of the agent Y to the agent N?",
-    "answer": "lower-right",
-    "k": 4
-  },
-  {
-    "story": "U is positioned below V and to the left. H is to the bottom-left of V. U and I are parallel, and U on the right of I. K and H are parallel, and H is below K.",
-    "question": "What is the relation of the agent H to the agent U?",
-    "answer": "lower-left",
-    "k": 4
-  },
-  {
-    "story": "V is over there and M is directly above it. F and H are vertical and F is below H. C is above F and to the left of F. H is placed at the lower right of V.",
-    "question": "What is the relation of the agent H to the agent C?",
+    "story": "Y is at a 45 degree angle to E, in the upper lefthand corner. I is at the bottom of Q and is on the same vertical plane. Y is on the top side to Q. S is over there and I is directly above it.",
+    "question": "What is the relation of the agent E to the agent Q?",
     "answer": "right",
     "k": 4
   },
   {
-    "story": "Y is on the lower left of O. H is diagonally to the upper right of E. If H is the center of a clock face, D is located between 4 and 5. O is on the left side of and below D.",
-    "question": "What is the relation of the agent O to the agent Y?",
+    "story": "R is sitting at the lower left position to T. R is below E. B is directly above T. D is at the lower side of B.",
+    "question": "What is the relation of the agent T to the agent R?",
     "answer": "upper-right",
     "k": 4
   },
   {
-    "story": "Q is sitting at the 3:00 position to O. The objects Z and V are over there. The object Z is lower and slightly to the left of the object V. V is placed on the top of J. Z is over there and Q is on the top of it.",
-    "question": "What is the relation of the agent V to the agent Q?",
-    "answer": "right",
-    "k": 4
-  },
-  {
-    "story": "O is to the top-right of K. S is on the right and L is on the left. K is south east of S. U is there and O is at the 10 position of a clock face.",
-    "question": "What is the relation of the agent O to the agent K?",
-    "answer": "upper-right",
-    "k": 4
-  },
-  {
-    "story": "C is to the bottom left of X. The object X is positioned below and to the right of the object K. G is on the top of B and is on the same vertical plane. G is on the left side of and below C.",
-    "question": "What is the relation of the agent X to the agent C?",
-    "answer": "upper-right",
-    "k": 4
-  },
-  {
-    "story": "O is north east of F. G and S are side by side with G on the top and S at the bottom. O is on the right side and top of W. G and W are next to each other with W at the bottom G on the top.",
-    "question": "What is the relation of the agent S to the agent W?",
-    "answer": "overlap",
-    "k": 4
-  },
-  {
-    "story": "M is placed at the lower left of X. L presents over M. X is to the right and above J at an angle of about 45 degrees. J is above V with a small gap between them.",
-    "question": "What is the relation of the agent J to the agent M?",
-    "answer": "right",
-    "k": 4
-  },
-  {
-    "story": "A is to the top of Y vertically. Y is at the bottom of F vertically. If R is the center of a clock face, F is located between 2 and 3. If H is the center of a clock face, A is located between 2 and 3.",
-    "question": "What is the relation of the agent R to the agent Y?",
-    "answer": "left",
-    "k": 4
-  },
-  {
-    "story": "U is to the right and above C at an angle of about 45 degrees. Object R is below object H and to the left of it, too. N is above H at 2 o'clock. U is lower left to N.",
-    "question": "What is the relation of the agent R to the agent H?",
+    "story": "The object Q is positioned below and to the left of the object G. The object W is lower and slightly to the left of the object G. F is to the left of W and below W at approximately a 45 degree angle. F is over there and H is on the right of it.",
+    "question": "What is the relation of the agent H to the agent G?",
     "answer": "lower-left",
     "k": 4
   },
   {
-    "story": "J is directly below S. O is to the right of S horizontally. M is above J at 10 o'clock. L is diagonally below M to the left at a 45 degree angle.",
-    "question": "What is the relation of the agent O to the agent M?",
-    "answer": "right",
-    "k": 4
-  },
-  {
-    "story": "Z is above F. F and R are next to each other with F on the left and R on the right. L is at R's 12 o'clock. D is to the left of L.",
-    "question": "What is the relation of the agent D to the agent Z?",
-    "answer": "overlap",
-    "k": 4
-  },
-  {
-    "story": "U is to the left of O horizontally. O is directly above D. W is to the top-left of D. M is sitting at the top position to W.",
-    "question": "What is the relation of the agent U to the agent O?",
-    "answer": "left",
+    "story": "D and G are parallel, and G is below D. Q is to the top right of Y. Q is sitting at the upper right position to B. G is sitting at the 3:00 position to B.",
+    "question": "What is the relation of the agent D to the agent Y?",
+    "answer": "upper-right",
     "k": 4
   },
   {
@@ -1200,159 +978,267 @@
     "k": 4
   },
   {
-    "story": "P is to the bottom left of U. U is at the bottom of Y. P is to the bottom left of A. Object A is below object V and to the left of it, too. I is to the bottom left of Y.",
-    "question": "What is the relation of the agent V to the agent I?",
-    "answer": "upper-right",
-    "k": 5
+    "story": "D is to the bottom right of R. The object K is positioned directly below the object R. K is north east of P. W is over there with P below.",
+    "question": "What is the relation of the agent P to the agent R?",
+    "answer": "lower-left",
+    "k": 4
   },
   {
-    "story": "H is placed at the lower left of A. A is at the lower side of P. R is upper left of H. X is to the top of Z vertically. X is to the upper left of R.",
-    "question": "What is the relation of the agent Z to the agent H?",
-    "answer": "upper-left",
-    "k": 5
-  },
-  {
-    "story": "F is below Y and to the left of Y. V and A are side by side with A at the bottom and V on the top. A and D are next to each other with A on the top and D at the bottom. Y is diagonally to the bottom right of D. E is placed in the left direction of F.",
-    "question": "What is the relation of the agent A to the agent Y?",
-    "answer": "upper-left",
-    "k": 5
-  },
-  {
-    "story": "Q is over there with P below. H is above and to the right of Y. P is over there and Y is directly below it. H is placed at the upper right of G. The object G is positioned above and to the left of object M.",
-    "question": "What is the relation of the agent H to the agent Y?",
-    "answer": "upper-right",
-    "k": 5
-  },
-  {
-    "story": "Q is on the same vertical plane directly below F. X is directly below V. S is to the right of H with a small gap between them. Q and H are both there with the object Q is to the right of object H. F is on the same vertical plane directly above V.",
-    "question": "What is the relation of the agent H to the agent S?",
+    "story": "U is diagonally right and above C. H is below Z and to the right of Z. Z is on the top and B is at the bottom. C and B are horizontal and C is to the left of B.",
+    "question": "What is the relation of the agent C to the agent B?",
     "answer": "left",
-    "k": 5
+    "k": 4
   },
   {
-    "story": "X is at a 45 degree angle to P, in the lower righthand corner. C and X are parallel, and C is under X. E is to the bottom-right of P. N is placed in the right direction of L. C is below N and to the left of N.",
-    "question": "What is the relation of the agent N to the agent C?",
+    "story": "B is placed on the top of E. E is at the 3 o'clock position relative to S. B is south east of H. D is positioned in the lower right corner of H.",
+    "question": "What is the relation of the agent B to the agent S?",
     "answer": "upper-right",
-    "k": 5
+    "k": 4
   },
   {
-    "story": "L is on the top of S and is on the same vertical plane. E is at the 9 o'clock position relative to U. L is to the left of E and below E at approximately a 45 degree angle. F is to the right and above S at an angle of about 45 degrees. B and U are next to each other with B on the top and U at the bottom.",
-    "question": "What is the relation of the agent F to the agent L?",
-    "answer": "lower-right",
-    "k": 5
-  },
-  {
-    "story": "L and V are both there with the object L above the object V. W is to the right of R horizontally. E is at X\u2019s 9 o'clock. W is over there and V is on the right of it. L is to the bottom-left of E.",
-    "question": "What is the relation of the agent E to the agent L?",
+    "story": "K and J are both there with the object K is to the left of object J. Y and K are side by side with Y to the right and K to the left. Q is positioned below and to the right of J. X is positioned above Y and to the right.",
+    "question": "What is the relation of the agent X to the agent K?",
     "answer": "upper-right",
-    "k": 5
+    "k": 4
   },
   {
-    "story": "H is sitting in the left direction of T. L is sitting at the upper left position to Q. L is placed in the left direction of T. R is below and to the left of H. D is placed in the left direction of R.",
-    "question": "What is the relation of the agent R to the agent Q?",
-    "answer": "left",
-    "k": 5
-  },
-  {
-    "story": "E is positioned below and to the right of C. The objects W and D are over there. The object W is lower and slightly to the left of the object D. R is diagonally left and below C. W is over Y. Y is to the top-left of R.",
-    "question": "What is the relation of the agent D to the agent C?",
-    "answer": "upper-left",
-    "k": 5
-  },
-  {
-    "story": "A is to the right of Q horizontally. S is above and to the left of U. L is to the right of A. S is diagonally to the bottom left of C. The object L is positioned above and to the left of object U.",
-    "question": "What is the relation of the agent C to the agent U?",
+    "story": "R and L are horizontal and R is to the right of L. L is placed at the bottom of Y. S is diagonally above O to the right at a 45 degree. Y is at the bottom of O vertically.",
+    "question": "What is the relation of the agent O to the agent Y?",
     "answer": "above",
-    "k": 5
+    "k": 4
   },
   {
-    "story": "X and K are both there with the object X is to the left of object K. The object V is lower and slightly to the left of the object O. J is upper right to X. A is below V at 4 o'clock. A is over there and K is on the left.",
-    "question": "What is the relation of the agent K to the agent V?",
+    "story": "Object S is below object W and to the left of it, too. W and L are next to each other with L on the right and W on the left. L is diagonally below D to the right at a 45 degree angle. If S is the center of a clock face, R is located between 7 and 8.",
+    "question": "What is the relation of the agent W to the agent D?",
     "answer": "below",
-    "k": 5
+    "k": 4
   },
   {
-    "story": "K is diagonally to the bottom left of R. F is to the right and above R at an angle of about 45 degrees. F is below S and to the left of S. O and S are parallel, and O is to the right of S. B is at the 3 o'clock position relative to O.",
-    "question": "What is the relation of the agent R to the agent K?",
-    "answer": "upper-right",
-    "k": 5
-  },
-  {
-    "story": "T is above X and to the right of X. Y is diagonally above X to the left at a 45 degree angle. S is on the lower left of U. W is positioned below Y. U is diagonally right and below T.",
-    "question": "What is the relation of the agent W to the agent Y?",
-    "answer": "below",
-    "k": 5
-  },
-  {
-    "story": "I is on the top side to N. E presents lower left to R. W is over there and R is on the left. E is on the left side and above I. K is placed at the upper right of W.",
-    "question": "What is the relation of the agent I to the agent E?",
+    "story": "K and J are in a horizontal line with J on the right. O is slightly off center to the top left and P is slightly off center to the bottom right. P and J are both there with the object P is to the left of object J. C is sitting at the lower position to K.",
+    "question": "What is the relation of the agent K to the agent O?",
     "answer": "lower-right",
-    "k": 5
+    "k": 4
   },
   {
-    "story": "Z is upper left of A. S is over M. E is to the top-right of S. Z is on the top side to V. M and V are horizontal and M is to the right of V.",
+    "story": "M is above V at 2 o'clock. K is at a 45 degree angle to S, in the lower righthand corner. V is diagonally below X to the right at a 45 degree angle. M is above and to the left of S.",
+    "question": "What is the relation of the agent V to the agent S?",
+    "answer": "left",
+    "k": 4
+  },
+  {
+    "story": "W is there and Y is at the 5 position of a clock face. Y is at a 45 degree angle to T, in the lower lefthand corner. W is diagonally to the bottom left of A. A is to the upper left of R.",
+    "question": "What is the relation of the agent W to the agent T?",
+    "answer": "left",
+    "k": 4
+  },
+  {
+    "story": "U presents right to S. D and U are next to each other with U on the right and D on the left. J is on the lower right of D. H is at the bottom of S vertically.",
+    "question": "What is the relation of the agent D to the agent H?",
+    "answer": "above",
+    "k": 4
+  },
+  {
+    "story": "The object labeled V is positioned to the left of the object labeled E. T and J are side by side with T to the right and J to the left. The objects T and P are over there. The object T is above and slightly to the right of the object P. J is upper left of V.",
+    "question": "What is the relation of the agent J to the agent V?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "B is below L. X and Z are in a horizontal line with Z on the right. Y is over there and Z is on the top of it. L is at the 12 o'clock position relative to X.",
+    "question": "What is the relation of the agent X to the agent Y?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "M is to the bottom-right of O. O is over there and J is on the left. G is over there and S is directly below it. J is over there and S is on the right.",
+    "question": "What is the relation of the agent S to the agent M?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "X and C are parallel, and X is to the left of C. T is positioned below and to the right of G. C is directly north east of T. Y is on the same vertical plane directly above G.",
+    "question": "What is the relation of the agent G to the agent T?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "R is sitting at the lower right position to Y. J is diagonally to the upper left of L. The object labeled L is positioned to the left of the object labeled R. Y is positioned up and to the right of F.",
+    "question": "What is the relation of the agent Y to the agent L?",
+    "answer": "above",
+    "k": 4
+  },
+  {
+    "story": "U is at a 45 degree angle to D, in the upper lefthand corner. C and T are parallel, and C is over T. The object U and C are there. The object U is below and slightly to the right of the object C. T and M are both there with the object T is to the left of object M.",
+    "question": "What is the relation of the agent M to the agent C?",
+    "answer": "lower-right",
+    "k": 4
+  },
+  {
+    "story": "A is on the top side to N. M is sitting in the left direction of A. F is over M. E presents left to F.",
+    "question": "What is the relation of the agent F to the agent A?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "Y is diagonally to the upper right of B. A is over there with R above. G is slightly off center to the top left and R is slightly off center to the bottom right. G is on the same horizontal plane directly right to Y.",
+    "question": "What is the relation of the agent B to the agent G?",
+    "answer": "lower-left",
+    "k": 4
+  },
+  {
+    "story": "V is sitting at the upper left position to K. O is at the bottom of N and is on the same vertical plane. G is at a 45 degree angle to N, in the upper righthand corner. V is sitting at the 3:00 position to G.",
+    "question": "What is the relation of the agent V to the agent K?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "C is diagonally above L to the left at a 45 degree angle. T is at L's 3 o'clock. N is on the top of C and is on the same vertical plane. X is on the left side of and below N.",
+    "question": "What is the relation of the agent X to the agent L?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "J is on the same horizontal plane directly left to C. K is below A with a small gap between them. J is on the same vertical plane directly above A. Q is there and K is at the 2 position of a clock face.",
+    "question": "What is the relation of the agent J to the agent Q?",
+    "answer": "upper-right",
+    "k": 4
+  },
+  {
+    "story": "F is placed at the upper right of P. R is over there and E is on the left. F and B are parallel, and F is to the left of B. R is above P at 10 o'clock.",
+    "question": "What is the relation of the agent E to the agent R?",
+    "answer": "left",
+    "k": 4
+  },
+  {
+    "story": "F is to the bottom-left of D. D and E are next to each other with D on the left and E on the right. S is positioned down and to the left of F. I is below and to the left of E.",
     "question": "What is the relation of the agent E to the agent S?",
     "answer": "upper-right",
-    "k": 5
+    "k": 4
   },
   {
-    "story": "B is at C\u2019s 9 o'clock. R is on the upper right of B. A is at the 9 o'clock position relative to S. R is to the upper left of A. C is at the 3 o'clock position relative to W.",
-    "question": "What is the relation of the agent S to the agent A?",
+    "story": "E is at the bottom and H is on the top. M and H are vertical and M is above H. M is to the top-right of Q. E and Y are next to each other with Y at the bottom E on the top.",
+    "question": "What is the relation of the agent E to the agent M?",
+    "answer": "below",
+    "k": 4
+  },
+  {
+    "story": "T is there and P is at the 5 position of a clock face. J is sitting at the 12:00 position to Q. P and L are side by side with P to the right and L to the left. Q presents lower right to T.",
+    "question": "What is the relation of the agent L to the agent P?",
+    "answer": "left",
+    "k": 4
+  },
+  {
+    "story": "A is on the upper right of I. I and W are parallel, and W is below I. W is below and to the left of B. A is below K and to the right of K.",
+    "question": "What is the relation of the agent W to the agent B?",
+    "answer": "lower-left",
+    "k": 4
+  },
+  {
+    "story": "H is placed at the upper left of Z. The object Z is positioned directly above the object M. O is to the left of H. The objects O and C are over there. The object O is lower and slightly to the left of the object C.",
+    "question": "What is the relation of the agent C to the agent H?",
+    "answer": "above",
+    "k": 4
+  },
+  {
+    "story": "W is over there and O is on the right. Z is on the lower left of W. L is over there and G is on the top of it. Z and L are parallel, and Z on the right of L.",
+    "question": "What is the relation of the agent O to the agent L?",
+    "answer": "upper-right",
+    "k": 4
+  },
+  {
+    "story": "Q presents right to O. G is on the right side to F. S is to the top right of F. O is on the upper right of S.",
+    "question": "What is the relation of the agent S to the agent F?",
+    "answer": "upper-right",
+    "k": 4
+  },
+  {
+    "story": "Q is lower left to X. A is over there and Q is on the right of it. O is at X's 3 o'clock. O is over there and B is directly above it.",
+    "question": "What is the relation of the agent A to the agent Q?",
+    "answer": "left",
+    "k": 4
+  },
+  {
+    "story": "U is sitting at the lower position to P. B is positioned down and to the left of P. A and B are horizontal and A is to the right of B. U is directly north east of E.",
+    "question": "What is the relation of the agent B to the agent P?",
+    "answer": "lower-left",
+    "k": 4
+  },
+  {
+    "story": "X is south east of D. X is positioned in the front right corner of T. N is at a 45 degree angle to V, in the lower lefthand corner. V and D are both there with the object V is to the right of object D.",
+    "question": "What is the relation of the agent V to the agent T?",
+    "answer": "upper-left",
+    "k": 4
+  },
+  {
+    "story": "The objects K and W are over there. The object K is lower and slightly to the left of the object W. L is placed on the top of O. O is on the left side and above W. Y and K are both there with the object Y is to the right of object K.",
+    "question": "What is the relation of the agent L to the agent O?",
+    "answer": "above",
+    "k": 4
+  },
+  {
+    "story": "The object X is positioned directly below the object U. U is placed in the left direction of T. L is placed at the lower right of T. L and J are parallel, and J is below L.",
+    "question": "What is the relation of the agent X to the agent L?",
+    "answer": "left",
+    "k": 4
+  },
+  {
+    "story": "Q is positioned in the top left corner of W. C is above A. A is placed at the lower right of W. Q and N are parallel, and Q is to the left of N.",
+    "question": "What is the relation of the agent C to the agent W?",
     "answer": "right",
-    "k": 5
+    "k": 4
   },
   {
-    "story": "W is sitting at the 9:00 position of C. The object labeled J is positioned to the left of the object labeled R. C is at a 45 degree angle to T, in the lower righthand corner. Y is at the 9 o'clock position relative to T. W is at the 9 o'clock position relative to J.",
-    "question": "What is the relation of the agent R to the agent Y?",
+    "story": "X is below F and to the right of F. The object T is lower and slightly to the right of the object F. L is sitting at the 3:00 position to X. T is directly below I.",
+    "question": "What is the relation of the agent L to the agent I?",
     "answer": "lower-right",
-    "k": 5
+    "k": 4
   },
   {
-    "story": "E is above F and to the right of F. O is over there and T is on the left. O presents upper right to J. E is on the top and J is at the bottom. B is below F.",
-    "question": "What is the relation of the agent J to the agent B?",
+    "story": "D is placed in the left direction of R. The object I is lower and slightly to the left of the object D. P is positioned below I and to the left. S is over P.",
+    "question": "What is the relation of the agent I to the agent R?",
+    "answer": "lower-left",
+    "k": 4
+  },
+  {
+    "story": "A is positioned in the top left corner of B. M is sitting at the 6:00 position to S. B is above R and to the right of R. C is slightly off center to the top left and R is slightly off center to the bottom right. M is at the bottom of A and is on the same vertical plane.",
+    "question": "What is the relation of the agent B to the agent R?",
     "answer": "upper-right",
     "k": 5
   },
   {
-    "story": "H is there and O is at the 2 position of a clock face. Z is at the bottom of W. The object N is positioned directly above the object H. The object Z is positioned directly above the object D. N is positioned above D and to the left.",
-    "question": "What is the relation of the agent W to the agent Z?",
+    "story": "A is diagonally to the upper right of R. J is positioned in the lower left corner of X. A is at the bottom and M is on the top. J is upper right to T. M is to the top-right of X.",
+    "question": "What is the relation of the agent J to the agent M?",
+    "answer": "lower-left",
+    "k": 5
+  },
+  {
+    "story": "W is to the upper left of I. D and L are both there with the object D is to the left of object L. H is to the upper left of D. X is sitting at the lower right position to I. X is to the top-left of H.",
+    "question": "What is the relation of the agent X to the agent H?",
+    "answer": "upper-left",
+    "k": 5
+  },
+  {
+    "story": "T is slightly off center to the top left and Q is slightly off center to the bottom right. L is at the bottom of O. G is to the bottom left of L. Q is north west of M. T is slightly off center to the top left and O is slightly off center to the bottom right.",
+    "question": "What is the relation of the agent L to the agent O?",
+    "answer": "below",
+    "k": 5
+  },
+  {
+    "story": "U is on top of A. A is sitting in the right direction of I. P is above and to the right of I. Z is placed at the upper left of H. P is on the same horizontal plane directly right to H.",
+    "question": "What is the relation of the agent H to the agent I?",
     "answer": "above",
     "k": 5
   },
   {
-    "story": "F and K are side by side with F to the left and K to the right. J is on the same vertical plane directly above A. A and O are in a vertical line with O below A. The object T is positioned below and to the right of the object J. F is slightly off center to the top left and O is slightly off center to the bottom right.",
-    "question": "What is the relation of the agent A to the agent K?",
-    "answer": "overlap",
+    "story": "Q is over there and C is at the bottom of it. X presents lower left to A. L is there and A is at the 10 position of a clock face. L is at a 45 degree angle to Q, in the lower righthand corner. C is at I\u2019s 9 o'clock.",
+    "question": "What is the relation of the agent Q to the agent A?",
+    "answer": "above",
     "k": 5
   },
   {
-    "story": "N is to the right of Y with a small gap between them. L is over there and Q is at the bottom of it. F and G are next to each other with G at the bottom F on the top. G is to the bottom left of N. L is below Y at 7 o'clock.",
-    "question": "What is the relation of the agent N to the agent L?",
-    "answer": "upper-right",
-    "k": 5
-  },
-  {
-    "story": "K is below X at 4 o'clock. The objects K and Z are over there. The object K is lower and slightly to the left of the object Z. B is sitting in the right direction of X. E is on the same vertical plane directly above Z. T is positioned above and to the left of B.",
-    "question": "What is the relation of the agent T to the agent E?",
-    "answer": "left",
-    "k": 5
-  },
-  {
-    "story": "Q is diagonally to the bottom right of G. C is south east of Q. U is below and to the right of N. N is positioned in the top left corner of Y. G and U are in a vertical line with G on top.",
-    "question": "What is the relation of the agent C to the agent U?",
-    "answer": "lower-right",
-    "k": 5
-  },
-  {
-    "story": "Q is below and to the left of D. T and M are side by side with M at the bottom and T on the top. X is placed at the lower right of T. U is sitting at the lower right position to X. M is over Q.",
-    "question": "What is the relation of the agent U to the agent D?",
-    "answer": "lower-right",
-    "k": 5
-  },
-  {
-    "story": "Q is diagonally below J to the left at a 45 degree angle. B is directly south west of Z. U and Z are horizontal and U is to the left of Z. Q is sitting at the lower right position to S. If J is the center of a clock face, U is located between 2 and 3.",
-    "question": "What is the relation of the agent J to the agent U?",
-    "answer": "lower-left",
+    "story": "G presents over Y. U is sitting at the lower left position to T. U is placed at the upper right of V. G is at the 6 o'clock position relative to K. If T is the center of a clock face, K is located between 10 and 11.",
+    "question": "What is the relation of the agent G to the agent U?",
+    "answer": "above",
     "k": 5
   },
   {
@@ -1362,141 +1248,255 @@
     "k": 5
   },
   {
-    "story": "A is on the left and B is on the right. N and Z are vertical and N is below Z. Z is to the right of A. I is above and to the left of N. I is above V at 10 o'clock.",
-    "question": "What is the relation of the agent A to the agent B?",
-    "answer": "left",
-    "k": 5
-  },
-  {
-    "story": "The objects A and D are over there. The object A is lower and slightly to the left of the object D. The object X is upper and slightly to the left of the object D. M is there and Q is at the 10 position of a clock face. Q and A are next to each other with Q on the left and A on the right. O is diagonally to the bottom left of X.",
-    "question": "What is the relation of the agent D to the agent M?",
-    "answer": "upper-right",
-    "k": 5
-  },
-  {
-    "story": "W and X are parallel, and W is to the right of X. K is at the bottom of H. W is positioned right to S. H is at the 3 o'clock position relative to X. T is on the right side and top of K.",
-    "question": "What is the relation of the agent K to the agent H?",
-    "answer": "below",
-    "k": 5
-  },
-  {
-    "story": "T is positioned above Q and to the right. O is to the bottom left of T. X is above D at 10 o'clock. G is placed at the bottom of X. D and O are parallel, and D is over O.",
-    "question": "What is the relation of the agent O to the agent T?",
+    "story": "G is on the top of M and is on the same vertical plane. W is over there and M is on the left of it. P is placed on the top of U. G is lower left to B. W and U are both there with the object U below the object W.",
+    "question": "What is the relation of the agent M to the agent B?",
     "answer": "lower-left",
     "k": 5
   },
   {
-    "story": "N is over there and W is on the right of it. F presents right to E. N is diagonally to the bottom right of E. U is sitting at the 9:00 position of L. F is at the bottom of U vertically.",
-    "question": "What is the relation of the agent N to the agent U?",
-    "answer": "below",
-    "k": 5
-  },
-  {
-    "story": "X is sitting at the lower left position to V. X presents over Q. Q is south west of C. N is at the 3 o'clock position relative to F. F is sitting at the 3:00 position to C.",
-    "question": "What is the relation of the agent Q to the agent V?",
+    "story": "A and Z are parallel, and Z is below A. L is placed at the upper left of M. Z is on the left side to C. K is above C at 2 o'clock. L is under K.",
+    "question": "What is the relation of the agent C to the agent K?",
     "answer": "lower-left",
     "k": 5
   },
   {
-    "story": "U is diagonally to the upper right of V. H and D are in a horizontal line with H on the left. Y is on top of H. D is positioned in the front right corner of L. U presents left to L.",
-    "question": "What is the relation of the agent D to the agent U?",
-    "answer": "upper-right",
+    "story": "V is over there and Y is on the right of it. D is over there and Y is at the bottom of it. D is positioned in the lower left corner of K. A and I are parallel, and A on the right of I. The object I is lower and slightly to the right of the object V.",
+    "question": "What is the relation of the agent V to the agent I?",
+    "answer": "upper-left",
     "k": 5
   },
   {
-    "story": "P presents below R. U is sitting in the right direction of R. L is positioned left to U. C is positioned above P and to the right. K is to the upper left of C.",
-    "question": "What is the relation of the agent P to the agent R?",
-    "answer": "below",
-    "k": 5
-  },
-  {
-    "story": "U is at the lower side of B. C is north west of R. V is on the left and U is on the right. C is on the lower right of B. Object V is below object G and to the left of it, too.",
-    "question": "What is the relation of the agent V to the agent B?",
-    "answer": "lower-left",
-    "k": 5
-  },
-  {
-    "story": "If M is the center of a clock face, J is located between 7 and 8. If K is the center of a clock face, B is located between 7 and 8. If O is the center of a clock face, K is located between 2 and 3. J is over there and O is on the top of it. U is on the same horizontal plane directly right to B.",
-    "question": "What is the relation of the agent O to the agent U?",
-    "answer": "left",
-    "k": 5
-  },
-  {
-    "story": "R is positioned below A. L is on the left side to R. C is to the left of L horizontally. Y and P are horizontal and Y is to the right of P. Y is south east of A.",
-    "question": "What is the relation of the agent L to the agent R?",
-    "answer": "left",
-    "k": 5
-  },
-  {
-    "story": "Y is diagonally above B to the left at a 45 degree angle. Z is to the upper left of N. Y is diagonally right and below W. P is diagonally above Z to the left at a 45 degree angle. P is on the top and W is at the bottom.",
-    "question": "What is the relation of the agent N to the agent W?",
-    "answer": "lower-right",
-    "k": 5
-  },
-  {
-    "story": "I is positioned in the lower left corner of B. The object E is positioned below and to the left of the object B. N is at T's 12 o'clock. If Q is the center of a clock face, T is located between 10 and 11. I is at a 45 degree angle to N, in the upper righthand corner.",
-    "question": "What is the relation of the agent E to the agent B?",
-    "answer": "lower-left",
-    "k": 5
-  },
-  {
-    "story": "Q is on the right side and below X. J is diagonally right and above G. J is diagonally to the upper left of X. U is diagonally right and above Q. U and N are parallel, and U on the right of N.",
-    "question": "What is the relation of the agent G to the agent X?",
-    "answer": "left",
-    "k": 5
-  },
-  {
-    "story": "K is above G with a small gap between them. K is positioned in the lower left corner of S. S is at a 45 degree angle to V, in the lower lefthand corner. W and V are vertical and W is above V. W is on the left side of and below N.",
-    "question": "What is the relation of the agent V to the agent W?",
-    "answer": "below",
-    "k": 5
-  },
-  {
-    "story": "Q is upper right to Z. Q presents upper right to C. C is below G and to the left of G. U is diagonally right and above W. W is below and to the left of Z.",
-    "question": "What is the relation of the agent Z to the agent Q?",
-    "answer": "lower-left",
-    "k": 5
-  },
-  {
-    "story": "T is over there and O is on the right of it. N is at the 12 o'clock position relative to J. H is positioned below N and to the right. M is positioned below T and to the right. H is lower left to M.",
-    "question": "What is the relation of the agent M to the agent J?",
-    "answer": "upper-right",
-    "k": 5
-  },
-  {
-    "story": "E is on the left and H is on the right. T is below C at 7 o'clock. E is to the left of M. G is on the left side to M. G is sitting at the lower position to T.",
-    "question": "What is the relation of the agent E to the agent M?",
-    "answer": "left",
-    "k": 5
-  },
-  {
-    "story": "O is positioned below G. Y is north east of N. O is sitting in the right direction of F. X is on the top side to Y. N and F are in a vertical line with F below N.",
-    "question": "What is the relation of the agent G to the agent N?",
+    "story": "F is above and to the right of B. Q is below E. Object Z is below object W and to the right of it, too. The objects B and Q are over there. The object B is above and slightly to the right of the object Q. Object E is above object W and to the left of it, too.",
+    "question": "What is the relation of the agent B to the agent E?",
     "answer": "right",
     "k": 5
   },
   {
-    "story": "The objects J and L are over there. The object J is lower and slightly to the left of the object L. The object B is positioned below and to the left of the object O. P is over there and O is on the top of it. B is to the right of C horizontally. P is on the right side and below L.",
-    "question": "What is the relation of the agent L to the agent C?",
+    "story": "U is to the left of V and below V at approximately a 45 degree angle. U is upper right to P. X is lower right of V. E presents right to X. E is at O's 6 o'clock.",
+    "question": "What is the relation of the agent U to the agent P?",
     "answer": "upper-right",
     "k": 5
   },
   {
-    "story": "K and Y are side by side with K on the top and Y at the bottom. D is slightly off center to the top left and Y is slightly off center to the bottom right. J and F are horizontal and J is to the right of F. F is over there and C is on the left of it. K is below C at 7 o'clock.",
-    "question": "What is the relation of the agent D to the agent J?",
-    "answer": "lower-left",
+    "story": "L and Q are next to each other with Q at the bottom L on the top. R is diagonally to the upper right of H. Q is diagonally to the upper left of S. H and L are both there with the object H is to the right of object L. D is below S with a small gap between them.",
+    "question": "What is the relation of the agent S to the agent H?",
+    "answer": "lower-right",
     "k": 5
   },
   {
-    "story": "The object labeled L is positioned to the left of the object labeled C. The object L is positioned directly above the object W. C is positioned below A and to the left. D and W are parallel, and D is under W. Object M is below object A and to the right of it, too.",
-    "question": "What is the relation of the agent L to the agent A?",
+    "story": "R is on the right side and below C. V and G are horizontal and V is to the right of G. M is positioned below and to the right of D. M and G are side by side with M to the left and G to the right. R is slightly off center to the top left and D is slightly off center to the bottom right.",
+    "question": "What is the relation of the agent V to the agent C?",
+    "answer": "lower-right",
+    "k": 5
+  },
+  {
+    "story": "T is to the top right of B. B is to the top-right of G. F is to the bottom-left of C. C is positioned below T and to the left. G is below Z.",
+    "question": "What is the relation of the agent C to the agent F?",
+    "answer": "upper-right",
+    "k": 5
+  },
+  {
+    "story": "Object U is below object R and to the right of it, too. Y and N are next to each other with N at the bottom Y on the top. M is north west of Y. N is lower left to U. The object R is lower and slightly to the left of the object X.",
+    "question": "What is the relation of the agent R to the agent Y?",
     "answer": "above",
     "k": 5
   },
   {
-    "story": "M is diagonally right and below L. A is on the right side and top of E. E is at the 3 o'clock position relative to H. H is on the right side and top of G. A is over there and M is on the right.",
-    "question": "What is the relation of the agent A to the agent H?",
+    "story": "L is slightly off center to the top left and E is slightly off center to the bottom right. Q is to the right of J with a small gap between them. M is sitting at the upper left position to L. J is to the top of A vertically. A is on the right side to E.",
+    "question": "What is the relation of the agent Q to the agent J?",
+    "answer": "right",
+    "k": 5
+  },
+  {
+    "story": "L is positioned in the front right corner of K. C and R are parallel, and C is over R. If K is the center of a clock face, C is located between 2 and 3. X is diagonally to the bottom left of L. The object labeled X is positioned to the right of the object labeled D.",
+    "question": "What is the relation of the agent X to the agent R?",
+    "answer": "left",
+    "k": 5
+  },
+  {
+    "story": "I is positioned above H and to the left. H is on the lower right of N. L is north west of O. Z is sitting at the lower left position to L. N is to the left of Z and is on the same horizontal plane.",
+    "question": "What is the relation of the agent N to the agent O?",
+    "answer": "left",
+    "k": 5
+  },
+  {
+    "story": "If N is the center of a clock face, I is located between 7 and 8. X is placed at the bottom of L. X is below P. I is upper right to P. N is to the right of B and is on the same horizontal plane.",
+    "question": "What is the relation of the agent L to the agent B?",
+    "answer": "lower-left",
+    "k": 5
+  },
+  {
+    "story": "K and E are parallel, and K on the left of E. T is at F's 12 o'clock. F is to the bottom left of U. R is on the left side and above K. T is at the bottom and R is on the top.",
+    "question": "What is the relation of the agent F to the agent T?",
+    "answer": "below",
+    "k": 5
+  },
+  {
+    "story": "K presents below B. B and N are in a vertical line with B on top. K is to the right of P with a small gap between them. P is on top of G. R is at G's 6 o'clock.",
+    "question": "What is the relation of the agent K to the agent P?",
+    "answer": "right",
+    "k": 5
+  },
+  {
+    "story": "E is positioned below and to the right of F. E is on the same vertical plane directly above Y. C is diagonally to the bottom left of F. G is to the left of K with a small gap between them. K is to the top right of Y.",
+    "question": "What is the relation of the agent C to the agent Y?",
+    "answer": "upper-left",
+    "k": 5
+  },
+  {
+    "story": "Z is on the top side to D. T is at a 45 degree angle to Q, in the lower righthand corner. Z and G are both there with the object Z is to the right of object G. M is placed in the right direction of D. M is over Q.",
+    "question": "What is the relation of the agent T to the agent M?",
+    "answer": "lower-right",
+    "k": 5
+  },
+  {
+    "story": "L is below and to the left of N. N is on the same horizontal plane directly right to W. L is over there with Z below. Q is to the left of O. O is over there and W is on the left.",
+    "question": "What is the relation of the agent Z to the agent Q?",
+    "answer": "below",
+    "k": 5
+  },
+  {
+    "story": "T is to the right of X and is on the same horizontal plane. N is placed at the lower left of C. B is sitting at the upper left position to N. C is below T at 4 o'clock. Q is placed in the left direction of X.",
+    "question": "What is the relation of the agent X to the agent T?",
+    "answer": "left",
+    "k": 5
+  },
+  {
+    "story": "U is at the bottom of Q and is on the same vertical plane. F is south west of W. The object U is positioned below and to the left of the object L. F is sitting at the upper right position to X. Q presents right to W.",
+    "question": "What is the relation of the agent L to the agent X?",
     "answer": "upper-right",
+    "k": 5
+  },
+  {
+    "story": "Z is to the right of I horizontally. K is sitting at the top position to I. Object Y is above object B and to the right of it, too. The object A is positioned directly below the object K. Z is there and B is at the 10 position of a clock face.",
+    "question": "What is the relation of the agent I to the agent B?",
+    "answer": "above",
+    "k": 5
+  },
+  {
+    "story": "The objects P and R are over there. The object P is lower and slightly to the left of the object R. I is above N with a small gap between them. The object J is positioned below and to the right of the object C. J is on the upper right of P. R is placed in the left direction of I.",
+    "question": "What is the relation of the agent N to the agent P?",
+    "answer": "right",
+    "k": 5
+  },
+  {
+    "story": "G is at E's 12 o'clock. F is on the left side of and below G. C is positioned in the lower left corner of F. S is on the same horizontal plane directly right to U. U is placed in the left direction of E.",
+    "question": "What is the relation of the agent F to the agent C?",
+    "answer": "upper-right",
+    "k": 5
+  },
+  {
+    "story": "I is there and Z is at the 10 position of a clock face. Z is placed on the top of L. L is placed at the lower left of M. F is below and to the left of G. I is positioned above and to the left of G.",
+    "question": "What is the relation of the agent G to the agent I?",
+    "answer": "lower-right",
+    "k": 5
+  },
+  {
+    "story": "X is above C. The object G and E are there. The object G is below and slightly to the right of the object E. X is diagonally below F to the left at a 45 degree angle. C is positioned below P and to the left. P is over there and E is on the right.",
+    "question": "What is the relation of the agent G to the agent X?",
+    "answer": "lower-right",
+    "k": 5
+  },
+  {
+    "story": "X is at a 45 degree angle to E, in the lower lefthand corner. R is sitting at the 3:00 position to N. E is directly north east of J. The object G is upper and slightly to the right of the object J. N and G are parallel, and N is over G.",
+    "question": "What is the relation of the agent G to the agent J?",
+    "answer": "upper-right",
+    "k": 5
+  },
+  {
+    "story": "U is to the left of E horizontally. U and A are parallel, and U is on top of A. P is on the same vertical plane directly below G. P is above and to the left of E. S is above A with a small gap between them.",
+    "question": "What is the relation of the agent U to the agent E?",
+    "answer": "left",
+    "k": 5
+  },
+  {
+    "story": "R and V are parallel, and R is under V. Q is to the left of V and below V at approximately a 45 degree angle. Q is on the right and K is on the left. R is to the right and above C at an angle of about 45 degrees. The object N is positioned above and to the right of the object C.",
+    "question": "What is the relation of the agent V to the agent R?",
+    "answer": "above",
+    "k": 5
+  },
+  {
+    "story": "The object F is positioned below and to the left of the object O. V is positioned right to X. Z is to the right of K. Z is below O at 7 o'clock. V is positioned in the lower left corner of K.",
+    "question": "What is the relation of the agent F to the agent V?",
+    "answer": "upper-right",
+    "k": 5
+  },
+  {
+    "story": "W is to the top right of S. S is positioned in the lower left corner of D. E is positioned in the top left corner of L. I is there and L is at the 2 position of a clock face. D is positioned in the lower right corner of I.",
+    "question": "What is the relation of the agent I to the agent L?",
+    "answer": "lower-left",
+    "k": 5
+  },
+  {
+    "story": "F is over I. I is positioned below K. V is at the 6 o'clock position relative to X. N is on the left side and above K. The objects V and F are over there. The object V is above and slightly to the right of the object F.",
+    "question": "What is the relation of the agent V to the agent I?",
+    "answer": "upper-right",
+    "k": 5
+  },
+  {
+    "story": "T is sitting at the lower left position to F. T is over there and D is on the left of it. L is below and to the left of G. F and Q are side by side with F to the left and Q to the right. L is diagonally to the upper right of Q.",
+    "question": "What is the relation of the agent L to the agent T?",
+    "answer": "upper-right",
+    "k": 5
+  },
+  {
+    "story": "J is to the bottom-right of Y. M and H are in a vertical line with H below M. M and X are vertical and M is below X. X is on the right side to F. F is positioned below Y and to the left.",
+    "question": "What is the relation of the agent H to the agent M?",
+    "answer": "below",
+    "k": 5
+  },
+  {
+    "story": "N is below E and to the left of E. Z is placed on the top of J. L is over there and N is on the right. Z and L are side by side with Z to the left and L to the right. The object R is lower and slightly to the right of the object J.",
+    "question": "What is the relation of the agent N to the agent R?",
+    "answer": "upper-right",
+    "k": 5
+  },
+  {
+    "story": "P is placed in the right direction of Q. N is sitting at the 6:00 position to I. P and V are horizontal and P is to the right of V. I and F are parallel, and I on the left of F. F is on top of V.",
+    "question": "What is the relation of the agent V to the agent Q?",
+    "answer": "right",
+    "k": 5
+  },
+  {
+    "story": "K is sitting at the lower position to A. If P is the center of a clock face, K is located between 4 and 5. A is above E with a small gap between them. P is diagonally left and above P. M presents left to W.",
+    "question": "What is the relation of the agent M to the agent A?",
+    "answer": "lower-left",
+    "k": 5
+  },
+  {
+    "story": "I is at the bottom and B is on the top. I is placed at the lower left of O. W is directly south west of H. O is directly north east of W. H is north west of T.",
+    "question": "What is the relation of the agent T to the agent W?",
+    "answer": "right",
+    "k": 5
+  },
+  {
+    "story": "F is sitting at the lower right position to E. U is over there and O is on the right. U is to the left of W horizontally. The object F is positioned below and to the left of the object W. E is to the right of X and is on the same horizontal plane.",
+    "question": "What is the relation of the agent X to the agent O?",
+    "answer": "left",
+    "k": 5
+  },
+  {
+    "story": "R is above V and to the right of V. Object J is above object Q and to the left of it, too. N is diagonally to the bottom left of R. V is to the top-left of J. Q is to the right of W horizontally.",
+    "question": "What is the relation of the agent V to the agent R?",
+    "answer": "lower-left",
+    "k": 5
+  },
+  {
+    "story": "B is placed on the top of C. W is sitting at the top position to B. R is directly south east of K. G is north west of C. G is on top of K.",
+    "question": "What is the relation of the agent R to the agent C?",
+    "answer": "below",
+    "k": 5
+  },
+  {
+    "story": "N is on the right side to A. T is directly south east of N. I is sitting at the lower left position to X. I and T are side by side with T at the bottom and I on the top. If X is the center of a clock face, E is located between 7 and 8.",
+    "question": "What is the relation of the agent X to the agent A?",
+    "answer": "upper-right",
+    "k": 5
+  },
+  {
+    "story": "T is to the left of M with a small gap between them. X and U are side by side with X to the left and U to the right. N is at R's 6 o'clock. U is positioned down and to the left of N. R and M are both there with the object M below the object R.",
+    "question": "What is the relation of the agent U to the agent T?",
+    "answer": "below",
     "k": 5
   }
 ]
