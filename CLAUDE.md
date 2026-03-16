@@ -46,12 +46,14 @@ Auto-check: `.github/workflows/auto-check.yml` runs `auto_check.py` on every pus
 
 ## Presentation
 
-Slides, speaker notes, timing, and Q&A are all in `docs/slides.md`. References in `docs/references.md`. Each slide has a **Notes:** block with speaker cues. Speaker assignments: Danny 1-3, Keming 4-7, Jonas 8-10.
+Live slides live in a separate repo: `agora/slides/spatial-reasoning/` (jonasneves/agora on GitHub). The content file is `content.js` (structured data, not raw HTML). When asked to update slides or review the presentation, read that file first. `docs/slides.md` in this repo is the markdown source/reference copy.
+
+Speaker assignments: Danny 1-3, Keming 4-7, Jonas 8-10. Each slide in `content.js` has a `speaker` and `notes` field.
 
 Slides must satisfy PRES1–PRES9 from `REQUIREMENTS_CHECKLIST.md`. When editing presentation materials:
-1. Read `docs/slides.md` first
+1. Read `agora/slides/spatial-reasoning/content.js` first (the live version)
 2. Verify any numbers against `results/baseline/scores.json`, `results/finetuned/scores.json`, and the notebooks
-3. Keep total timing under 10 minutes (timing table is at the bottom of slides.md)
+3. Keep total timing under 10 minutes
 
 ## Checklist
 
