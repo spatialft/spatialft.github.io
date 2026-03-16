@@ -49,28 +49,28 @@
 
 - [x] **RES1** — Quantitative before/after comparison reported
 - [x] **RES2** — Per-category breakdown of results
-- [ ] **RES3** — Analysis of what worked and what did not
-- [ ] **RES4** — Conclusions drawn about fine-tuning effectiveness
-- [ ] **RES5** — If no improvement: detailed explanation of why and what could be done differently
+- [x] **RES3** — Analysis of what worked and what did not
+- [x] **RES4** — Conclusions drawn about fine-tuning effectiveness
+- [x] **RES5** — If no improvement: detailed explanation of why and what could be done differently
 
 ---
 
 ## 7. Presentation
 
-- [ ] **PRES1** — Property and motivation clearly stated
-- [ ] **PRES2** — Literature review presented (at least 2 papers referenced)
-- [ ] **PRES3** — Model and dataset described
-- [ ] **PRES4** — Baseline and fine-tuned results shown visually (charts or tables)
-- [ ] **PRES5** — Methodology and lessons learned discussed
-- [ ] **PRES6** — No code shown in slides (unless explicitly asked)
-- [ ] **PRES7** — Professional tone — suitable for a manager-level audience
-- [ ] **PRES8** — Presentation fits within 10 minutes
-- [ ] **PRES9** — Live Q&A prepared
+- [x] **PRES1** — Property and motivation clearly stated
+- [x] **PRES2** — Literature review presented (at least 2 papers referenced)
+- [x] **PRES3** — Model and dataset described
+- [x] **PRES4** — Baseline and fine-tuned results shown visually (charts or tables)
+- [x] **PRES5** — Methodology and lessons learned discussed
+- [x] **PRES6** — No code shown in slides (unless explicitly asked)
+- [x] **PRES7** — Professional tone — suitable for a manager-level audience
+- [x] **PRES8** — Presentation fits within 10 minutes
+- [x] **PRES9** — Live Q&A prepared
 
 ---
 
 ## 8. GitHub Repository
 
 - [x] **REPO1** — Repository is public or accessible to graders
-- [ ] **REPO2** — Code matches what was presented
-- [ ] **REPO3** — Repository is suitable as a portfolio artifact
+- [x] **REPO2** — Code matches what was presented
+- [x] **REPO3** — Repository is suitable as a portfolio artifact
