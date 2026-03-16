@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: checklist index generate deploy colab-pat export-lm-arena help
+.PHONY: checklist index generate deploy colab-pat export-lm-arena check-bootstrap help
 
 GITHUB_COLAB_PAT_URL := https://github.com/settings/personal-access-tokens/new?name=SpatialFT%20Colab&description=Colab%20token%20for%20spatialft.github.io&target_name=spatialft&expires_in=30&contents=write
 
@@ -8,6 +8,8 @@ checklist:
 	python3 scripts/generate_checklist.py
 
 index:
+	@cp -f results/comparison.png docs/assets/comparison.png 2>/dev/null || true
+	@cp -f results/finetuned/loss_curve.png docs/assets/loss-curve.png 2>/dev/null || true
 	python3 scripts/generate_index.py
 
 generate: checklist index
@@ -20,11 +22,12 @@ generate: checklist index
 deploy: generate
 	@git worktree add .worktrees/gh-pages gh-pages 2>/dev/null || true; \
 	trap 'git worktree remove --force .worktrees/gh-pages 2>/dev/null || true' EXIT; \
-	mkdir -p .worktrees/gh-pages/checklist && \
+	mkdir -p .worktrees/gh-pages/checklist .worktrees/gh-pages/assets && \
 	cp docs/checklist/index.html .worktrees/gh-pages/checklist/index.html && \
 	cp docs/index.html .worktrees/gh-pages/index.html && \
+	cp -r docs/assets/. .worktrees/gh-pages/assets/ && \
 	cd .worktrees/gh-pages && \
-	git add checklist/index.html index.html && \
+	git add checklist/index.html index.html assets/ && \
 	(git diff --cached --quiet && echo "Nothing to deploy — site is up to date." || \
 		(git commit -m "regen site" && git push origin gh-pages))
 
@@ -39,6 +42,10 @@ colab-pat:
 	fi
 	@echo "GitHub will still ask you to confirm repository access. Select spatialft.github.io, create the token, then save it in Colab secrets as GITHUB_TOKEN."
 
+# Verify all notebooks share the same bootstrap logic (clone/path block before imports)
+check-bootstrap:
+	@python3 scripts/check_bootstrap.py
+
 export-lm-arena:
 	python3 scripts/export_lm_arena_model.py $(ARGS)
 
@@ -48,6 +55,8 @@ help:
 	@echo "  \033[36mchecklist\033[0m  Regenerate docs/checklist/index.html"
 	@echo "  \033[36mindex\033[0m      Regenerate docs/index.html"
 	@echo "  \033[36mgenerate\033[0m   Regenerate both"
+	@echo ""
+	@echo "  \033[36mcheck-bootstrap\033[0m  Verify notebook bootstrap cells haven't drifted"
 	@echo ""
 	@echo "\033[2mDeploy\033[0m"
 	@echo "  \033[36mdeploy\033[0m     Push full site to gh-pages (fallback if CI unavailable)"

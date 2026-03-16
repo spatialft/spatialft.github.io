@@ -35,12 +35,12 @@ A 350M model must chain multiple relations without losing track.
 
 **Why this model?**
 
-- 354M parameters, materially smaller and faster to iterate on
+- 354M parameters (Amini et al., 2025), materially smaller and faster to iterate on
 - 32k context window with an edge-focused LFM2 architecture
 - Good fit for on-device and low-latency deployment constraints
 - If targeted tuning works at 350M, the result generalizes to cheap, fast inference
 
-[Include screenshot of HuggingFace model card]
+*(Show HuggingFace model card)*
 
 ---
 
@@ -68,7 +68,7 @@ A 350M model must chain multiple relations without losing track.
 **Pipeline:** Baseline eval → Dataset prep → LoRA fine-tuning → Re-eval → Compare
 
 **Fine-tuning approach:**
-- LoRA (rank 16) via `transformers` + `peft`, 4-bit quantized, T4-compatible
+- LoRA (Hu et al., 2022; rank 16) via `transformers` + `peft`, 4-bit quantized, T4-compatible
 - 3 epochs, batch size 4 + gradient accumulation
 - Learning rate 2e-4 with warmup
 
@@ -93,7 +93,7 @@ A 350M model must chain multiple relations without losing track.
 Key observation: accuracy is low across all hop levels, with a further drop at k=5.
 A 350M model with no spatial fine-tuning is close to random on this benchmark (1-in-8 directions).
 
-[Include bar chart — baseline accuracy per hop level]
+*(Show baseline accuracy chart)*
 
 ---
 
@@ -101,16 +101,16 @@ A 350M model with no spatial fine-tuning is close to random on this benchmark (1
 
 **Loss curve during fine-tuning**
 
-<img src="../results/finetuned/loss_curve.png" alt="Training loss curve for LoRA fine-tuning" width="620" />
+*(Show training loss curve)*
 
-- Training time: ~34.7 minutes on T4
-- Final training loss: ~0.006
-- LoRA adapter size: ~11.5 MB (`adapter_model.safetensors`)
+- Training time: under 35 min on T4
+- Loss decreased steadily; final loss near zero
+- LoRA adapter: ~11 MB (see project page for exact values)
 
 **What we trained on:**
 - Prompt: story + question (formatted with system instruction)
 - Completion: correct direction label
-- Optional: reasoning-augmented completions if direct-answer tuning plateaus
+- Direct-answer supervision (reasoning augmentation was not explored)
 
 ---
 
@@ -127,9 +127,9 @@ A 350M model with no spatial fine-tuning is close to random on this benchmark (1
 | k=5 | 8% | 14% | +6% |
 | **Overall** | **14.4%** | **15.2%** | **+0.8%** |
 
-The adapter learns k=1 well, but at the cost of k=2–4. The 0.8pp overall gain is within noise (n=250).
+At n=50 per hop, 95% CIs range from +/-8pp (at low accuracies) to +/-13pp (near 34%), so these shifts are directional, not conclusive. The 0.8pp overall gain is within noise (n=250).
 
-<img src="../results/comparison.png" alt="Baseline and fine-tuned accuracy by hop level" width="620" />
+*(Show comparison chart)*
 
 ---
 
@@ -137,9 +137,9 @@ The adapter learns k=1 well, but at the cost of k=2–4. The 0.8pp overall gain 
 
 **What the results show:**
 
-- k=1 improved sharply (+18pp): the adapter learns single-hop relation vocabulary
-- k=2–4 regressed (−4 to −8pp): multi-hop chaining appears to have been disrupted
-- k=5 recovered slightly (+6pp): unclear whether meaningful at this sample size
+- k=1 improved sharply (+18pp): suggests the adapter picked up single-hop relation vocabulary, though CI is wide at n=50
+- k=2–4 regressed (−4 to −8pp): multi-hop chaining appears disrupted, but each shift is within the per-hop noise floor
+- k=5 recovered slightly (+6pp): within noise at this sample size
 
 **Likely cause:**
 The training set has more k=1 and k=2 examples; the adapter may have overfit short-context patterns at the expense of the intermediate hop range.
@@ -150,7 +150,6 @@ On medium-hop questions, wrong answers often collapse diagonal relations into si
 **What would help further:**
 - Chain-of-thought training data (step-by-step reasoning)
 - Balanced training across all k levels
-- Larger LoRA rank
 
 ---
 
@@ -167,15 +166,16 @@ On medium-hop questions, wrong answers often collapse diagonal relations into si
 - Targeted tuning can teach a small model some short-range spatial patterns, especially at k=1.
 - That same adapter does not generalize cleanly to multi-hop chaining, so overall accuracy hides the trade-off unless the results are broken out by hop level.
 
-**Repo:** [link]
+**Repo:** [spatialft.github.io](https://github.com/spatialft/spatialft.github.io)
 
 ---
 
 ## Backup slide — Example output
 
-**Before fine-tuning:**
-> Prompt: "A is left of B. B is above C. Where is A relative to C?"
-> Model: "A is somewhere near C." *(wrong, non-directional)*
+*(From committed evaluation predictions)*
 
-**After fine-tuning:**
-> Model: "A is upper-left of C." *(correct)*
+**Prompt:**
+> "L is slightly off center to the top left and V is slightly off center to the bottom right. A is to the bottom right of V. What is the relation of the agent L to the agent A?" *(k=2)*
+
+**Baseline:** "right" *(wrong)*
+**Fine-tuned:** "upper-left" *(correct)*

@@ -3,10 +3,8 @@
 ## Model
 
 ### Primary: LiquidAI/LFM2-350M
-- Check availability at https://huggingface.co/LiquidAI before committing
-- 354M parameters, 32k context, and explicitly positioned for edge deployment
-- Better fit for this project if the goal is cheap iteration and fast inference
-- If unavailable, fall back to `LiquidAI/LFM2-700M` and note the swap
+- 354M parameters, 32k context, positioned for edge deployment
+- Cheap iteration and fast inference on free Colab T4
 
 ### Unsloth compatibility risk
 LFM2 uses LiquidAI's hybrid architecture rather than a standard Llama-style stack. Keep
@@ -99,8 +97,10 @@ text = text.replace("to the ", "").replace("of ", "")
 ```
 
 ### Statistical significance
-With 250 eval examples, a 5% accuracy difference is meaningful.
-For the presentation, report confidence intervals if time allows:
+With 250 eval examples (50 per hop level), individual accuracy estimates
+carry wide confidence intervals. At the observed baseline of 14.4%, the
+95% Wald interval spans roughly 10%-19%, so differences under ~8pp overall
+do not clear the noise floor. Always report confidence intervals:
 ```python
 import numpy as np
 n = len(predictions)

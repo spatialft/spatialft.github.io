@@ -88,7 +88,9 @@ def ensure_notebook_requirements(
         check=True,
     )
     sentinel.write_text("ok")
-    print("Dependencies updated. Restarting the runtime once to load clean binary wheels...")
+    # SIGKILL restarts the Colab runtime so bitsandbytes loads against the
+    # correct CUDA binaries. Without this, quantized inference silently fails.
+    print("Dependencies updated. Restarting runtime for clean CUDA bindings...")
     os.kill(os.getpid(), 9)
 
 

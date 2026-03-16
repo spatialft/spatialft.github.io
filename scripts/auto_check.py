@@ -12,17 +12,13 @@ import re
 import urllib.request
 from pathlib import Path
 
+from shared import load_json
+
 ROOT = Path(__file__).parent.parent
 CHECKLIST = ROOT / "REQUIREMENTS_CHECKLIST.md"
 BASELINE_SCORES = ROOT / "results" / "baseline" / "scores.json"
 FINETUNED_SCORES = ROOT / "results" / "finetuned" / "scores.json"
 NB03 = ROOT / "notebooks" / "03_finetune.ipynb"
-
-
-def load_json(path: Path) -> dict | None:
-    if path.exists():
-        return json.loads(path.read_text())
-    return None
 
 
 def notebook_source(path: Path) -> str:

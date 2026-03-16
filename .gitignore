@@ -5,13 +5,12 @@ __pycache__/
 # only large binary/tabular formats excluded
 data/raw/*.csv
 data/raw/*.parquet
-results/finetuned/predictions.json
 results/finetuned/checkpoint/
 results/finetuned/export/
-# LoRA adapter binaries — large files that should not be in git history.
-# Re-generate by running notebook 03 or download from HuggingFace Hub.
-results/finetuned/lora_adapter/*.safetensors
-results/finetuned/lora_adapter/tokenizer.json
+# LoRA adapter checkpoint intermediates (the final adapter is committed
+# by notebook 03 via publish_artifacts so notebook 04 can pull it)
+results/finetuned/lora_adapter/optimizer*
+results/finetuned/lora_adapter/training_args*
 *.egg-info/
 .env
 .worktrees/

@@ -6,19 +6,15 @@ import json
 from pathlib import Path
 from typing import Any
 
+from shared import load_json, render_template
+
 ROOT = Path(__file__).parent.parent
 BASELINE_SCORES = ROOT / "results" / "baseline" / "scores.json"
 FINETUNED_SCORES = ROOT / "results" / "finetuned" / "scores.json"
+TRAINING_STATS = ROOT / "results" / "finetuned" / "training_stats.json"
 EXAMPLES_PATH = ROOT / "results" / "examples.json"
 TEMPLATE = ROOT / "scripts" / "templates" / "index.html"
 OUT = ROOT / "docs" / "index.html"
-
-
-def load_json(path: Path) -> dict[str, Any] | list[Any] | None:
-    if path.exists():
-        with open(path) as f:
-            return json.load(f)
-    return None
 
 
 def pct_interval_text(value: float, total: int) -> str:
@@ -89,6 +85,7 @@ def render_scores_section(baseline: dict | None, finetuned: dict | None) -> str:
       <p class="pending-note">
         Accuracy on {total} held-out examples (50 per hop level, k=1-5). Approx. 95% intervals:
         baseline {baseline_ci}, fine-tuned {finetuned_ci}. Treat the {delta_str}% overall change as exploratory.
+        Per-hop intervals are wide (n=50 each), so individual hop deltas are directional, not conclusive.
       </p>
       <div class="chart-wrap">
         <img
@@ -101,11 +98,16 @@ def render_scores_section(baseline: dict | None, finetuned: dict | None) -> str:
 """
 
 
-def render_training_section(finetuned: dict | None) -> str:
+def render_training_section(finetuned: dict | None, training_stats: dict | None) -> str:
     if finetuned is None:
         return ""
 
-    return """
+    stats = training_stats or {}
+    time_str = f'{stats["training_time_min"]:.1f} min' if "training_time_min" in stats else "—"
+    loss_str = f'~{stats["final_loss"]:.3f}' if "final_loss" in stats else "—"
+    size_str = f'{stats["adapter_size_mb"]:.1f} MB' if "adapter_size_mb" in stats else "—"
+
+    return f"""
     <section class="training">
       <h2>Training Details</h2>
       <p class="subtitle">Loss decreased steadily over 3 epochs, so optimization was stable. That stability did not translate into a strong overall evaluation gain.</p>
@@ -119,15 +121,15 @@ def render_training_section(finetuned: dict | None) -> str:
       <div class="training-stats">
         <div class="training-stat">
           <div class="score-label">Training Time</div>
-          <div class="training-value">34.7 min</div>
+          <div class="training-value">{time_str}</div>
         </div>
         <div class="training-stat">
           <div class="score-label">Final Loss</div>
-          <div class="training-value">~0.006</div>
+          <div class="training-value">{loss_str}</div>
         </div>
         <div class="training-stat">
           <div class="score-label">Adapter Size</div>
-          <div class="training-value">11.5 MB</div>
+          <div class="training-value">{size_str}</div>
         </div>
       </div>
     </section>
@@ -167,14 +169,12 @@ def render_examples_section(examples: list[dict[str, Any]] | None, has_baseline:
     return ""
 
 
-def render_template(template: str, replacements: dict[str, str]) -> str:
-    output = template
-    for key, value in replacements.items():
-        output = output.replace(key, value)
-    return output
-
-
-def render(baseline: dict | None, finetuned: dict | None, examples: list[Any] | None) -> str:
+def render(
+    baseline: dict | None,
+    finetuned: dict | None,
+    examples: list[Any] | None,
+    training_stats: dict | None = None,
+) -> str:
     has_baseline = baseline is not None
     examples_json = json.dumps(examples or [])
     template = TEMPLATE.read_text()
@@ -183,7 +183,7 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list[Any] | 
         template,
         {
             "__SCORES_SECTION__": render_scores_section(baseline, finetuned),
-            "__TRAINING_SECTION__": render_training_section(finetuned),
+            "__TRAINING_SECTION__": render_training_section(finetuned, training_stats),
             "__EXAMPLES_SECTION__": render_examples_section(examples, has_baseline),
             "__EXAMPLES_JSON__": examples_json,
         },
@@ -193,8 +193,9 @@ def render(baseline: dict | None, finetuned: dict | None, examples: list[Any] | 
 def main() -> None:
     baseline = load_json(BASELINE_SCORES)
     finetuned = load_json(FINETUNED_SCORES)
+    training_stats = load_json(TRAINING_STATS)
     examples = load_json(EXAMPLES_PATH)
-    output = render(baseline, finetuned, examples)
+    output = render(baseline, finetuned, examples, training_stats)
     OUT.write_text(output)
     print(f"Written {OUT}")
 

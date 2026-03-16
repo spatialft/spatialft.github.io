@@ -8,6 +8,8 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+from shared import render_template
+
 ROOT = Path(__file__).parent.parent
 SOURCE = ROOT / "REQUIREMENTS_CHECKLIST.md"
 OUT = ROOT / "docs" / "checklist" / "index.html"
@@ -27,7 +29,8 @@ SOURCES: dict[str, tuple[str, str | None]] = {
     "MOD2": ("LFM2-350M is 354M parameters — always satisfied", f"{GH}/CLAUDE.md"),
     "MOD3": ("notebooks/03_finetune.ipynb — local SFTTrainer, no API", f"{GH}/notebooks/03_finetune.ipynb"),
     "EVAL1": ("results/baseline/scores.json — accuracy key present", f"{GH}/results/baseline/scores.json"),
-    "EVAL2": ("notebooks/02_dataset_prep.ipynb — ZhengyanShi/StepGame train vs validation splits", f"{GH}/notebooks/02_dataset_prep.ipynb"),
+    # HuggingFace dataset is ZhengyanShi/StepGame; GitHub repo is ZhengxiangShi/StepGame (different platform usernames, same dataset)
+    "EVAL2": ("notebooks/02_dataset_prep.ipynb — ZhengyanShi/StepGame (HF) train vs validation splits", f"{GH}/notebooks/02_dataset_prep.ipynb"),
     "EVAL3": ("results/baseline/scores.json — baseline measured before fine-tuning", f"{GH}/results/baseline/scores.json"),
     "EVAL4": ("results/baseline/scores.json — accuracy_k{n} keys per hop level", f"{GH}/results/baseline/scores.json"),
     "FT1": ("notebooks/03_finetune.ipynb — LoRA via SFTTrainer, r=16", f"{GH}/notebooks/03_finetune.ipynb"),
@@ -137,13 +140,6 @@ def render_sections(sections: list[dict]) -> str:
         )
 
     return "".join(html_sections)
-
-
-def render_template(template: str, replacements: dict[str, str]) -> str:
-    output = template
-    for key, value in replacements.items():
-        output = output.replace(key, value)
-    return output
 
 
 def render_html(sections: list[dict], generated_at: str) -> str:
