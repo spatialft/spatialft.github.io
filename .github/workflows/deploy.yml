@@ -7,12 +7,14 @@ on:
       - REQUIREMENTS_CHECKLIST.md
       - scripts/generate_checklist.py
       - scripts/generate_index.py
+      - scripts/generate_benchmark.py
       - scripts/shared.py
       - scripts/templates/**
       - results/baseline/scores.json
       - results/finetuned/scores.json
       - results/finetuned/training_stats.json
       - results/examples.json
+      - results/live/**
       - docs/assets/**
       - .github/workflows/deploy.yml
   workflow_dispatch:
@@ -43,6 +45,7 @@ jobs:
           cp -f results/finetuned/loss_curve.png docs/assets/loss-curve.png 2>/dev/null || true
       - run: python3 scripts/generate_checklist.py
       - run: python3 scripts/generate_index.py
+      - run: python3 scripts/generate_benchmark.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs

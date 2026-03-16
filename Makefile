@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: checklist index generate deploy colab-pat export-lm-arena check-bootstrap help
+.PHONY: checklist index benchmark generate deploy colab-pat export-lm-arena check-bootstrap help
 
 GITHUB_COLAB_PAT_URL := https://github.com/settings/personal-access-tokens/new?name=SpatialFT%20Colab&description=Colab%20token%20for%20spatialft.github.io&target_name=spatialft&expires_in=30&contents=write
 
@@ -12,7 +12,10 @@ index:
 	@cp -f results/finetuned/loss_curve.png docs/assets/loss-curve.png 2>/dev/null || true
 	python3 scripts/generate_index.py
 
-generate: checklist index
+benchmark:
+	python3 scripts/generate_benchmark.py
+
+generate: checklist index benchmark
 
 # NOTE: `make deploy` pushes to the gh-pages branch. This only works if GitHub
 # Pages is configured to deploy from the gh-pages branch (not GitHub Actions).
@@ -54,7 +57,8 @@ help:
 	@echo "\033[2mContent\033[0m"
 	@echo "  \033[36mchecklist\033[0m  Regenerate docs/checklist/index.html"
 	@echo "  \033[36mindex\033[0m      Regenerate docs/index.html"
-	@echo "  \033[36mgenerate\033[0m   Regenerate both"
+	@echo "  \033[36mbenchmark\033[0m  Regenerate docs/benchmark.html
+  \033[36mgenerate\033[0m   Regenerate all three"
 	@echo ""
 	@echo "  \033[36mcheck-bootstrap\033[0m  Verify notebook bootstrap cells haven't drifted"
 	@echo ""

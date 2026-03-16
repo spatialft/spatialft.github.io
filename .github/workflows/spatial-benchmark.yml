@@ -1,0 +1,85 @@
+name: Spatial Benchmark
+
+on:
+  workflow_dispatch:
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      models: ${{ steps.list.outputs.models }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: List online models
+        id: list
+        env:
+          REGISTRY: https://tunnel-registry.jonasneves.workers.dev
+        run: |
+          MODELS=$(python scripts/spatial_benchmark.py --list-models)
+          echo "models=$MODELS" >> $GITHUB_OUTPUT
+          echo "Online: $MODELS"
+
+  benchmark:
+    needs: detect
+    if: needs.detect.outputs.models != '[]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        model: ${{ fromJson(needs.detect.outputs.models) }}
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Run benchmark
+        env:
+          REGISTRY: https://tunnel-registry.jonasneves.workers.dev
+          MODEL: ${{ matrix.model }}
+        run: python scripts/spatial_benchmark.py --model "$MODEL"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ matrix.model }}
+          path: /tmp/spatial-bench-result.json
+
+  merge:
+    needs: benchmark
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: /tmp/results
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Merge results
+        run: python scripts/spatial_benchmark.py --merge /tmp/results
+      - name: Quality gate
+        run: python scripts/spatial_benchmark.py --quality-gate "results/live/$(date -u +%Y-%m-%d).json"
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add results/live/
+          git diff --cached --quiet || git commit -m "chore: spatial benchmark $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
+          git push
+      - name: Trigger deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run deploy.yml --ref main
+          echo "✓ Deploy triggered"

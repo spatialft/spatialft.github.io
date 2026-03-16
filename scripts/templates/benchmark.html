@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpatialFT — Live Benchmark</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #1a202c;
+      --muted: #64748b;
+      --accent: #2563eb;
+      --green: #16a34a;
+      --red: #dc2626;
+      --radius: 10px;
+      --shadow: 0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.04);
+
+      /* model colors matching lm-arena */
+      --color-lfm2-350m: #56B6C2;
+      --color-lfm2-350m-stepgame: #E5A00D;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+    }
+    header .eyebrow {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .5rem;
+    }
+    header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -.02em; }
+    header p  { color: var(--muted); margin-top: .4rem; font-size: .95rem; }
+    header nav {
+      margin-top: 1.25rem;
+      display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .4rem .9rem; border-radius: 6px; font-size: .85rem;
+      font-weight: 500; text-decoration: none;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      transition: border-color .15s, background .15s;
+    }
+    .btn:hover { border-color: #cbd5e1; background: #f1f5f9; }
+    .btn-primary {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+    .btn-primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+    /* ── Status banner ── */
+    .pending-banner {
+      display: flex; align-items: center; gap: .75rem;
+      background: #fffbeb; border: 1px solid #fde68a;
+      border-radius: var(--radius); padding: 1rem 1.25rem;
+      font-size: .9rem; color: #92400e; margin-bottom: 2rem;
+    }
+
+    /* ── Stat cards ── */
+    .stat-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem; margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .stat-label { font-size: .75rem; font-weight: 600; text-transform: uppercase;
+                  letter-spacing: .06em; color: var(--muted); }
+    .stat-value { font-size: 2rem; font-weight: 700; margin-top: .2rem; }
+    .stat-value.accent { color: var(--accent); }
+    .stat-value.green  { color: var(--green); }
+
+    /* ── Sections ── */
+    section { margin-bottom: 2.5rem; }
+    .section-header { margin-bottom: .75rem; }
+    .section-title {
+      font-size: .75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--muted);
+    }
+    .section-desc { font-size: .875rem; color: var(--muted); margin-top: .2rem; }
+
+    /* ── Chart card ── */
+    .chart-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    /* ── Results table ── */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: .875rem; white-space: nowrap;
+    }
+    thead tr { border-bottom: 2px solid var(--border); }
+    th {
+      padding: .6rem .875rem; text-align: left; font-size: .72rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
+    }
+    td { padding: .6rem .875rem; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    .model-chip {
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .model-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    .delta-pos { color: var(--green); font-weight: 600; }
+    .delta-neg { color: var(--red);   font-weight: 600; }
+    .delta-neu { color: var(--muted); }
+
+    .badge {
+      display: inline-block; padding: .1rem .5rem; border-radius: 4px;
+      font-size: .75rem; font-weight: 600;
+    }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-amber { background: #fef3c7; color: #92400e; }
+    .badge-red   { background: #fee2e2; color: #991b1b; }
+
+    .note {
+      font-size: .8rem; color: var(--muted); margin-top: 1rem; line-height: 1.6;
+    }
+
+    footer {
+      text-align: center; padding: 2rem; font-size: .8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">SpatialFT · AIPI 590.03</div>
+  <h1>Live Benchmark</h1>
+  <p>StepGame evaluation — 250 held-out examples, k&thinsp;=&thinsp;1–5 reasoning steps</p>
+  <nav>
+    <a href="/" class="btn">← Results</a>
+    <a href="/checklist/" class="btn">Checklist</a>
+    <a href="https://chat.neevs.io/spatial.html" class="btn" target="_blank" rel="noreferrer">Arena ↗</a>
+  </nav>
+</header>
+
+<main id="main">
+  <div id="pending-msg" style="display:none" class="pending-banner">
+    ⏳ No live benchmark results yet. Trigger the <strong>Spatial Benchmark</strong> workflow in GitHub Actions to populate this page.
+  </div>
+
+  <div id="content" style="display:none">
+    <div class="stat-row" id="statRow"></div>
+
+    <section>
+      <div class="section-header">
+        <div class="section-title">Per-Hop Accuracy</div>
+        <div class="section-desc">Accuracy at each reasoning step count (k). Reference lines show notebook-evaluated baseline and fine-tuned scores.</div>
+      </div>
+      <div class="chart-card">
+        <div id="chart-hop" style="height:380px"></div>
+      </div>
+      <p class="note">
+        Baseline and fine-tuned reference lines are from offline evaluation (notebook 04) on the same 250 held-out examples.
+        Live results may differ slightly due to inference temperature and token streaming.
+      </p>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <div class="section-title">Overall Results</div>
+        <div class="section-desc">Accuracy and latency for each evaluated model.</div>
+      </div>
+      <div class="chart-card table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Overall</th>
+              <th>k=1</th>
+              <th>k=2</th>
+              <th>k=3</th>
+              <th>k=4</th>
+              <th>k=5</th>
+              <th>vs Baseline</th>
+              <th>p50 Latency</th>
+              <th>Avg TPS</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <a href="https://github.com/spatialft/spatialft.github.io">spatialft/spatialft.github.io</a>
+  &nbsp;·&nbsp;
+  <a href="https://chat.neevs.io">lm-arena</a>
+</footer>
+
+<script>
+const LIVE_DATA  = __LIVE_DATA_JSON__;
+const REFERENCE  = __REFERENCE_JSON__;
+const RUN_DATE   = "__RUN_DATE__";
+
+const MODEL_COLORS = {
+  'lfm2-350m':          '#56B6C2',
+  'lfm2-350m-stepgame': '#E5A00D',
+};
+const MODEL_NAMES = {
+  'lfm2-350m':          'LFM2 350M',
+  'lfm2-350m-stepgame': 'LFM2 350M StepGame',
+};
+
+function modelColor(id) { return MODEL_COLORS[id] || '#94a3b8'; }
+function modelName(id)  { return MODEL_NAMES[id]  || id; }
+function pct(v) { return v != null ? (v * 100).toFixed(1) + '%' : '—'; }
+function accuracyBadge(v) {
+  if (v == null) return '<span class="badge badge-amber">—</span>';
+  const p = v * 100;
+  if (p >= 60) return `<span class="badge badge-green">${p.toFixed(1)}%</span>`;
+  if (p >= 30) return `<span class="badge badge-amber">${p.toFixed(1)}%</span>`;
+  return `<span class="badge badge-red">${p.toFixed(1)}%</span>`;
+}
+function deltaHtml(live, ref) {
+  if (live == null || ref == null) return '<span class="delta-neu">—</span>';
+  const d = (live - ref) * 100;
+  const s = d >= 0 ? `+${d.toFixed(1)}%` : `${d.toFixed(1)}%`;
+  return `<span class="${d > 0 ? 'delta-pos' : d < 0 ? 'delta-neg' : 'delta-neu'}">${s}</span>`;
+}
+
+function init() {
+  const models = Object.keys(LIVE_DATA);
+  if (models.length === 0) {
+    document.getElementById('pending-msg').style.display = 'flex';
+    return;
+  }
+  document.getElementById('content').style.display = 'block';
+
+  const baseline  = REFERENCE.baseline;
+  const finetuned = REFERENCE.finetuned;
+
+  // ── Stat cards ─────────────────────────────────────────────────────────
+  const bestModel  = models.reduce((a, b) => (LIVE_DATA[a].accuracy || 0) > (LIVE_DATA[b].accuracy || 0) ? a : b);
+  const bestAcc    = LIVE_DATA[bestModel].accuracy;
+  const statRow    = document.getElementById('statRow');
+  statRow.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Run Date</div>
+      <div class="stat-value" style="font-size:1.2rem">${RUN_DATE || '—'}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Models</div>
+      <div class="stat-value accent">${models.length}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Examples</div>
+      <div class="stat-value">${(LIVE_DATA[models[0]].total || 250).toLocaleString()}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Best Accuracy</div>
+      <div class="stat-value green">${pct(bestAcc)}</div>
+    </div>
+  `;
+
+  // ── Per-hop chart ───────────────────────────────────────────────────────
+  loadECharts().then(() => {
+    buildHopChart(models, baseline, finetuned);
+  });
+
+  // ── Results table ───────────────────────────────────────────────────────
+  const tbody = document.getElementById('resultsTbody');
+  tbody.innerHTML = models.map(id => {
+    const m = LIVE_DATA[id];
+    const color = modelColor(id);
+    return `<tr>
+      <td>
+        <div class="model-chip">
+          <div class="model-dot" style="background:${color}"></div>
+          <strong>${modelName(id)}</strong>
+        </div>
+        <div style="font-size:.75rem;color:#94a3b8;margin-top:.1rem">${id}</div>
+      </td>
+      <td>${accuracyBadge(m.accuracy)}</td>
+      <td>${pct(m.accuracy_k1)}</td>
+      <td>${pct(m.accuracy_k2)}</td>
+      <td>${pct(m.accuracy_k3)}</td>
+      <td>${pct(m.accuracy_k4)}</td>
+      <td>${pct(m.accuracy_k5)}</td>
+      <td>${deltaHtml(m.accuracy, baseline ? baseline.accuracy : null)}</td>
+      <td>${m.p50_latency_ms != null ? Math.round(m.p50_latency_ms) + ' ms' : '—'}</td>
+      <td>${m.avg_tps != null ? m.avg_tps.toFixed(1) : '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function buildHopChart(modelIds, baseline, finetuned) {
+  const chart = echarts.init(document.getElementById('chart-hop'));
+  const ks = [1, 2, 3, 4, 5];
+  const xLabels = ks.map(k => `k=${k}`);
+
+  const modelSeries = modelIds.map(id => ({
+    name: modelName(id),
+    type: 'bar',
+    data: ks.map(k => {
+      const v = LIVE_DATA[id][`accuracy_k${k}`];
+      return v != null ? +(v * 100).toFixed(1) : null;
+    }),
+    itemStyle: { color: modelColor(id), borderRadius: [3,3,0,0] },
+    barMaxWidth: 40,
+    label: {
+      show: true, position: 'top', fontSize: 10, color: '#64748b',
+      formatter: p => p.value != null ? p.value + '%' : '',
+    },
+  }));
+
+  const refLines = [];
+  if (baseline) {
+    refLines.push({
+      name: `Baseline (${(baseline.accuracy * 100).toFixed(1)}% overall)`,
+      type: 'line',
+      data: ks.map(k => baseline[`accuracy_k${k}`] != null
+        ? +(baseline[`accuracy_k${k}`] * 100).toFixed(1) : null),
+      lineStyle: { type: 'dashed', color: '#94a3b8', width: 1.5 },
+      itemStyle: { color: '#94a3b8' },
+      symbol: 'circle', symbolSize: 5,
+    });
+  }
+  if (finetuned) {
+    refLines.push({
+      name: `Fine-tuned ref (${(finetuned.accuracy * 100).toFixed(1)}% overall)`,
+      type: 'line',
+      data: ks.map(k => finetuned[`accuracy_k${k}`] != null
+        ? +(finetuned[`accuracy_k${k}`] * 100).toFixed(1) : null),
+      lineStyle: { type: 'dashed', color: '#16a34a', width: 1.5 },
+      itemStyle: { color: '#16a34a' },
+      symbol: 'circle', symbolSize: 5,
+    });
+  }
+
+  chart.setOption({
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#ffffff',
+      borderColor: '#e2e8f0',
+      textStyle: { color: '#1a202c', fontSize: 12 },
+      formatter: params => params
+        .filter(p => p.value != null)
+        .map(p => `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.color};margin-right:6px"></span>${p.seriesName}: ${p.value}%`)
+        .join('<br/>'),
+    },
+    legend: {
+      bottom: 0, textStyle: { color: '#64748b', fontSize: 11 },
+      itemWidth: 12, itemHeight: 8,
+    },
+    grid: { left: 48, right: 16, top: 16, bottom: 56 },
+    xAxis: {
+      type: 'category', data: xLabels,
+      axisLabel: { color: '#64748b', fontSize: 11 },
+      axisLine: { lineStyle: { color: '#e2e8f0' } },
+      axisTick: { show: false },
+    },
+    yAxis: {
+      type: 'value', min: 0, max: 100, name: 'Accuracy',
+      nameTextStyle: { color: '#64748b', fontSize: 11 },
+      axisLabel: { color: '#64748b', fontSize: 10, formatter: v => v + '%' },
+      axisLine: { show: false }, axisTick: { show: false },
+      splitLine: { lineStyle: { color: '#f1f5f9' } },
+    },
+    series: [...modelSeries, ...refLines],
+  });
+
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function loadECharts() {
+  return new Promise((resolve, reject) => {
+    if (window.echarts) { resolve(); return; }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js';
+    s.onload = resolve;
+    s.onerror = () => reject(new Error('echarts load failed'));
+    document.head.appendChild(s);
+  });
+}
+
+init();
+</script>
+
+</body>
+</html>
