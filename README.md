@@ -1,7 +1,6 @@
 # AIPI 590.03 Intelligent Agents — Project 1: Spatial Reasoning Fine-Tuning
 
 [![Deploy](https://github.com/spatialft/spatialft.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/spatialft/spatialft.github.io/actions/workflows/deploy.yml)
-[![Checklist](https://img.shields.io/badge/requirements-checklist-blue)](https://spatialft.github.io/checklist/)
 [![Site](https://img.shields.io/badge/site-spatialft.github.io-green)](https://spatialft.github.io/)
 [![Model](https://img.shields.io/badge/%F0%9F%A4%97-GGUF_Model-yellow)](https://huggingface.co/spatialft/LFM2-350M-StepGame-GGUF)
 
