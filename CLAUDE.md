@@ -28,7 +28,6 @@ docs/
   plan.md             project plan
   recommendations.md  model/approach recommendations
 scripts/
-  generate_checklist.py   builds docs/checklist/index.html
   generate_index.py       builds docs/index.html (results + examples)
   generate_benchmark.py   builds docs/benchmark.html (live benchmark report)
   spatial_benchmark.py    benchmark runner: calls lm-arena registry, runs StepGame eval

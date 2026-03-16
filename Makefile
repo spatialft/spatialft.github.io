@@ -1,11 +1,8 @@
 .DEFAULT_GOAL := help
 
-.PHONY: checklist index benchmark generate deploy colab-pat export-lm-arena check-bootstrap help
+.PHONY: index benchmark generate deploy colab-pat export-lm-arena check-bootstrap help
 
 GITHUB_COLAB_PAT_URL := https://github.com/settings/personal-access-tokens/new?name=SpatialFT%20Colab&description=Colab%20token%20for%20spatialft.github.io&target_name=spatialft&expires_in=30&contents=write
-
-checklist:
-	python3 scripts/generate_checklist.py
 
 index:
 	@cp -f results/comparison.png docs/assets/comparison.png 2>/dev/null || true
@@ -15,7 +12,7 @@ index:
 benchmark:
 	python3 scripts/generate_benchmark.py
 
-generate: checklist index benchmark
+generate: index benchmark
 
 # NOTE: `make deploy` pushes to the gh-pages branch. This only works if GitHub
 # Pages is configured to deploy from the gh-pages branch (not GitHub Actions).
@@ -25,12 +22,12 @@ generate: checklist index benchmark
 deploy: generate
 	@git worktree add .worktrees/gh-pages gh-pages 2>/dev/null || true; \
 	trap 'git worktree remove --force .worktrees/gh-pages 2>/dev/null || true' EXIT; \
-	mkdir -p .worktrees/gh-pages/checklist .worktrees/gh-pages/assets && \
-	cp docs/checklist/index.html .worktrees/gh-pages/checklist/index.html && \
+	mkdir -p .worktrees/gh-pages/assets && \
 	cp docs/index.html .worktrees/gh-pages/index.html && \
+	cp docs/benchmark.html .worktrees/gh-pages/benchmark.html && \
 	cp -r docs/assets/. .worktrees/gh-pages/assets/ && \
 	cd .worktrees/gh-pages && \
-	git add checklist/index.html index.html assets/ && \
+	git add index.html benchmark.html assets/ && \
 	(git diff --cached --quiet && echo "Nothing to deploy — site is up to date." || \
 		(git commit -m "regen site" && git push origin gh-pages))
 
@@ -55,10 +52,9 @@ export-lm-arena:
 help:
 	@echo ""
 	@echo "\033[2mContent\033[0m"
-	@echo "  \033[36mchecklist\033[0m  Regenerate docs/checklist/index.html"
 	@echo "  \033[36mindex\033[0m      Regenerate docs/index.html"
-	@echo "  \033[36mbenchmark\033[0m  Regenerate docs/benchmark.html
-  \033[36mgenerate\033[0m   Regenerate all three"
+	@echo "  \033[36mbenchmark\033[0m  Regenerate docs/benchmark.html"
+	@echo "  \033[36mgenerate\033[0m   Regenerate both"
 	@echo ""
 	@echo "  \033[36mcheck-bootstrap\033[0m  Verify notebook bootstrap cells haven't drifted"
 	@echo ""

@@ -91,6 +91,10 @@ Measured on 250 held-out examples (50 per hop level, k=1..5):
 
 Per-hop breakdown and examples on the [live results page](https://spatialft.github.io/).
 
+## Requirements Checklist
+
+Tracked in [`REQUIREMENTS_CHECKLIST.md`](REQUIREMENTS_CHECKLIST.md).
+
 ## Team
 
 Jonas Neves · Daniel Ros · Keming Zhou

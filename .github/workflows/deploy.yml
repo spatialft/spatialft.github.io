@@ -4,8 +4,6 @@ on:
   push:
     branches: [main]
     paths:
-      - REQUIREMENTS_CHECKLIST.md
-      - scripts/generate_checklist.py
       - scripts/generate_index.py
       - scripts/generate_benchmark.py
       - scripts/shared.py
@@ -43,7 +41,6 @@ jobs:
         run: |
           cp -f results/comparison.png docs/assets/comparison.png 2>/dev/null || true
           cp -f results/finetuned/loss_curve.png docs/assets/loss-curve.png 2>/dev/null || true
-      - run: python3 scripts/generate_checklist.py
       - run: python3 scripts/generate_index.py
       - run: python3 scripts/generate_benchmark.py
       - uses: actions/upload-pages-artifact@v3

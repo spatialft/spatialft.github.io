@@ -1,7 +1,6 @@
 # Project 1 Requirements Checklist
 
 > Mark items `[x]` as they are completed.
-> Live view: **/checklist/** (auto-updated on push to `main`)
 
 ---
 
