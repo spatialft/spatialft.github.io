@@ -27,12 +27,12 @@
     "outcome": "regression"
   },
   {
-    "story": "Object S is below object W and to the left of it, too. W and L are next to each other with L on the right and W on the left. L is diagonally below D to the right at a 45 degree angle. If S is the center of a clock face, R is located between 7 and 8.",
-    "question": "What is the relation of the agent W to the agent D?",
-    "answer": "below",
-    "baseline": "below",
-    "finetuned": "lower-right",
-    "k": 4,
+    "story": "V is positioned below and to the right of G. G and J are parallel, and G is under J. K is directly above J.",
+    "question": "What is the relation of the agent K to the agent G?",
+    "answer": "above",
+    "baseline": "above",
+    "finetuned": "upper-left",
+    "k": 3,
     "outcome": "regression"
   },
   {
