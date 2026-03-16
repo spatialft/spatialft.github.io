@@ -12,14 +12,14 @@ tags:
 
 # LFM2-350M LoRA adapter — StepGame spatial reasoning
 
-LoRA adapter fine-tuned on StepGame spatial QA (k=1–5) for AIPI 590.03 Project 1.
+LoRA adapter fine-tuned on StepGame spatial QA (k=1-5) for AIPI 590.03 Project 1.
 
 **Base model:** [LiquidAI/LFM2-350M](https://huggingface.co/LiquidAI/LFM2-350M)
-**Training data:** 4,000 StepGame examples (k=1–5 hop levels)
+**Training data:** 10,000 stratified StepGame examples (2,000 per k level, k=1-5)
 **Method:** LoRA rank 16, 4-bit quantized, 3 epochs on a T4 GPU
-**Eval results:** 15.2% overall accuracy (n=250); baseline was 14.4%
+**Eval results:** 70.4% overall accuracy (n=250); baseline was 16.0%
 
-Per-hop breakdown: k=1 improved from 16% to 34%; k=2–4 regressed; k=5 improved from 8% to 14%.
+Per-hop breakdown: k=1 94%, k=2 84%, k=3 72%, k=4 50%, k=5 52%. Baseline was near random (16%) across all levels.
 
 See the [project repo](https://github.com/spatialft/spatialft.github.io) for training notebooks and full evaluation details.
 

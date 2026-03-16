@@ -37,7 +37,7 @@ The presentation story changes slightly but the methodology stays the same.
 - Original paper: "StepGame: A New Benchmark for Robust Multi-Hop Spatial Reasoning in Texts"
 - k-hop difficulty: k=1 is a single relation ("A is left of B"), k=10 requires chaining 10 steps
 - Expect the 350M baseline to be materially weaker than larger checkpoints, especially at higher k
-- 4000 training examples is sufficient for meaningful LoRA improvement
+- 10,000 stratified training examples (2,000 per k level) with "overlap" answers filtered
 
 ### Prompt format
 The default prompt in `src/dataset.py` uses the ChatML format (`<|im_start|>`).
@@ -98,8 +98,8 @@ text = text.replace("to the ", "").replace("of ", "")
 
 ### Statistical significance
 With 250 eval examples (50 per hop level), individual accuracy estimates
-carry wide confidence intervals. At the observed baseline of 14.4%, the
-95% Wald interval spans roughly 10%-19%, so differences under ~8pp overall
+carry wide confidence intervals. At the observed baseline of 16.0%, the
+95% Wald interval spans roughly 11%-21%, so differences under ~8pp overall
 do not clear the noise floor. Always report confidence intervals:
 ```python
 import numpy as np

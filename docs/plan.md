@@ -13,8 +13,6 @@ StepGame, and present findings in a 10-minute live presentation.
 | File | Purpose |
 |------|---------|
 | `plan.md` | This file — master checklist and decisions |
-| `slides.md` | Slide-by-slide content |
-| `speaker-notes.md` | Speaker notes for each slide |
 | `recommendations.md` | Technical decisions, risks, and alternatives |
 
 ---
@@ -38,7 +36,7 @@ StepGame, and present findings in a 10-minute live presentation.
 ## Phase 3 — Dataset preparation
 
 - [x] Run `notebooks/02_dataset_prep.ipynb`
-- [x] Confirm 4000 training / 250 eval examples (stratified across k=1–5) loaded correctly
+- [x] Confirm 10,000 training / 250 eval examples (stratified across k=1–5) loaded correctly
 - [x] Inspect formatted prompts — ensure they match the model's expected chat template
 
 ## Phase 4 — Fine-tuning
@@ -56,7 +54,7 @@ StepGame, and present findings in a 10-minute live presentation.
 
 ## Phase 6 — Presentation
 
-- [ ] Deliver 10-minute live presentation (see `docs/slides.md` and `docs/speaker-notes.md`)
+- [ ] Deliver 10-minute live presentation
 - [ ] Submit Canvas link + repo link
 
 ---
