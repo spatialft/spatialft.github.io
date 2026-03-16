@@ -2,31 +2,31 @@
   "lfm2mini": {
     "model": "lfm2mini",
     "date": "2026-03-16",
-    "run_at": "2026-03-16T21:33:07.515171+00:00",
+    "run_at": "2026-03-16T21:41:51.920652+00:00",
     "total": 250,
-    "accuracy": 0.164,
-    "accuracy_k1": 0.28,
+    "accuracy": 0.168,
+    "accuracy_k1": 0.26,
     "accuracy_k2": 0.16,
-    "accuracy_k3": 0.18,
+    "accuracy_k3": 0.14,
     "accuracy_k4": 0.12,
-    "accuracy_k5": 0.08,
-    "p50_latency_ms": 847.6,
-    "avg_latency_ms": 773.6,
-    "avg_tps": 58.3
+    "accuracy_k5": 0.16,
+    "p50_latency_ms": 953.6,
+    "avg_latency_ms": 858.1,
+    "avg_tps": 51.4
   },
   "lfm2spatial": {
     "model": "lfm2spatial",
     "date": "2026-03-16",
-    "run_at": "2026-03-16T21:33:38.977136+00:00",
+    "run_at": "2026-03-16T21:41:58.461282+00:00",
     "total": 250,
-    "accuracy": 0.68,
-    "accuracy_k1": 0.94,
-    "accuracy_k2": 0.82,
-    "accuracy_k3": 0.72,
+    "accuracy": 0.684,
+    "accuracy_k1": 0.96,
+    "accuracy_k2": 0.84,
+    "accuracy_k3": 0.68,
     "accuracy_k4": 0.46,
-    "accuracy_k5": 0.46,
-    "p50_latency_ms": 889.6,
-    "avg_latency_ms": 912.5,
-    "avg_tps": 1.7
+    "accuracy_k5": 0.48,
+    "p50_latency_ms": 882.6,
+    "avg_latency_ms": 888.9,
+    "avg_tps": 1.8
   }
 }
