@@ -1,5 +1,5 @@
 {
-  "training_time_min": 34.7,
-  "final_loss": 0.006,
-  "adapter_size_mb": 11.5
+  "training_time_min": 76.8,
+  "final_loss": 0.2033,
+  "adapter_size_mb": 16.0
 }

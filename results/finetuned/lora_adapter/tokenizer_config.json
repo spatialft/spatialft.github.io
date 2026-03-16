@@ -10,7 +10,6 @@
     "attention_mask"
   ],
   "model_max_length": 512,
-  "model_specific_special_tokens": {},
   "pad_token": "<|pad|>",
   "sp_model_kwargs": {},
   "spaces_between_special_tokens": false,
