@@ -315,7 +315,7 @@
           <div class="model-col">
             <div class="col-header" style="border-top:3px solid var(--base)">
               <div class="col-model-name" style="color:var(--base)">LFM2 350M</div>
-              <div class="col-model-sub">Base · lfm2-350m</div>
+              <div class="col-model-sub">Base · lfm2mini</div>
               <div class="col-status" id="status-base"></div>
             </div>
             <div class="response-area" id="resp-base"></div>
@@ -324,7 +324,7 @@
           <div class="model-col">
             <div class="col-header" style="border-top:3px solid var(--ft)">
               <div class="col-model-name" style="color:var(--ft)">LFM2 350M StepGame</div>
-              <div class="col-model-sub">Fine-tuned · lfm2-350m-stepgame</div>
+              <div class="col-model-sub">Fine-tuned · lfm2spatial</div>
               <div class="col-status" id="status-ft"></div>
             </div>
             <div class="response-area" id="resp-ft"></div>
@@ -341,7 +341,7 @@
       <div class="model-col">
         <div class="col-header" style="border-top:3px solid var(--base)">
           <div class="col-model-name" style="color:var(--base)">LFM2 350M</div>
-          <div class="col-model-sub">Base · lfm2-350m</div>
+          <div class="col-model-sub">Base · lfm2mini</div>
           <div class="col-status" id="status-base-c"></div>
         </div>
         <div class="response-area" id="resp-base-c"></div>
@@ -350,7 +350,7 @@
       <div class="model-col">
         <div class="col-header" style="border-top:3px solid var(--ft)">
           <div class="col-model-name" style="color:var(--ft)">LFM2 350M StepGame</div>
-          <div class="col-model-sub">Fine-tuned · lfm2-350m-stepgame</div>
+          <div class="col-model-sub">Fine-tuned · lfm2spatial</div>
           <div class="col-status" id="status-ft-c"></div>
         </div>
         <div class="response-area" id="resp-ft-c"></div>
@@ -736,8 +736,8 @@ async function runBoth() {
   const online = await checkOnlineModels();
 
   const [baseText, ftText] = await Promise.all([
-    runSide(baseSide, "lfm2-350m",          story, question, activeExample?.baseline, online),
-    runSide(ftSide,   "lfm2-350m-stepgame", story, question, activeExample?.finetuned, online),
+    runSide(baseSide, "lfm2mini",    story, question, activeExample?.baseline,  online),
+    runSide(ftSide,   "lfm2spatial", story, question, activeExample?.finetuned, online),
   ]);
 
   // Draw prediction arrows on grid (preset mode only)
