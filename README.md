@@ -82,12 +82,12 @@ Measured on 250 held-out examples (50 per hop level, k=1..5):
 
 | | Baseline | Fine-tuned |
 |---|---|---|
-| **Overall** | 16.0% | 74.4% |
+| **Overall** | 16.0% | 70.4% |
 | k=1 | 24% | 94% |
-| k=2 | 14% | 90% |
-| k=3 | 14% | 76% |
-| k=4 | 18% | 54% |
-| k=5 | 10% | 58% |
+| k=2 | 14% | 84% |
+| k=3 | 14% | 72% |
+| k=4 | 18% | 50% |
+| k=5 | 10% | 52% |
 
 Per-hop breakdown and examples on the [live results page](https://spatialft.github.io/).
 
