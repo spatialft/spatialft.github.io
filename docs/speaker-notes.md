@@ -1,105 +1,109 @@
 # Speaker Notes
 
-Target: 10 minutes. Each slide ~1 minute. Keep transitions brisk.
+Target: 10 minutes. Keep transitions brisk.
 
 ---
 
-## Slide 1 — Title (~20 sec)
+## Danny — Slides 1–3
 
-"Our project: can a 350-million-parameter model learn spatial reasoning? LFM2-350M from LiquidAI. Small, fast, edge-realistic."
+### Slide 1 — Title (~20 sec)
 
----
+Can a **350M model** learn spatial reasoning? LFM2-350M, LiquidAI. Small, fast, edge-realistic.
 
-## Slide 2 — The Property (~60 sec)
+### Slide 2 — The Property (~75 sec)
 
-"Spatial reasoning sounds easy. 'Alice is left of Bob, Bob is above Carol, where is Alice relative to Carol?' We can do that. Small models can't. They lose the thread after two or three hops.
+Spatial reasoning sounds easy. "A left of B, B above C, where's A relative to C?" We do it instantly. Small models can't. They lose the thread after two or three hops.
 
-Prior work confirms this is a real gap. The StepGame authors tested specialized reasoning architectures and the best only managed 53% mean accuracy, with sharp drops past three hops. Yamada et al. tested GPT-4 on spatial navigation and found 29% accuracy versus 67% for humans. GPT-3.5 scored below random. So this isn't just a small-model problem.
+**Prior work confirms the gap.** StepGame authors tested specialized reasoning architectures. Best result: **53% mean accuracy**, sharp drops past k=3. Yamada et al. tested GPT-4 on spatial navigation: **29% vs 67% for humans**. GPT-3.5 fell below random.
 
-Our question: can targeted fine-tuning help a 350M model where even frontier models struggle?"
+Not just a small-model problem. Our question: can **targeted fine-tuning** help at 350M?
 
----
+### Slide 3 — The Model (~75 sec)
 
-## Slide 3 — The Model (~75 sec)
+Why not Llama or Qwen? We wanted the **hardest version** of this experiment. 350 million parameters. If LoRA works here, that's useful for **on-device deployment**. Runs on a free Colab T4, no memory tricks.
 
-"Why not Llama or Qwen? We wanted the hardest version of this experiment. 350 million parameters. If LoRA can teach spatial reasoning at this scale, that's actually useful for on-device deployment. And practically, the whole thing runs on a free Colab T4 without any memory tricks."
-
----
-
-## Slide 4 — The Dataset (~60 sec)
-
-"StepGame. Synthetic spatial QA. k is the number of hops. k=1, one fact: 'A is left of B.' k=10, ten chained facts, resolve the final relation. Eight possible directions. We trained on 4,000 examples, held out 250 for eval, 50 per hop level. The k-hop structure is the whole point. It shows you exactly where the model breaks."
+*Hand off to Keming.*
 
 ---
 
-## Slide 5 — Methodology (~60 sec)
+## Keming — Slides 4–7
 
-"Baseline eval first. You have to know where you're starting. Then data prep with the model's chat template, then LoRA fine-tuning through PEFT. For anyone unfamiliar: LoRA freezes the base model and trains small adapter matrices on top. We're not retraining 350 million parameters. Just a few million adapter weights. That's why it runs on a T4 in under an hour."
+### Slide 4 — The Dataset (~60 sec)
 
----
+StepGame. Synthetic spatial QA. **k = number of hops.** k=1: one fact. k=10: ten chained relations.
 
-## Slide 6 — Baseline Results (~60 sec)
+**8 directions.** We trained on **4,000 examples**, held out **250 for eval** (50 per hop level). The k-hop structure shows exactly where the model breaks.
 
-"Here's the baseline. [Read overall accuracy.] Now look at the per-hop breakdown. k=1 is 16%, barely above random (12.5% for 8 directions). It gets worse from there. k=4, k=5? It falls apart. The model isn't chaining anything. It reads the last sentence and guesses. That's what we're trying to fix."
+### Slide 5 — Methodology (~60 sec)
 
----
+**Pipeline:** baseline eval, data prep, LoRA fine-tuning, re-eval, compare.
 
-## Slide 7 — Training (~45 sec)
+LoRA freezes the base model, trains **small adapter matrices** on top. Not retraining 350M parameters. Just a few million adapter weights. Runs on a T4 in under an hour.
 
-"[Point to loss curve.] Stable decline, no spikes. Three epochs on 4,000 examples. The exact training time, final loss, and adapter size are in the repo's training_stats.json. Short version: under 35 minutes on a T4, adapter is about 11 megabytes. Tiny."
+### Slide 6 — Baseline Results (~60 sec)
 
----
+Overall: **14.4%**. k=1 is 16%, barely above random (**12.5%** for 8 directions). k=4, k=5, it falls apart. The model reads the last sentence and guesses. That's what we're trying to fix.
 
-## Slide 8 — Fine-Tuned Results (~75 sec)
+### Slide 7 — Training (~45 sec)
 
-"OK, results. Overall: 15.2% vs 14.4% baseline. 0.8 points on 250 examples. That's noise. But the per-hop numbers are more interesting. k=1 jumped from 16% to 34%. That's the biggest signal. k=2, 3, 4 all dropped. So the adapter learned single-hop patterns and it came at a cost. Important caveat: each hop level is only 50 examples, so 95% confidence intervals on individual hops range from plus or minus 8 to 13 points depending on the observed accuracy. These are directions, not conclusions. The overall number is noise; the per-hop shape is the finding."
+[Point to loss curve.] Stable decline, no spikes. **3 epochs, 4,000 examples.** Under 35 minutes on a T4, adapter about **11 MB**.
 
----
-
-## Slide 9 — Analysis (~60 sec)
-
-"What did we actually learn? The k=1 jump is the strongest signal, though the CI is wide. When we spot-checked medium-hop failures, there's a pattern: the model collapses diagonal answers into axis-aligned ones. 'Upper-left' becomes 'left' or 'above.' It's dropping part of the chain instead of composing it. Two things that would help: chain-of-thought training data where the completion walks through each step, and more high-k training examples. We didn't have time for either, but they're the obvious next moves."
+*Hand off to Jonas.*
 
 ---
 
-## Slide 10 — Conclusions (~45 sec)
+## Jonas — Slides 8–10
 
-"Summary. LoRA on 4,000 StepGame examples. k=1 improved, k=2 through 4 regressed. The per-hop breakdown is the whole story. If we'd only reported overall accuracy, we'd have missed the trade-off entirely. Repo is at the link. All four notebooks run on a free T4. Thanks."
+### Slide 8 — Fine-Tuned Results (~75 sec)
+
+Overall: **15.2% vs 14.4%**. 0.8 points on 250 examples. That's noise.
+
+But per-hop: **k=1 jumped from 16% to 34%**. That's the signal. k=2, 3, 4 all dropped. The adapter learned single-hop patterns at a cost.
+
+**Caveat:** 50 examples per hop. CIs range **+/-8 to 13pp**. These are directions, not conclusions. The per-hop shape is the finding.
+
+### Slide 9 — Analysis (~60 sec)
+
+k=1 gain is the strongest signal, CI is wide. Spot-checked failures: model **collapses diagonals into axis-aligned guesses**. "Upper-left" becomes "left" or "above." Dropping part of the chain instead of composing it.
+
+**What would help:** chain-of-thought training data, balanced training across all k levels.
+
+### Slide 10 — Conclusions (~45 sec)
+
+LoRA on 4,000 StepGame examples. **k=1 improved, k=2-4 regressed.** Per-hop breakdown is the whole story. Report only overall accuracy? You miss the trade-off entirely.
+
+Repo at the link. All four notebooks run on a free T4. Thanks.
 
 ---
 
 ## Timing check
 
-| Slide | Target | Notes |
-|-------|--------|-------|
-| 1 Title | 0:20 | Don't linger |
-| 2 Property + Lit | 1:35 | Motivate + prior work findings |
-| 3 Model | 2:35 | Explain LFM2 briefly, don't go deep |
-| 4 Dataset | 3:35 | k-hop is the key concept |
-| 5 Method | 4:35 | LoRA in one sentence is enough |
-| 6 Baseline | 5:35 | Let the numbers land |
-| 7 Training | 6:20 | Show loss curve, keep brief |
-| 8 Results | 7:35 | This is the payoff slide — take your time |
-| 9 Analysis | 8:35 | One interesting finding + honest limitations |
-| 10 Conclusions | 9:20 | Brisk, confident |
-| Buffer | 9:20–10:00 | Questions or pad slide 8/9 if needed |
+| Slide | Speaker | Target | Notes |
+|-------|---------|--------|-------|
+| 1 Title | Danny | 0:20 | Don't linger |
+| 2 Property + Lit | Danny | 1:35 | Motivate + prior work |
+| 3 Model | Danny | 2:50 | Why 350M, hand off |
+| 4 Dataset | Keming | 3:50 | k-hop is the key concept |
+| 5 Method | Keming | 4:50 | LoRA in one sentence |
+| 6 Baseline | Keming | 5:50 | Let the numbers land |
+| 7 Training | Keming | 6:35 | Loss curve, hand off |
+| 8 Results | Jonas | 7:50 | Payoff slide, take your time |
+| 9 Analysis | Jonas | 8:50 | Failure pattern + next steps |
+| 10 Conclusions | Jonas | 9:35 | Brisk, confident |
+| Buffer | | 9:35–10:00 | Q&A or pad slide 8/9 |
 
 ---
 
-## Common questions to prepare for
+## Common questions (Jonas fields these)
 
-**"Why not just use a bigger model?"**
-The point is fine-tuning. A 350M model is cheap, fast, and realistic for deployment, so the
-question is how much task-specific accuracy we can recover with targeted training.
+**"Why not a bigger model?"**
+The point is fine-tuning at constrained scale. If it works at 350M, that's cheap, fast, deployable.
 
 **"Why LoRA instead of full fine-tuning?"**
-Memory and speed. LoRA with 4-bit loading keeps the experiment lightweight and repeatable on
-free Colab hardware.
+Memory and speed. 4-bit LoRA runs on free Colab hardware.
 
 **"Why LFM2-350M specifically?"**
-It is the smallest model in the family that still has a serious instruction-tuned release.
-That makes it the best test of whether focused fine-tuning can rescue a very constrained model.
+Smallest in the family with a serious instruction-tuned release. Best test of whether targeted tuning rescues a constrained model.
 
-**"How do you know the eval set isn't in the training set?"**
-StepGame examples are generated programmatically. We shuffled and split before formatting,
-so train and eval come from the same distribution but are non-overlapping by index.
+**"How do you know eval isn't in training?"**
+StepGame is generated programmatically. We shuffled and split before formatting. Same distribution, non-overlapping by index.
