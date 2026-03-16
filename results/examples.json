@@ -1,72 +1,72 @@
 [
   {
-    "story": "I and W are next to each other with W on the right and I on the left.",
-    "question": "What is the relation of the agent W to the agent I?",
-    "answer": "right",
-    "baseline": "above",
-    "finetuned": "right",
-    "k": 1,
-    "outcome": "improvement"
-  },
-  {
-    "story": "M is diagonally above I to the left at a 45 degree angle.",
-    "question": "What is the relation of the agent M to the agent I?",
-    "answer": "upper-left",
-    "baseline": "above",
-    "finetuned": "upper-left",
-    "k": 1,
-    "outcome": "improvement"
-  },
-  {
-    "story": "X is above T.",
-    "question": "What is the relation of the agent X to the agent T?",
-    "answer": "above",
-    "baseline": "above",
-    "finetuned": "lower-left",
-    "k": 1,
-    "outcome": "regression"
-  },
-  {
-    "story": "V is on the top side to T.",
-    "question": "What is the relation of the agent T to the agent V?",
-    "answer": "below",
-    "baseline": "below",
-    "finetuned": "",
-    "k": 1,
-    "outcome": "regression"
-  },
-  {
-    "story": "K is to the right of G horizontally.",
-    "question": "What is the relation of the agent K to the agent G?",
-    "answer": "right",
-    "baseline": "right",
-    "finetuned": "right",
-    "k": 1,
-    "outcome": "stable_correct"
-  },
-  {
-    "story": "R is below E at 4 o'clock. G and R are next to each other with R at the bottom G on the top.",
-    "question": "What is the relation of the agent R to the agent G?",
-    "answer": "below",
-    "baseline": "below",
-    "finetuned": "below",
-    "k": 2,
-    "outcome": "stable_correct"
-  },
-  {
     "story": "H is over there and A is on the top of it.",
     "question": "What is the relation of the agent H to the agent A?",
     "answer": "below",
     "baseline": "above",
-    "finetuned": "lower-left",
+    "finetuned": "below",
     "k": 1,
-    "outcome": "stable_wrong"
+    "outcome": "improvement"
   },
   {
     "story": "J and A are in a vertical line with A below J.",
     "question": "What is the relation of the agent A to the agent J?",
     "answer": "below",
     "baseline": "above",
+    "finetuned": "below",
+    "k": 1,
+    "outcome": "improvement"
+  },
+  {
+    "story": "E is over there with M above. Z is on the top and P is at the bottom. P is sitting at the 6:00 position to M.",
+    "question": "What is the relation of the agent Z to the agent E?",
+    "answer": "above",
+    "baseline": "above",
+    "finetuned": "upper-left",
+    "k": 3,
+    "outcome": "regression"
+  },
+  {
+    "story": "Object S is below object W and to the left of it, too. W and L are next to each other with L on the right and W on the left. L is diagonally below D to the right at a 45 degree angle. If S is the center of a clock face, R is located between 7 and 8.",
+    "question": "What is the relation of the agent W to the agent D?",
+    "answer": "below",
+    "baseline": "below",
+    "finetuned": "lower-right",
+    "k": 4,
+    "outcome": "regression"
+  },
+  {
+    "story": "X is above T.",
+    "question": "What is the relation of the agent X to the agent T?",
+    "answer": "above",
+    "baseline": "above",
+    "finetuned": "above",
+    "k": 1,
+    "outcome": "stable_correct"
+  },
+  {
+    "story": "N presents over B.",
+    "question": "What is the relation of the agent N to the agent B?",
+    "answer": "above",
+    "baseline": "above",
+    "finetuned": "above",
+    "k": 1,
+    "outcome": "stable_correct"
+  },
+  {
+    "story": "N is to the right and above P at an angle of about 45 degrees.",
+    "question": "What is the relation of the agent N to the agent P?",
+    "answer": "upper-left",
+    "baseline": "right",
+    "finetuned": "upper-right",
+    "k": 1,
+    "outcome": "stable_wrong"
+  },
+  {
+    "story": "N is to the right and above K at an angle of about 45 degrees.",
+    "question": "What is the relation of the agent K to the agent N?",
+    "answer": "lower-right",
+    "baseline": "right",
     "finetuned": "lower-left",
     "k": 1,
     "outcome": "stable_wrong"
