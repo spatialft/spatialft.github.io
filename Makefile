@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: index benchmark generate deploy colab-pat export-lm-arena check-bootstrap help
+.PHONY: index benchmark demo generate deploy colab-pat export-lm-arena check-bootstrap help
 
 GITHUB_COLAB_PAT_URL := https://github.com/settings/personal-access-tokens/new?name=SpatialFT%20Colab&description=Colab%20token%20for%20spatialft.github.io&target_name=spatialft&expires_in=30&contents=write
 
@@ -12,7 +12,10 @@ index:
 benchmark:
 	python3 scripts/generate_benchmark.py
 
-generate: index benchmark
+demo:
+	python3 scripts/generate_demo.py
+
+generate: index benchmark demo
 
 # NOTE: `make deploy` pushes to the gh-pages branch. This only works if GitHub
 # Pages is configured to deploy from the gh-pages branch (not GitHub Actions).
@@ -25,9 +28,10 @@ deploy: generate
 	mkdir -p .worktrees/gh-pages/assets && \
 	cp docs/index.html .worktrees/gh-pages/index.html && \
 	cp docs/benchmark.html .worktrees/gh-pages/benchmark.html && \
+	cp docs/demo.html .worktrees/gh-pages/demo.html && \
 	cp -r docs/assets/. .worktrees/gh-pages/assets/ && \
 	cd .worktrees/gh-pages && \
-	git add index.html benchmark.html assets/ && \
+	git add index.html benchmark.html demo.html assets/ && \
 	(git diff --cached --quiet && echo "Nothing to deploy — site is up to date." || \
 		(git commit -m "regen site" && git push origin gh-pages))
 
@@ -54,7 +58,8 @@ help:
 	@echo "\033[2mContent\033[0m"
 	@echo "  \033[36mindex\033[0m      Regenerate docs/index.html"
 	@echo "  \033[36mbenchmark\033[0m  Regenerate docs/benchmark.html"
-	@echo "  \033[36mgenerate\033[0m   Regenerate both"
+	@echo "  \033[36mdemo\033[0m       Regenerate docs/demo.html"
+	@echo "  \033[36mgenerate\033[0m   Regenerate all"
 	@echo ""
 	@echo "  \033[36mcheck-bootstrap\033[0m  Verify notebook bootstrap cells haven't drifted"
 	@echo ""

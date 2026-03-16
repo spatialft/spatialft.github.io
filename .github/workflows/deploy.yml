@@ -6,6 +6,7 @@ on:
     paths:
       - scripts/generate_index.py
       - scripts/generate_benchmark.py
+      - scripts/generate_demo.py
       - scripts/shared.py
       - scripts/templates/**
       - results/baseline/scores.json
@@ -43,6 +44,7 @@ jobs:
           cp -f results/finetuned/loss_curve.png docs/assets/loss-curve.png 2>/dev/null || true
       - run: python3 scripts/generate_index.py
       - run: python3 scripts/generate_benchmark.py
+      - run: python3 scripts/generate_demo.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs

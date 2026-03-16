@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpatialFT — Demo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #1a202c;
+      --muted: #64748b;
+      --accent: #2563eb;
+      --green: #16a34a;
+      --red: #dc2626;
+      --radius: 10px;
+      --shadow: 0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.04);
+      --base-color: #56B6C2;
+      --ft-color: #E5A00D;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+    }
+    header .eyebrow {
+      font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: .5rem;
+    }
+    header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -.02em; }
+    header p  { color: var(--muted); margin-top: .4rem; font-size: .95rem; }
+    header nav {
+      margin-top: 1.25rem;
+      display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .4rem .9rem; border-radius: 6px; font-size: .85rem;
+      font-weight: 500; text-decoration: none; cursor: pointer;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      transition: border-color .15s, background .15s;
+    }
+    .btn:hover { border-color: #cbd5e1; background: #f1f5f9; }
+    .btn-primary {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+    .btn-primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    /* ── Preset bar ── */
+    .section-label {
+      font-size: .72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--muted); margin-bottom: .5rem;
+    }
+
+    .preset-bar {
+      display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+    }
+
+    .preset-btn {
+      display: inline-flex; flex-direction: column; align-items: flex-start;
+      padding: .55rem .85rem; border-radius: 8px; cursor: pointer;
+      border: 1px solid var(--border); background: var(--surface);
+      text-align: left; transition: border-color .15s, background .15s;
+    }
+    .preset-btn:hover { border-color: #cbd5e1; background: #f8fafc; }
+    .preset-btn.active {
+      border-color: var(--accent); background: #eff6ff;
+    }
+    .preset-btn .preset-label {
+      font-size: .82rem; font-weight: 600; color: var(--text);
+    }
+    .preset-btn .preset-desc {
+      font-size: .75rem; color: var(--muted); margin-top: .1rem;
+    }
+    .outcome-pill {
+      display: inline-block; padding: .05rem .4rem; border-radius: 3px;
+      font-size: .7rem; font-weight: 600; margin-left: .4rem;
+    }
+    .pill-improvement { background: #dcfce7; color: #166534; }
+    .pill-regression   { background: #fee2e2; color: #991b1b; }
+    .pill-stable       { background: #f1f5f9; color: #475569; }
+
+    /* ── Prompt card ── */
+    .prompt-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow); margin-bottom: 1.25rem;
+    }
+    .prompt-empty {
+      text-align: center; padding: 1.5rem 0; color: var(--muted); font-size: .9rem;
+    }
+    .prompt-story {
+      font-size: .9rem; color: var(--text); line-height: 1.7;
+      border-left: 3px solid var(--border); padding-left: .875rem;
+      margin-bottom: .75rem;
+    }
+    .prompt-question {
+      font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: 1rem;
+    }
+    .prompt-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: .75rem;
+      padding-top: .875rem; border-top: 1px solid var(--border);
+    }
+    .prompt-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .meta-tag {
+      font-size: .8rem; color: var(--muted);
+    }
+    .meta-tag strong { color: var(--text); }
+
+    /* ── Two-column responses ── */
+    .cols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 640px) {
+      .cols { grid-template-columns: 1fr; }
+    }
+
+    .model-col {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .col-header {
+      padding: .75rem 1rem .6rem; border-bottom: 1px solid var(--border);
+    }
+    .col-model-name { font-size: .875rem; font-weight: 700; }
+    .col-model-sub  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+    .col-status     { font-size: .72rem; color: var(--muted); margin-top: .2rem; }
+
+    .response-area {
+      padding: 1rem; min-height: 80px;
+      font-size: .875rem; line-height: 1.75; white-space: pre-wrap;
+      font-family: "SF Mono", "Fira Code", ui-monospace, monospace;
+      color: #374151;
+    }
+    .response-area .cursor {
+      display: inline-block; width: 2px; height: 1.1em;
+      background: var(--muted); vertical-align: text-bottom;
+      animation: blink .7s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .verdict-row {
+      padding: .6rem 1rem .75rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .verdict-label { font-size: .75rem; color: var(--muted); }
+    .verdict-answer {
+      font-size: .8rem; font-weight: 700;
+      padding: .15rem .5rem; border-radius: 4px;
+    }
+    .verdict-correct { background: #dcfce7; color: #166534; }
+    .verdict-wrong   { background: #fee2e2; color: #991b1b; }
+    .verdict-unknown { background: #f1f5f9; color: #64748b; }
+    .verdict-icon { font-size: 1rem; }
+
+    .note {
+      font-size: .78rem; color: var(--muted); line-height: 1.6; margin-top: .5rem;
+    }
+
+    footer {
+      text-align: center; padding: 2rem; font-size: .8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">SpatialFT · AIPI 590.03</div>
+  <h1>Live Comparison</h1>
+  <p>LFM2 350M (base) vs LFM2 350M StepGame (fine-tuned) · StepGame spatial QA</p>
+  <nav>
+    <a href="/" class="btn">← Results</a>
+    <a href="/benchmark.html" class="btn">Live Benchmark</a>
+  </nav>
+</header>
+
+<main>
+  <div class="section-label">Presets</div>
+  <div class="preset-bar" id="presetBar"></div>
+
+  <div class="prompt-card">
+    <div class="prompt-empty" id="promptEmpty">↑ Select a prompt above to begin</div>
+    <div id="promptContent" style="display:none">
+      <div class="prompt-story" id="promptStory"></div>
+      <div class="prompt-question" id="promptQuestion"></div>
+      <div class="prompt-footer">
+        <div class="prompt-meta">
+          <span class="meta-tag">Correct answer: <strong id="correctAnswer"></strong></span>
+          <span class="meta-tag">Hop count: <strong id="hopCount"></strong></span>
+        </div>
+        <button class="btn btn-primary" id="runBtn" onclick="runBoth()">▶ Run both</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols" id="cols" style="display:none">
+    <div class="model-col">
+      <div class="col-header" style="border-top: 3px solid var(--base-color)">
+        <div class="col-model-name" style="color: var(--base-color)">LFM2 350M</div>
+        <div class="col-model-sub">Base model · lfm2mini</div>
+        <div class="col-status" id="status-base"></div>
+      </div>
+      <div class="response-area" id="resp-base"></div>
+      <div class="verdict-row" id="verdict-base" style="display:none"></div>
+    </div>
+    <div class="model-col">
+      <div class="col-header" style="border-top: 3px solid var(--ft-color)">
+        <div class="col-model-name" style="color: var(--ft-color)">LFM2 350M StepGame</div>
+        <div class="col-model-sub">Fine-tuned · lfm2spatial</div>
+        <div class="col-status" id="status-ft"></div>
+      </div>
+      <div class="response-area" id="resp-ft"></div>
+      <div class="verdict-row" id="verdict-ft" style="display:none"></div>
+    </div>
+  </div>
+
+  <p class="note" id="liveNote" style="display:none">
+    Responses streamed live from lm-arena. If a model is offline, the pre-recorded response is shown instead.
+  </p>
+</main>
+
+<footer>
+  <a href="https://github.com/spatialft/spatialft.github.io">spatialft/spatialft.github.io</a>
+  &nbsp;·&nbsp;
+  <a href="https://chat.neevs.io">lm-arena</a>
+</footer>
+
+<script>
+const EXAMPLES = __EXAMPLES_JSON__;
+
+const SYSTEM_PROMPT = (
+  "You are a spatial reasoning assistant. " +
+  "Given a sequence of positional relationships between objects, " +
+  "determine the spatial relationship between two specified objects. " +
+  "Answer with a single direction from: " +
+  "left, right, above, below, upper-left, upper-right, lower-left, lower-right."
+);
+
+const REGISTRY   = "https://tunnel-registry.jonasneves.workers.dev";
+const DIRECTIONS = ["upper-left", "upper-right", "lower-left", "lower-right", "left", "right", "above", "below"];
+
+// Preset descriptors: indices into EXAMPLES
+const PRESETS = [
+  { outcomeFilter: "improvement",    label: "k=1 · Win",         desc: "Fine-tuned fixes base error",  pill: "pill-improvement" },
+  { outcomeFilter: "stable_correct", label: "k=1 · Both right",  desc: "Both models agree and correct", pill: "pill-stable"       },
+  { outcomeFilter: "regression",     label: "k=3 · Regression",  desc: "Fine-tuned regresses",          pill: "pill-regression"   },
+];
+
+let activeExample = null;
+let running = false;
+
+// ── Preset setup ──────────────────────────────────────────────────────────────
+
+function buildPresets() {
+  const bar = document.getElementById("presetBar");
+  PRESETS.forEach(({ outcomeFilter, label, desc, pill }, i) => {
+    const ex = EXAMPLES.find(e => e.outcome === outcomeFilter);
+    if (!ex) return;
+    const btn = document.createElement("button");
+    btn.className = "preset-btn";
+    btn.innerHTML = `
+      <span class="preset-label">${label}<span class="outcome-pill ${pill}">${outcomeFilter.replace("_", " ")}</span></span>
+      <span class="preset-desc">${desc}</span>
+    `;
+    btn.onclick = () => selectExample(ex, btn);
+    bar.appendChild(btn);
+  });
+}
+
+function selectExample(ex, btn) {
+  if (running) return;
+  activeExample = ex;
+
+  document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  document.getElementById("promptEmpty").style.display = "none";
+  document.getElementById("promptContent").style.display = "block";
+  document.getElementById("promptStory").textContent = ex.story;
+  document.getElementById("promptQuestion").textContent = ex.question;
+  document.getElementById("correctAnswer").textContent = ex.answer;
+  document.getElementById("hopCount").textContent = `k=${ex.k}`;
+
+  // Reset columns
+  document.getElementById("cols").style.display = "none";
+  document.getElementById("liveNote").style.display = "none";
+  resetCol("base");
+  resetCol("ft");
+}
+
+function resetCol(side) {
+  document.getElementById(`resp-${side}`).textContent = "";
+  document.getElementById(`status-${side}`).textContent = "";
+  const v = document.getElementById(`verdict-${side}`);
+  v.style.display = "none";
+  v.innerHTML = "";
+}
+
+// ── Run ───────────────────────────────────────────────────────────────────────
+
+async function runBoth() {
+  if (!activeExample || running) return;
+  running = true;
+
+  const btn = document.getElementById("runBtn");
+  btn.disabled = true;
+  btn.textContent = "Running…";
+
+  document.getElementById("cols").style.display = "grid";
+  document.getElementById("liveNote").style.display = "block";
+  resetCol("base");
+  resetCol("ft");
+
+  const online = await checkOnlineModels();
+
+  await Promise.all([
+    runSide("base", "lfm2mini",   online),
+    runSide("ft",   "lfm2spatial", online),
+  ]);
+
+  btn.disabled = false;
+  btn.textContent = "▶ Run both";
+  running = false;
+}
+
+async function runSide(side, modelId, onlineModels) {
+  const statusEl = document.getElementById(`status-${side}`);
+  const ex = activeExample;
+
+  if (onlineModels.has(modelId)) {
+    statusEl.textContent = "● live";
+    statusEl.style.color = "var(--green)";
+    await streamModel(modelId, ex.story, ex.question, side);
+  } else {
+    statusEl.textContent = "● offline · pre-recorded";
+    statusEl.style.color = "var(--muted)";
+    const recorded = side === "base" ? ex.baseline : ex.finetuned;
+    await fakeStream(recorded, side);
+  }
+
+  const text  = document.getElementById(`resp-${side}`).textContent;
+  const extracted = extractAnswer(text) || (side === "base" ? ex.baseline : ex.finetuned);
+  renderVerdict(side, extracted, ex.answer);
+}
+
+// ── Inference ─────────────────────────────────────────────────────────────────
+
+async function checkOnlineModels() {
+  try {
+    const resp = await fetch(`${REGISTRY}/v1/models`, { signal: AbortSignal.timeout(5000) });
+    const data = await resp.json();
+    return new Set((data.data || []).map(m => m.id));
+  } catch {
+    return new Set();
+  }
+}
+
+async function streamModel(modelId, story, question, side) {
+  const respEl = document.getElementById(`resp-${side}`);
+  respEl.innerHTML = '<span class="cursor"></span>';
+
+  let fullText = "";
+  let cursor = respEl.querySelector(".cursor");
+
+  try {
+    const res = await fetch(`${REGISTRY}/v1/chat/completions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: modelId,
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          { role: "user",   content: `${story}\n\n${question}` },
+        ],
+        max_tokens: 64,
+        stream: true,
+      }),
+      signal: AbortSignal.timeout(30000),
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const reader  = res.body.getReader();
+    const decoder = new TextDecoder();
+    let   buffer  = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith("data: ")) continue;
+        const raw = line.slice(6).trim();
+        if (raw === "[DONE]") break;
+        try {
+          const token = JSON.parse(raw)?.choices?.[0]?.delta?.content || "";
+          if (token) {
+            fullText += token;
+            // Re-render text + trailing cursor
+            respEl.textContent = fullText;
+            cursor = document.createElement("span");
+            cursor.className = "cursor";
+            respEl.appendChild(cursor);
+          }
+        } catch { /* skip malformed chunks */ }
+      }
+    }
+  } catch (err) {
+    const note = document.createElement("span");
+    note.style.color = "var(--muted)";
+    note.style.fontSize = ".78rem";
+    note.textContent = `(${err.message || "connection failed"})`;
+    respEl.innerHTML = "";
+    respEl.appendChild(note);
+    return;
+  }
+
+  // Remove cursor
+  respEl.textContent = fullText || "";
+}
+
+async function fakeStream(answer, side) {
+  const respEl = document.getElementById(`resp-${side}`);
+  respEl.textContent = "";
+  await sleep(400);
+  for (const ch of answer) {
+    respEl.textContent += ch;
+    await sleep(60);
+  }
+}
+
+// ── Verdict ───────────────────────────────────────────────────────────────────
+
+function extractAnswer(text) {
+  const lower = (text || "").toLowerCase().replace(/<think>[\s\S]*?<\/think>/g, "");
+  for (const d of DIRECTIONS) {
+    if (lower.includes(d)) return d;
+  }
+  return null;
+}
+
+function renderVerdict(side, extracted, correct) {
+  const el = document.getElementById(`verdict-${side}`);
+  if (!extracted) {
+    el.innerHTML = `<span class="verdict-label">No direction extracted</span>`;
+    el.style.display = "flex";
+    return;
+  }
+  const ok = extracted === correct;
+  el.innerHTML = `
+    <span class="verdict-label">Extracted:</span>
+    <span class="verdict-answer ${ok ? "verdict-correct" : "verdict-wrong"}">${extracted}</span>
+    <span class="verdict-icon">${ok ? "✓" : "✗"}</span>
+  `;
+  el.style.display = "flex";
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+buildPresets();
+</script>
+
+</body>
+</html>
