@@ -22,6 +22,12 @@ Fine-Tuning LFM2-350M for Spatial Reasoning
 - Multi-hop spatial inference is surprisingly hard for small models
 - Clear, measurable degradation as complexity increases
 
+**Prior work:**
+
+- Shi et al. (2022): specialized reasoning architectures scored 15–53% mean accuracy on StepGame; all degraded sharply beyond k=3
+- Yamada et al. (2024): GPT-4 achieved 29% on spatial navigation tasks vs. 67% for humans; GPT-3.5 fell below random chance
+- Spatial reasoning remains hard even for frontier models. Can targeted fine-tuning help a 350M model?
+
 **The challenge:**
 
 > "Alice is to the left of Bob. Bob is above Carol. Dave is to the right of Alice.
@@ -69,7 +75,7 @@ A 350M model must chain multiple relations without losing track.
 
 **Fine-tuning approach:**
 - LoRA (Hu et al., 2022; rank 16) via `transformers` + `peft`, 4-bit quantized, T4-compatible
-- 3 epochs, batch size 4 + gradient accumulation
+- 3 epochs, batch size 2 × 8 gradient accumulation steps (effective batch 16)
 - Learning rate 2e-4 with warmup
 
 **Evaluation metric:**

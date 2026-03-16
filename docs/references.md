@@ -14,6 +14,13 @@ Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean W
 ICLR 2022
 https://arxiv.org/abs/2106.09685
 
+## Spatial Reasoning in LLMs
+
+**Evaluating Spatial Understanding of Large Language Models**
+Yutaro Yamada, Yihan Bao, Andrew K. Lampinen, Jungo Kasai, Ilker Yildirim
+Transactions on Machine Learning Research (TMLR), 2024
+https://arxiv.org/abs/2310.14540
+
 ## Base Model
 
 **LFM2 Technical Report**

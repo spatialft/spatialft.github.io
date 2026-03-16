@@ -45,6 +45,15 @@ Pages source is set to "gh-pages branch" instead of "GitHub Actions".
 
 Auto-check: `.github/workflows/auto-check.yml` runs `auto_check.py` on every push to `main` and commits back to `REQUIREMENTS_CHECKLIST.md` if any new items are satisfied. Uses `GITHUB_TOKEN` (not a PAT), so its commits do not re-trigger workflows.
 
+## Presentation
+
+Slides content lives in `docs/slides.md` (markdown, one `##` per slide). Speaker notes in `docs/speaker-notes.md`. References in `docs/references.md`.
+
+Slides must satisfy PRES1–PRES9 from `REQUIREMENTS_CHECKLIST.md`. When editing presentation materials:
+1. Read `docs/slides.md` and `docs/speaker-notes.md` first
+2. Verify any numbers against `results/baseline/scores.json`, `results/finetuned/scores.json`, and the notebooks
+3. Keep total timing under 10 minutes (timing table is in speaker-notes.md)
+
 ## Checklist
 
 Requirements tracked in `REQUIREMENTS_CHECKLIST.md`. Mark items `[x]` as they complete. The checklist page at `/checklist/` updates automatically on push to `main`.

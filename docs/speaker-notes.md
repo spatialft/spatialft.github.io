@@ -12,7 +12,11 @@ Target: 10 minutes. Each slide ~1 minute. Keep transitions brisk.
 
 ## Slide 2 — The Property (~60 sec)
 
-"Spatial reasoning sounds easy. 'Alice is left of Bob, Bob is above Carol, where is Alice relative to Carol?' We can do that. Small models can't. They lose the thread after two or three hops. There's a benchmark for exactly this, StepGame. We picked it because the difficulty scales cleanly: one hop, two hops, up to ten. Measure, fine-tune, re-measure."
+"Spatial reasoning sounds easy. 'Alice is left of Bob, Bob is above Carol, where is Alice relative to Carol?' We can do that. Small models can't. They lose the thread after two or three hops.
+
+Prior work confirms this is a real gap. The StepGame authors tested specialized reasoning architectures and the best only managed 53% mean accuracy, with sharp drops past three hops. Yamada et al. tested GPT-4 on spatial navigation and found 29% accuracy versus 67% for humans. GPT-3.5 scored below random. So this isn't just a small-model problem.
+
+Our question: can targeted fine-tuning help a 350M model where even frontier models struggle?"
 
 ---
 
@@ -69,7 +73,7 @@ Target: 10 minutes. Each slide ~1 minute. Keep transitions brisk.
 | Slide | Target | Notes |
 |-------|--------|-------|
 | 1 Title | 0:20 | Don't linger |
-| 2 Property | 1:20 | Motivate clearly |
+| 2 Property + Lit | 1:35 | Motivate + prior work findings |
 | 3 Model | 2:35 | Explain LFM2 briefly, don't go deep |
 | 4 Dataset | 3:35 | k-hop is the key concept |
 | 5 Method | 4:35 | LoRA in one sentence is enough |
