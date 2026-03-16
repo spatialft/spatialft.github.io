@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpatialFT — Demo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #1a202c;
+      --muted: #64748b;
+      --accent: #2563eb;
+      --green: #16a34a;
+      --red: #dc2626;
+      --radius: 10px;
+      --shadow: 0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.04);
+      --base: #56B6C2;
+      --ft:   #E5A00D;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+    }
+
+    header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem 2rem; text-align: center;
+    }
+    header .eyebrow {
+      font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: .5rem;
+    }
+    header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -.02em; }
+    header p  { color: var(--muted); margin-top: .4rem; font-size: .95rem; }
+    header nav {
+      margin-top: 1.25rem;
+      display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .4rem .9rem; border-radius: 6px; font-size: .85rem;
+      font-weight: 500; text-decoration: none; cursor: pointer;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      transition: border-color .15s, background .15s;
+    }
+    .btn:hover { border-color: #cbd5e1; background: #f1f5f9; }
+    .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn.primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: .72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--muted); margin-bottom: .5rem;
+    }
+
+    /* ── Preset bar ── */
+    .preset-bar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .preset-btn {
+      display: inline-flex; flex-direction: column; align-items: flex-start;
+      padding: .55rem .9rem; border-radius: 8px; cursor: pointer; text-align: left;
+      border: 1px solid var(--border); background: var(--surface);
+      transition: border-color .15s, background .15s;
+    }
+    .preset-btn:hover   { border-color: #cbd5e1; background: #f8fafc; }
+    .preset-btn.active  { border-color: var(--accent); background: #eff6ff; }
+    .preset-label { font-size: .82rem; font-weight: 600; color: var(--text); }
+    .preset-desc  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+    .pill {
+      display: inline-block; padding: .05rem .4rem; border-radius: 3px;
+      font-size: .68rem; font-weight: 600; margin-left: .4rem; vertical-align: middle;
+    }
+    .pill-improvement { background: #dcfce7; color: #166534; }
+    .pill-regression  { background: #fee2e2; color: #991b1b; }
+    .pill-stable      { background: #f1f5f9; color: #475569; }
+    .pill-custom      { background: #f0f9ff; color: #0369a1; }
+
+    /* ── Prompt card ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .prompt-empty {
+      text-align: center; padding: 1.25rem 0; color: var(--muted); font-size: .9rem;
+    }
+    .prompt-story {
+      font-size: .9rem; line-height: 1.75;
+      border-left: 3px solid var(--border); padding-left: .875rem; margin-bottom: .75rem;
+    }
+    .prompt-question { font-size: .9rem; font-weight: 600; margin-bottom: 1rem; }
+    textarea.prompt-story, textarea.prompt-question {
+      width: 100%; border: 1px solid var(--border); border-radius: 6px;
+      padding: .5rem .75rem; font-size: .9rem; font-family: inherit;
+      resize: vertical; background: var(--surface); color: var(--text);
+      line-height: 1.6;
+    }
+    textarea.prompt-story { min-height: 80px; }
+    textarea.prompt-question { min-height: 48px; }
+    .custom-answer-row {
+      display: flex; align-items: center; gap: .6rem; margin-bottom: .75rem;
+    }
+    .custom-answer-row label { font-size: .82rem; color: var(--muted); }
+    .custom-answer-row input {
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: .3rem .6rem; font-size: .85rem; width: 140px; color: var(--text);
+    }
+    .prompt-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: .75rem;
+      padding-top: .875rem; border-top: 1px solid var(--border);
+    }
+    .prompt-meta { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .meta-tag { font-size: .8rem; color: var(--muted); }
+    .meta-tag strong { color: var(--text); }
+
+    /* ── Constraints disclosure ── */
+    .constraints {
+      margin-top: .75rem; border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .constraints summary {
+      padding: .75rem 1.25rem; cursor: pointer; font-size: .82rem;
+      font-weight: 600; color: var(--muted); list-style: none;
+      background: var(--surface); user-select: none;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .constraints summary::-webkit-details-marker { display: none; }
+    .constraints summary::after { content: '▾'; transition: transform .2s; }
+    .constraints[open] summary::after { transform: rotate(-180deg); }
+    .constraints-body {
+      padding: 1rem 1.25rem; border-top: 1px solid var(--border);
+      background: #fafafa; display: flex; flex-direction: column; gap: .875rem;
+    }
+    .constraint-row { display: flex; flex-direction: column; gap: .35rem; }
+    .constraint-row label {
+      font-size: .78rem; font-weight: 600; color: var(--muted);
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .constraint-row textarea {
+      width: 100%; border: 1px solid var(--border); border-radius: 6px;
+      padding: .5rem .75rem; font-size: .82rem; font-family: inherit;
+      resize: vertical; min-height: 72px; background: var(--surface); color: var(--text);
+      line-height: 1.5;
+    }
+    .constraint-row textarea:disabled { opacity: .45; }
+    .constraint-row input[type=number] {
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: .3rem .6rem; font-size: .85rem; width: 80px; color: var(--text);
+    }
+    .inline-row { flex-direction: row !important; align-items: center; gap: .75rem !important; }
+    .note { font-size: .78rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Grid section ── */
+    .grid-area {
+      display: grid; grid-template-columns: 420px 1fr;
+      gap: 1.25rem; margin: 1.5rem 0 0;
+      align-items: start;
+    }
+    @media (max-width: 720px) {
+      .grid-area { grid-template-columns: 1fr; }
+    }
+    .grid-wrap {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem;
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    #gridSvg { display: block; width: 100%; height: auto; }
+    .grid-legend {
+      display: flex; flex-wrap: wrap; gap: .5rem;
+      font-size: .75rem; color: var(--muted); margin-top: .75rem;
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: .3rem; }
+    .legend-dot  { width: 10px; height: 10px; border-radius: 50%; }
+    .legend-line {
+      width: 20px; height: 3px; border-radius: 2px;
+      background: currentColor;
+    }
+
+    /* ── Side-by-side columns (text responses) ── */
+    .story-step {
+      font-size: .82rem; color: var(--muted); min-height: 1.4em;
+      font-style: italic; margin-bottom: .5rem;
+    }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.25rem; }
+    @media (max-width: 560px) { .cols { grid-template-columns: 1fr; } }
+    .model-col {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+    }
+    .col-header { padding: .75rem 1rem .6rem; border-bottom: 1px solid var(--border); }
+    .col-model-name { font-size: .875rem; font-weight: 700; }
+    .col-model-sub  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+    .col-status     { font-size: .72rem; margin-top: .2rem; }
+    .response-area {
+      padding: 1rem; min-height: 72px;
+      font-size: .875rem; line-height: 1.75; white-space: pre-wrap;
+      font-family: "SF Mono", "Fira Code", ui-monospace, monospace; color: #374151;
+    }
+    .cursor {
+      display: inline-block; width: 2px; height: 1.1em;
+      background: var(--muted); vertical-align: text-bottom;
+      animation: blink .7s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .verdict-row {
+      padding: .55rem 1rem .7rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .verdict-label  { font-size: .75rem; color: var(--muted); }
+    .verdict-word   { font-size: .8rem; font-weight: 700; padding: .1rem .45rem; border-radius: 4px; }
+    .v-correct      { background: #dcfce7; color: #166534; }
+    .v-wrong        { background: #fee2e2; color: #991b1b; }
+    .v-unknown      { background: #f1f5f9; color: #64748b; }
+    .verdict-icon   { font-size: .95rem; }
+
+    footer {
+      text-align: center; padding: 2rem; font-size: .8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">SpatialFT · AIPI 590.03</div>
+  <h1>Live Comparison</h1>
+  <p>LFM2 350M (base) vs LFM2 350M StepGame (fine-tuned) · spatial reasoning</p>
+  <nav>
+    <a href="/" class="btn">← Results</a>
+    <a href="/benchmark.html" class="btn">Live Benchmark</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ── Presets ── -->
+  <div class="section-label">Presets</div>
+  <div class="preset-bar" id="presetBar"></div>
+
+  <!-- ── Prompt card ── -->
+  <div class="card" id="promptCard">
+    <div class="prompt-empty" id="promptEmpty">↑ Select a prompt above to begin</div>
+
+    <div id="promptContent" style="display:none">
+
+      <!-- preset view: read-only -->
+      <div id="presetView">
+        <div class="prompt-story"   id="promptStory"></div>
+        <div class="prompt-question" id="promptQuestion"></div>
+      </div>
+
+      <!-- custom view: editable -->
+      <div id="customView" style="display:none">
+        <textarea class="prompt-story"   id="customStory"    placeholder="Enter spatial story…" rows="4"></textarea>
+        <textarea class="prompt-question" id="customQuestion" placeholder="Enter question…"        rows="2" style="margin-top:.6rem"></textarea>
+        <div class="custom-answer-row" style="margin-top:.6rem">
+          <label>Correct answer (optional):</label>
+          <input id="customAnswer" type="text" placeholder="e.g. above">
+        </div>
+      </div>
+
+      <div class="prompt-footer">
+        <div class="prompt-meta">
+          <span class="meta-tag" id="metaAnswer" style="display:none">Answer: <strong id="correctAnswer"></strong></span>
+          <span class="meta-tag" id="metaHop"    style="display:none">Hop count: <strong id="hopCount"></strong></span>
+        </div>
+        <button class="btn primary" id="runBtn" onclick="runBoth()">▶ Run both</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Constraints ── -->
+  <details class="constraints" id="constraintsPanel">
+    <summary>Constraints</summary>
+    <div class="constraints-body">
+      <div class="constraint-row">
+        <label>
+          <input type="checkbox" id="useSystemPrompt" checked onchange="onSystemPromptToggle()">
+          System prompt
+        </label>
+        <textarea id="systemPromptText" rows="3">You are a spatial reasoning assistant. Given a sequence of positional relationships between objects, determine the spatial relationship between two specified objects. Answer with a single direction from: left, right, above, below, upper-left, upper-right, lower-left, lower-right.</textarea>
+      </div>
+      <div class="constraint-row inline-row">
+        <label>Max tokens</label>
+        <input type="number" id="maxTokens" value="64" min="8" max="1024" step="8">
+        <span class="note">Set to 512+ to see the model reason step-by-step</span>
+      </div>
+    </div>
+  </details>
+
+  <!-- ── Grid + step log (preset mode) ── -->
+  <div id="gridArea" style="display:none">
+    <div class="grid-area">
+      <div>
+        <div class="grid-wrap">
+          <svg id="gridSvg" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+        <div class="grid-legend" id="gridLegend" style="margin-top:.6rem"></div>
+      </div>
+      <div>
+        <div class="section-label">Story playback</div>
+        <div class="story-step" id="storyStep"></div>
+        <div class="cols" id="cols" style="display:none; margin-top:0">
+          <div class="model-col">
+            <div class="col-header" style="border-top:3px solid var(--base)">
+              <div class="col-model-name" style="color:var(--base)">LFM2 350M</div>
+              <div class="col-model-sub">Base · lfm2mini</div>
+              <div class="col-status" id="status-base"></div>
+            </div>
+            <div class="response-area" id="resp-base"></div>
+            <div class="verdict-row" id="verdict-base" style="display:none"></div>
+          </div>
+          <div class="model-col">
+            <div class="col-header" style="border-top:3px solid var(--ft)">
+              <div class="col-model-name" style="color:var(--ft)">LFM2 350M StepGame</div>
+              <div class="col-model-sub">Fine-tuned · lfm2spatial</div>
+              <div class="col-status" id="status-ft"></div>
+            </div>
+            <div class="response-area" id="resp-ft"></div>
+            <div class="verdict-row" id="verdict-ft" style="display:none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Columns only (custom mode) ── -->
+  <div id="customCols" style="display:none">
+    <div class="cols">
+      <div class="model-col">
+        <div class="col-header" style="border-top:3px solid var(--base)">
+          <div class="col-model-name" style="color:var(--base)">LFM2 350M</div>
+          <div class="col-model-sub">Base · lfm2mini</div>
+          <div class="col-status" id="status-base-c"></div>
+        </div>
+        <div class="response-area" id="resp-base-c"></div>
+        <div class="verdict-row" id="verdict-base-c" style="display:none"></div>
+      </div>
+      <div class="model-col">
+        <div class="col-header" style="border-top:3px solid var(--ft)">
+          <div class="col-model-name" style="color:var(--ft)">LFM2 350M StepGame</div>
+          <div class="col-model-sub">Fine-tuned · lfm2spatial</div>
+          <div class="col-status" id="status-ft-c"></div>
+        </div>
+        <div class="response-area" id="resp-ft-c"></div>
+        <div class="verdict-row" id="verdict-ft-c" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="note" id="liveNote" style="display:none;margin-top:.75rem">
+    Responses streamed live from lm-arena. If a model is offline, the pre-recorded response is shown instead.
+  </p>
+</main>
+
+<footer>
+  <a href="https://github.com/spatialft/spatialft.github.io">spatialft/spatialft.github.io</a>
+  &nbsp;·&nbsp;
+  <a href="https://chat.neevs.io">lm-arena</a>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// Data
+// ─────────────────────────────────────────────────────────────────────────────
+
+const EXAMPLES = [{"story": "H is over there and A is on the top of it.", "question": "What is the relation of the agent H to the agent A?", "answer": "below", "baseline": "above", "finetuned": "below", "k": 1, "outcome": "improvement"}, {"story": "J and A are in a vertical line with A below J.", "question": "What is the relation of the agent A to the agent J?", "answer": "below", "baseline": "above", "finetuned": "below", "k": 1, "outcome": "improvement"}, {"story": "E is over there with M above. Z is on the top and P is at the bottom. P is sitting at the 6:00 position to M.", "question": "What is the relation of the agent Z to the agent E?", "answer": "above", "baseline": "above", "finetuned": "upper-left", "k": 3, "outcome": "regression"}, {"story": "V is positioned below and to the right of G. G and J are parallel, and G is under J. K is directly above J.", "question": "What is the relation of the agent K to the agent G?", "answer": "above", "baseline": "above", "finetuned": "upper-left", "k": 3, "outcome": "regression"}, {"story": "X is above T.", "question": "What is the relation of the agent X to the agent T?", "answer": "above", "baseline": "above", "finetuned": "above", "k": 1, "outcome": "stable_correct"}, {"story": "N presents over B.", "question": "What is the relation of the agent N to the agent B?", "answer": "above", "baseline": "above", "finetuned": "above", "k": 1, "outcome": "stable_correct"}, {"story": "N is to the right and above P at an angle of about 45 degrees.", "question": "What is the relation of the agent N to the agent P?", "answer": "upper-left", "baseline": "right", "finetuned": "upper-right", "k": 1, "outcome": "stable_wrong"}, {"story": "N is to the right and above K at an angle of about 45 degrees.", "question": "What is the relation of the agent K to the agent N?", "answer": "lower-right", "baseline": "right", "finetuned": "lower-left", "k": 1, "outcome": "stable_wrong"}];
+
+const REGISTRY   = "https://tunnel-registry.jonasneves.workers.dev";
+const DIRECTIONS = ["upper-left","upper-right","lower-left","lower-right","left","right","above","below"];
+
+// Normalized direction vectors (intercardinal divided by √2)
+const DIR_VEC = {
+  "above":       [ 0,    -1   ],
+  "below":       [ 0,     1   ],
+  "left":        [-1,     0   ],
+  "right":       [ 1,     0   ],
+  "upper-left":  [-0.707,-0.707],
+  "upper-right": [ 0.707,-0.707],
+  "lower-left":  [-0.707, 0.707],
+  "lower-right": [ 0.707, 0.707],
+};
+
+const CELL = 60;   // px per grid cell
+const COLS = 7;
+const ROWS = 7;
+const SVG_SIZE = CELL * COLS; // 420
+
+// Pre-computed grid layouts for the three preset outcomes.
+// agents: { id: [col, row] } (0-indexed, 0,0 = top-left)
+// steps:  story animation — each step adds agents and optional connections
+// from:   the reference agent ("relative to X" = from X's perspective)
+// to:     the target agent being located
+const PRESET_GRIDS = {
+  improvement: {
+    agents: { H: [3,4], A: [3,2] },
+    steps: [
+      { text: "H is over there",        show: ["H"]      },
+      { text: "A is on the top of it.", show: ["A"], connect: [["A","H"]] },
+    ],
+    from: "A", to: "H",
+  },
+  stable_correct: {
+    agents: { X: [3,2], T: [3,4] },
+    steps: [
+      { text: "X is above T.", show: ["X","T"], connect: [["X","T"]] },
+    ],
+    from: "T", to: "X",
+  },
+  regression: {
+    agents: { E: [3,5], M: [3,3], Z: [3,1], P: [3,4] },
+    steps: [
+      { text: "E is over there",                        show: ["E"]      },
+      { text: "with M above.",                          show: ["M"], connect: [["M","E"]] },
+      { text: "Z is on the top.",                       show: ["Z"], connect: [["Z","M"]] },
+      { text: "P is at the 6:00 position to M.",        show: ["P"], connect: [["M","P"]] },
+    ],
+    from: "E", to: "Z",
+  },
+};
+
+const PRESETS = [
+  { outcome: "improvement",    key: "improvement",    label: "k=1 · Win",        desc: "Fine-tuned fixes base error",   pill: "pill-improvement" },
+  { outcome: "stable_correct", key: "stable_correct", label: "k=1 · Both right", desc: "Both models agree and correct", pill: "pill-stable"       },
+  { outcome: "regression",     key: "regression",     label: "k=3 · Regression", desc: "Fine-tuned regresses",          pill: "pill-regression"   },
+  { outcome: null,             key: null,             label: "Custom",            desc: "Enter your own prompt",         pill: "pill-custom"       },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// State
+// ─────────────────────────────────────────────────────────────────────────────
+
+let activeExample   = null;
+let activePresetKey = null;
+let animating       = false;
+let running         = false;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Preset setup
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildPresets() {
+  const bar = document.getElementById("presetBar");
+  PRESETS.forEach(p => {
+    const ex = p.outcome ? EXAMPLES.find(e => e.outcome === p.outcome) : null;
+    const btn = document.createElement("button");
+    btn.className = "preset-btn";
+    btn.innerHTML = `
+      <span class="preset-label">${p.label}<span class="pill ${p.pill}">${p.key || "custom"}</span></span>
+      <span class="preset-desc">${p.desc}</span>
+    `;
+    btn.onclick = () => p.key ? selectPreset(p, ex, btn) : selectCustom(btn);
+    bar.appendChild(btn);
+  });
+}
+
+function setActiveBtn(btn) {
+  document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+function selectPreset(preset, ex, btn) {
+  if (running) return;
+  setActiveBtn(btn);
+  activeExample   = ex;
+  activePresetKey = preset.key;
+
+  // Prompt card
+  document.getElementById("promptEmpty").style.display = "none";
+  document.getElementById("promptContent").style.display = "block";
+  document.getElementById("presetView").style.display = "block";
+  document.getElementById("customView").style.display  = "none";
+  document.getElementById("promptStory").textContent   = ex.story;
+  document.getElementById("promptQuestion").textContent = ex.question;
+  document.getElementById("metaAnswer").style.display  = "inline";
+  document.getElementById("metaHop").style.display     = "inline";
+  document.getElementById("correctAnswer").textContent = ex.answer;
+  document.getElementById("hopCount").textContent      = `k=${ex.k}`;
+
+  // Grid
+  document.getElementById("gridArea").style.display   = "block";
+  document.getElementById("customCols").style.display = "none";
+  document.getElementById("cols").style.display       = "none";
+  document.getElementById("liveNote").style.display   = "none";
+  resetColPair("base", "ft");
+
+  animateStory(preset.key);
+}
+
+function selectCustom(btn) {
+  if (running) return;
+  setActiveBtn(btn);
+  activeExample   = null;
+  activePresetKey = null;
+
+  document.getElementById("promptEmpty").style.display  = "none";
+  document.getElementById("promptContent").style.display = "block";
+  document.getElementById("presetView").style.display   = "none";
+  document.getElementById("customView").style.display   = "block";
+  document.getElementById("metaAnswer").style.display   = "none";
+  document.getElementById("metaHop").style.display      = "none";
+
+  document.getElementById("gridArea").style.display     = "none";
+  document.getElementById("customCols").style.display   = "none";
+  document.getElementById("liveNote").style.display     = "none";
+
+  // Auto-open constraints so the user can see/edit them
+  document.getElementById("constraintsPanel").open = true;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SVG grid
+// ─────────────────────────────────────────────────────────────────────────────
+
+const NS  = "http://www.w3.org/2000/svg";
+const svg = () => document.getElementById("gridSvg");
+
+const LAYER = {};
+
+function initSvg() {
+  const el = svg();
+  el.innerHTML = "";
+
+  // Arrowhead markers
+  const defs = mkSvg("defs");
+  [["base","#56B6C2"],["ft","#E5A00D"]].forEach(([id, color]) => {
+    const m = mkSvg("marker", { id: `arr-${id}`, markerWidth:"8", markerHeight:"6", refX:"7", refY:"3", orient:"auto" });
+    m.appendChild(mkSvg("polygon", { points:"0 0,8 3,0 6", fill: color }));
+    defs.appendChild(m);
+  });
+  el.appendChild(defs);
+
+  // Layers (order = draw order)
+  ["grid","connections","agents","query","predictions"].forEach(name => {
+    const g = mkSvg("g", { id: `layer-${name}` });
+    el.appendChild(g);
+    LAYER[name] = g;
+  });
+
+  // Grid lines
+  for (let i = 0; i <= COLS; i++) {
+    LAYER.grid.appendChild(mkSvg("line", { x1:i*CELL, y1:0, x2:i*CELL, y2:SVG_SIZE, stroke:"#e2e8f0", "stroke-width":1 }));
+  }
+  for (let j = 0; j <= ROWS; j++) {
+    LAYER.grid.appendChild(mkSvg("line", { x1:0, y1:j*CELL, x2:SVG_SIZE, y2:j*CELL, stroke:"#e2e8f0", "stroke-width":1 }));
+  }
+}
+
+function mkSvg(tag, attrs = {}) {
+  const el = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  return el;
+}
+
+function clearLayer(name) {
+  const l = LAYER[name];
+  while (l.firstChild) l.removeChild(l.firstChild);
+}
+
+function cellCx(col) { return col * CELL + CELL / 2; }
+function cellCy(row) { return row * CELL + CELL / 2; }
+
+function addAgent(id, col, row, fill = "#64748b") {
+  const g = mkSvg("g", { id: `ag-${id}`, style: "transition: opacity .3s" });
+  g.appendChild(mkSvg("circle", { cx: cellCx(col), cy: cellCy(row), r:22, fill, stroke:"#fff", "stroke-width":2 }));
+  const t = mkSvg("text", {
+    x: cellCx(col), y: cellCy(row),
+    "text-anchor":"middle", "dominant-baseline":"central",
+    fill:"#fff", "font-weight":"bold", "font-size":"14",
+    "font-family":"-apple-system,BlinkMacSystemFont,sans-serif",
+  });
+  t.textContent = id;
+  g.appendChild(t);
+  g.style.opacity = "0";
+  LAYER.agents.appendChild(g);
+  requestAnimationFrame(() => { g.style.opacity = "1"; });
+}
+
+function addConnection(fromId, toId, agents) {
+  const [fc, fr] = agents[fromId];
+  const [tc, tr] = agents[toId];
+  LAYER.connections.appendChild(mkSvg("line", {
+    x1: cellCx(fc), y1: cellCy(fr),
+    x2: cellCx(tc), y2: cellCy(tr),
+    stroke: "#cbd5e1", "stroke-width": 1.5, "stroke-dasharray": "5 3",
+  }));
+}
+
+function setAgentFill(id, fill) {
+  const circle = document.getElementById(`ag-${id}`)?.querySelector("circle");
+  if (circle) circle.setAttribute("fill", fill);
+}
+
+function addQueryMarker(id, agents) {
+  // Blue ring around the `from` agent
+  const [col, row] = agents[id];
+  LAYER.query.appendChild(mkSvg("circle", {
+    cx: cellCx(col), cy: cellCy(row), r:28,
+    fill:"none", stroke:"#2563eb", "stroke-width":2, "stroke-dasharray":"4 2",
+  }));
+}
+
+function addPrediction(fromPos, dir, side, length, prerecorded) {
+  const [vec_x, vec_y] = DIR_VEC[dir] || [0, 0];
+  const x1 = cellCx(fromPos[0]);
+  const y1 = cellCy(fromPos[1]);
+  const x2 = x1 + vec_x * length;
+  const y2 = y1 + vec_y * length;
+  const color = side === "base" ? "#56B6C2" : "#E5A00D";
+
+  LAYER.predictions.appendChild(mkSvg("line", {
+    x1, y1, x2, y2,
+    stroke: color, "stroke-width": "3",
+    "marker-end": `url(#arr-${side})`,
+  }));
+
+  // Label at tip
+  const label = prerecorded ? `${dir}*` : dir;
+  const txt = mkSvg("text", {
+    x: x2 + vec_x * 12,
+    y: y2 + vec_y * 12,
+    "text-anchor": "middle", "dominant-baseline": "central",
+    fill: color, "font-size": "11", "font-weight": "600",
+    "font-family": "-apple-system,sans-serif",
+  });
+  txt.textContent = label;
+  LAYER.predictions.appendChild(txt);
+}
+
+function arrowLength(fromId, toId, agents) {
+  const [fc, fr] = agents[fromId];
+  const [tc, tr] = agents[toId];
+  const cheb = Math.max(Math.abs(tc - fc), Math.abs(tr - fr));
+  return cheb * CELL;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Story animation
+// ─────────────────────────────────────────────────────────────────────────────
+
+async function animateStory(presetKey) {
+  if (animating) return;
+  animating = true;
+  document.getElementById("runBtn").disabled = true;
+  document.getElementById("storyStep").textContent = "";
+
+  initSvg();
+  const grid = PRESET_GRIDS[presetKey];
+
+  await sleep(150);
+
+  for (const step of grid.steps) {
+    document.getElementById("storyStep").textContent = step.text;
+    for (const id of step.show) {
+      const [c, r] = grid.agents[id];
+      addAgent(id, c, r);
+    }
+    if (step.connect) {
+      for (const [a, b] of step.connect) addConnection(a, b, grid.agents);
+    }
+    await sleep(700);
+  }
+
+  // Highlight query agents
+  setAgentFill(grid.from, "#2563eb");
+  setAgentFill(grid.to,   "#1a202c");
+  addQueryMarker(grid.from, grid.agents);
+  document.getElementById("storyStep").textContent = `❓ Where is ${grid.to} relative to ${grid.from}?`;
+
+  // Update legend
+  const leg = document.getElementById("gridLegend");
+  leg.innerHTML = `
+    <span class="legend-item"><span class="legend-dot" style="background:#2563eb"></span>reference (${grid.from})</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#1a202c"></span>target (${grid.to})</span>
+    <span class="legend-item"><span style="display:inline-block;width:20px;height:3px;background:#56B6C2;border-radius:2px"></span>LFM2 350M</span>
+    <span class="legend-item"><span style="display:inline-block;width:20px;height:3px;background:#E5A00D;border-radius:2px"></span>LFM2 350M StepGame</span>
+  `;
+
+  animating = false;
+  document.getElementById("runBtn").disabled = false;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Run
+// ─────────────────────────────────────────────────────────────────────────────
+
+async function runBoth() {
+  if (animating || running) return;
+
+  const isCustom = !activePresetKey;
+  const story    = isCustom ? document.getElementById("customStory").value.trim()   : activeExample?.story;
+  const question = isCustom ? document.getElementById("customQuestion").value.trim() : activeExample?.question;
+  const answer   = isCustom ? (document.getElementById("customAnswer").value.trim() || null) : activeExample?.answer;
+
+  if (!story || !question) return;
+
+  running = true;
+  const btn = document.getElementById("runBtn");
+  btn.disabled = true;
+  btn.textContent = "Running…";
+
+  // Reset grid predictions & query layer (allow re-run)
+  if (activePresetKey) {
+    clearLayer("predictions");
+    clearLayer("query");
+    const grid = PRESET_GRIDS[activePresetKey];
+    setAgentFill(grid.from, "#2563eb");
+    setAgentFill(grid.to,   "#1a202c");
+    addQueryMarker(grid.from, grid.agents);
+  }
+
+  const suffix   = isCustom ? "-c" : "";
+  const baseSide = `base${suffix}`;
+  const ftSide   = `ft${suffix}`;
+
+  if (isCustom) {
+    document.getElementById("customCols").style.display = "block";
+  } else {
+    document.getElementById("cols").style.display = "grid";
+  }
+  document.getElementById("liveNote").style.display = "block";
+  resetCol(baseSide);
+  resetCol(ftSide);
+
+  const online = await checkOnlineModels();
+
+  const [baseText, ftText] = await Promise.all([
+    runSide(baseSide, "lfm2mini",    story, question, activeExample?.baseline,  online),
+    runSide(ftSide,   "lfm2spatial", story, question, activeExample?.finetuned, online),
+  ]);
+
+  // Draw prediction arrows on grid (preset mode only)
+  if (activePresetKey) {
+    const grid   = PRESET_GRIDS[activePresetKey];
+    const baseDir = extractAnswer(baseText) || activeExample.baseline;
+    const ftDir   = extractAnswer(ftText)   || activeExample.finetuned;
+    const len     = arrowLength(grid.from, grid.to, grid.agents);
+    const fromPos = grid.agents[grid.from];
+
+    addPrediction(fromPos, baseDir, "base", len, !extractAnswer(baseText));
+    addPrediction(fromPos, ftDir,   "ft",   len, !extractAnswer(ftText));
+
+    document.getElementById("storyStep").textContent =
+      `Base: ${baseDir} ${baseDir === answer ? "✓" : "✗"}  ·  Fine-tuned: ${ftDir} ${ftDir === answer ? "✓" : "✗"}`;
+  }
+
+  btn.disabled = false;
+  btn.textContent = "▶ Run both";
+  running = false;
+}
+
+async function runSide(colId, modelId, story, question, prerecorded, onlineModels) {
+  const statusEl = document.getElementById(`status-${colId}`);
+  if (onlineModels.has(modelId)) {
+    statusEl.textContent = "● live";
+    statusEl.style.color = "var(--green)";
+    return await streamModel(modelId, story, question, colId);
+  } else {
+    statusEl.textContent = "● offline · pre-recorded";
+    statusEl.style.color = "var(--muted)";
+    return await fakeStream(prerecorded || "—", colId);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inference
+// ─────────────────────────────────────────────────────────────────────────────
+
+async function checkOnlineModels() {
+  try {
+    const res = await fetch(`${REGISTRY}/v1/models`, { signal: AbortSignal.timeout(5000) });
+    const data = await res.json();
+    return new Set((data.data || []).map(m => m.id));
+  } catch {
+    return new Set();
+  }
+}
+
+async function streamModel(modelId, story, question, colId) {
+  const respEl = document.getElementById(`resp-${colId}`);
+  respEl.innerHTML = '<span class="cursor"></span>';
+
+  const useSystem = document.getElementById("useSystemPrompt").checked;
+  const systemPromptText = document.getElementById("systemPromptText").value;
+  const maxTokens = parseInt(document.getElementById("maxTokens").value, 10) || 64;
+
+  const messages = [
+    ...(useSystem ? [{ role: "system", content: systemPromptText }] : []),
+    { role: "user", content: `${story}\n\n${question}` },
+  ];
+
+  let fullText = "";
+
+  try {
+    const res = await fetch(`${REGISTRY}/v1/chat/completions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: modelId, messages, max_tokens: maxTokens, stream: true }),
+      signal: AbortSignal.timeout(60000),
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const reader  = res.body.getReader();
+    const decoder = new TextDecoder();
+    let   buf     = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split("\n");
+      buf = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith("data: ")) continue;
+        const raw = line.slice(6).trim();
+        if (raw === "[DONE]") break;
+        try {
+          const token = JSON.parse(raw)?.choices?.[0]?.delta?.content || "";
+          if (token) {
+            fullText += token;
+            respEl.textContent = fullText;
+            const cur = document.createElement("span");
+            cur.className = "cursor";
+            respEl.appendChild(cur);
+          }
+        } catch { /* skip malformed */ }
+      }
+    }
+  } catch (err) {
+    respEl.textContent = "";
+    const note = document.createElement("span");
+    note.style.cssText = "color:var(--muted);font-size:.78rem";
+    note.textContent = `(${err.message || "connection failed"})`;
+    respEl.appendChild(note);
+  }
+
+  respEl.textContent = fullText || "";
+
+  const extracted = extractAnswer(fullText);
+  const answer = activeExample?.answer || document.getElementById("customAnswer")?.value.trim() || null;
+  renderVerdict(colId, extracted, answer);
+
+  return fullText;
+}
+
+async function fakeStream(text, colId) {
+  const respEl = document.getElementById(`resp-${colId}`);
+  respEl.textContent = "";
+  await sleep(350);
+  for (const ch of text) {
+    respEl.textContent += ch;
+    await sleep(55);
+  }
+
+  const extracted = extractAnswer(text);
+  const answer = activeExample?.answer || document.getElementById("customAnswer")?.value.trim() || null;
+  renderVerdict(colId, extracted, answer);
+
+  return text;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Verdict
+// ─────────────────────────────────────────────────────────────────────────────
+
+function extractAnswer(text) {
+  const clean = (text || "").toLowerCase().replace(/<think>[\s\S]*?<\/think>/g, "");
+  for (const d of DIRECTIONS) if (clean.includes(d)) return d;
+  return null;
+}
+
+function renderVerdict(colId, extracted, correct) {
+  const el = document.getElementById(`verdict-${colId}`);
+  if (!extracted) {
+    el.innerHTML = `<span class="verdict-label">No direction found</span>`;
+    el.style.display = "flex";
+    return;
+  }
+  const ok = extracted === correct;
+  const cls = correct === null ? "v-unknown" : ok ? "v-correct" : "v-wrong";
+  const icon = correct === null ? "" : ok ? "✓" : "✗";
+  el.innerHTML = `
+    <span class="verdict-label">Extracted:</span>
+    <span class="verdict-word ${cls}">${extracted}</span>
+    ${icon ? `<span class="verdict-icon">${icon}</span>` : ""}
+  `;
+  el.style.display = "flex";
+}
+
+function resetCol(colId) {
+  const r = document.getElementById(`resp-${colId}`);
+  const v = document.getElementById(`verdict-${colId}`);
+  const s = document.getElementById(`status-${colId}`);
+  if (r) r.textContent = "";
+  if (v) { v.style.display = "none"; v.innerHTML = ""; }
+  if (s) { s.textContent = ""; s.style.color = ""; }
+}
+
+function resetColPair(a, b) { resetCol(a); resetCol(b); }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Constraints toggle
+// ─────────────────────────────────────────────────────────────────────────────
+
+function onSystemPromptToggle() {
+  document.getElementById("systemPromptText").disabled =
+    !document.getElementById("useSystemPrompt").checked;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Util
+// ─────────────────────────────────────────────────────────────────────────────
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Boot
+// ─────────────────────────────────────────────────────────────────────────────
+
+buildPresets();
+</script>
+</body>
+</html>

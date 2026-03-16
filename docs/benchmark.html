@@ -160,8 +160,6 @@
   <p>StepGame evaluation — 250 held-out examples, k&thinsp;=&thinsp;1–5 reasoning steps</p>
   <nav>
     <a href="/" class="btn">← Results</a>
-    <a href="/checklist/" class="btn">Checklist</a>
-    <a href="https://chat.neevs.io/spatial.html" class="btn" target="_blank" rel="noreferrer">Arena ↗</a>
   </nav>
 </header>
 
@@ -175,14 +173,14 @@
 
     <section>
       <div class="section-header">
-        <div class="section-title">Per-Hop Accuracy</div>
-        <div class="section-desc">Accuracy at each reasoning step count (k). Reference lines show notebook-evaluated baseline and fine-tuned scores.</div>
+        <div class="section-title">Accuracy Degradation</div>
+        <div class="section-desc">How accuracy falls as reasoning chains grow longer (k=1–5). Dashed lines are offline reference scores from notebook 04.</div>
       </div>
       <div class="chart-card">
         <div id="chart-hop" style="height:380px"></div>
       </div>
       <p class="note">
-        Baseline and fine-tuned reference lines are from offline evaluation (notebook 04) on the same 250 held-out examples.
+        Reference lines are from offline evaluation on the same 250 held-out examples.
         Live results may differ slightly due to inference temperature and token streaming.
       </p>
     </section>
@@ -222,9 +220,9 @@
 </footer>
 
 <script>
-const LIVE_DATA  = {};
+const LIVE_DATA  = {"lfm2mini": {"model": "lfm2mini", "date": "2026-03-16", "run_at": "2026-03-16T21:41:51.920652+00:00", "total": 250, "accuracy": 0.168, "accuracy_k1": 0.26, "accuracy_k2": 0.16, "accuracy_k3": 0.14, "accuracy_k4": 0.12, "accuracy_k5": 0.16, "p50_latency_ms": 953.6, "avg_latency_ms": 858.1, "avg_tps": 51.4}, "lfm2spatial": {"model": "lfm2spatial", "date": "2026-03-16", "run_at": "2026-03-16T21:41:58.461282+00:00", "total": 250, "accuracy": 0.684, "accuracy_k1": 0.96, "accuracy_k2": 0.84, "accuracy_k3": 0.68, "accuracy_k4": 0.46, "accuracy_k5": 0.48, "p50_latency_ms": 882.6, "avg_latency_ms": 888.9, "avg_tps": 1.8}};
 const REFERENCE  = {"baseline": {"accuracy": 0.16, "total": 250, "accuracy_k1": 0.24, "accuracy_k2": 0.14, "accuracy_k3": 0.14, "accuracy_k4": 0.18, "accuracy_k5": 0.1}, "finetuned": {"accuracy": 0.704, "total": 250, "accuracy_k1": 0.94, "accuracy_k2": 0.84, "accuracy_k3": 0.72, "accuracy_k4": 0.5, "accuracy_k5": 0.52}};
-const RUN_DATE   = "";
+const RUN_DATE   = "2026-03-16";
 
 const MODEL_COLORS = {
   'lfm2-350m':          '#56B6C2',
@@ -322,42 +320,47 @@ function buildHopChart(modelIds, baseline, finetuned) {
   const ks = [1, 2, 3, 4, 5];
   const xLabels = ks.map(k => `k=${k}`);
 
-  const modelSeries = modelIds.map(id => ({
-    name: modelName(id),
-    type: 'bar',
-    data: ks.map(k => {
+  const liveSeries = modelIds.map(id => {
+    const color = modelColor(id);
+    const data = ks.map(k => {
       const v = LIVE_DATA[id][`accuracy_k${k}`];
       return v != null ? +(v * 100).toFixed(1) : null;
-    }),
-    itemStyle: { color: modelColor(id), borderRadius: [3,3,0,0] },
-    barMaxWidth: 40,
-    label: {
-      show: true, position: 'top', fontSize: 10, color: '#64748b',
-      formatter: p => p.value != null ? p.value + '%' : '',
-    },
-  }));
+    });
+    return {
+      name: modelName(id),
+      type: 'line',
+      data,
+      smooth: 0.3,
+      symbol: 'circle', symbolSize: 7,
+      lineStyle: { width: 2.5, color },
+      itemStyle: { color },
+      areaStyle: { color, opacity: 0.08 },
+    };
+  });
 
-  const refLines = [];
+  const refSeries = [];
   if (baseline) {
-    refLines.push({
-      name: `Baseline (${(baseline.accuracy * 100).toFixed(1)}% overall)`,
+    refSeries.push({
+      name: `Baseline ref (${(baseline.accuracy * 100).toFixed(1)}% overall)`,
       type: 'line',
       data: ks.map(k => baseline[`accuracy_k${k}`] != null
         ? +(baseline[`accuracy_k${k}`] * 100).toFixed(1) : null),
+      smooth: 0.3,
+      symbol: 'none',
       lineStyle: { type: 'dashed', color: '#94a3b8', width: 1.5 },
       itemStyle: { color: '#94a3b8' },
-      symbol: 'circle', symbolSize: 5,
     });
   }
   if (finetuned) {
-    refLines.push({
+    refSeries.push({
       name: `Fine-tuned ref (${(finetuned.accuracy * 100).toFixed(1)}% overall)`,
       type: 'line',
       data: ks.map(k => finetuned[`accuracy_k${k}`] != null
         ? +(finetuned[`accuracy_k${k}`] * 100).toFixed(1) : null),
+      smooth: 0.3,
+      symbol: 'none',
       lineStyle: { type: 'dashed', color: '#16a34a', width: 1.5 },
       itemStyle: { color: '#16a34a' },
-      symbol: 'circle', symbolSize: 5,
     });
   }
 
@@ -375,11 +378,11 @@ function buildHopChart(modelIds, baseline, finetuned) {
     },
     legend: {
       bottom: 0, textStyle: { color: '#64748b', fontSize: 11 },
-      itemWidth: 12, itemHeight: 8,
+      itemWidth: 16, itemHeight: 3,
     },
     grid: { left: 48, right: 16, top: 16, bottom: 56 },
     xAxis: {
-      type: 'category', data: xLabels,
+      type: 'category', data: xLabels, boundaryGap: false,
       axisLabel: { color: '#64748b', fontSize: 11 },
       axisLine: { lineStyle: { color: '#e2e8f0' } },
       axisTick: { show: false },
@@ -391,7 +394,7 @@ function buildHopChart(modelIds, baseline, finetuned) {
       axisLine: { show: false }, axisTick: { show: false },
       splitLine: { lineStyle: { color: '#f1f5f9' } },
     },
-    series: [...modelSeries, ...refLines],
+    series: [...liveSeries, ...refSeries],
   });
 
   window.addEventListener('resize', () => chart.resize());
