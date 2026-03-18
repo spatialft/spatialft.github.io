@@ -161,8 +161,8 @@
 
     /* ── Grid section ── */
     .grid-area {
-      display: grid; grid-template-columns: 420px 1fr;
-      gap: 1.25rem; margin: 1.5rem 0 0;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; margin: .75rem 0 0;
       align-items: start;
     }
     @media (max-width: 720px) {
@@ -173,16 +173,10 @@
       border-radius: var(--radius); padding: 1rem;
       box-shadow: var(--shadow); overflow: hidden;
     }
-    #gridSvg { display: block; width: 100%; height: auto; }
-    .grid-legend {
-      display: flex; flex-wrap: wrap; gap: .5rem;
-      font-size: .75rem; color: var(--muted); margin-top: .75rem;
-    }
-    .legend-item { display: inline-flex; align-items: center; gap: .3rem; }
-    .legend-dot  { width: 10px; height: 10px; border-radius: 50%; }
-    .legend-line {
-      width: 20px; height: 3px; border-radius: 2px;
-      background: currentColor;
+    #gridSvgBase, #gridSvgFt { display: block; width: 100%; height: auto; }
+    .grid-col-label {
+      font-size: .72rem; font-weight: 600; color: var(--muted);
+      text-align: center; padding: .4rem 0 0;
     }
 
     /* ── Side-by-side columns (text responses) ── */
@@ -299,39 +293,46 @@
     </div>
   </details>
 
-  <!-- ── Grid + step log (preset mode) ── -->
+  <!-- ── Grid + model cards (preset mode) ── -->
   <div id="gridArea" style="display:none">
+    <div class="section-label" style="margin-top:1.5rem">Story playback</div>
+    <div class="story-step" id="storyStep"></div>
     <div class="grid-area">
+
+      <!-- Left: base model -->
       <div>
         <div class="grid-wrap">
-          <svg id="gridSvg" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg"></svg>
+          <svg id="gridSvgBase" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="grid-col-label">LFM2 350M (base)</div>
         </div>
-        <div class="grid-legend" id="gridLegend" style="margin-top:.6rem"></div>
+        <div class="model-col" id="model-col-base" style="display:none; margin-top:.75rem">
+          <div class="col-header" style="border-top:3px solid var(--base)">
+            <div class="col-model-name" style="color:var(--base)">LFM2 350M</div>
+            <div class="col-model-sub">Base · lfm2mini</div>
+            <div class="col-status" id="status-base"></div>
+          </div>
+          <div class="response-area" id="resp-base"></div>
+          <div class="verdict-row" id="verdict-base" style="display:none"></div>
+        </div>
       </div>
+
+      <!-- Right: fine-tuned model -->
       <div>
-        <div class="section-label">Story playback</div>
-        <div class="story-step" id="storyStep"></div>
-        <div class="cols" id="cols" style="display:none; margin-top:0">
-          <div class="model-col">
-            <div class="col-header" style="border-top:3px solid var(--base)">
-              <div class="col-model-name" style="color:var(--base)">LFM2 350M</div>
-              <div class="col-model-sub">Base · lfm2mini</div>
-              <div class="col-status" id="status-base"></div>
-            </div>
-            <div class="response-area" id="resp-base"></div>
-            <div class="verdict-row" id="verdict-base" style="display:none"></div>
+        <div class="grid-wrap">
+          <svg id="gridSvgFt" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="grid-col-label">LFM2 350M StepGame (fine-tuned)</div>
+        </div>
+        <div class="model-col" id="model-col-ft" style="display:none; margin-top:.75rem">
+          <div class="col-header" style="border-top:3px solid var(--ft)">
+            <div class="col-model-name" style="color:var(--ft)">LFM2 350M StepGame</div>
+            <div class="col-model-sub">Fine-tuned · lfm2spatial</div>
+            <div class="col-status" id="status-ft"></div>
           </div>
-          <div class="model-col">
-            <div class="col-header" style="border-top:3px solid var(--ft)">
-              <div class="col-model-name" style="color:var(--ft)">LFM2 350M StepGame</div>
-              <div class="col-model-sub">Fine-tuned · lfm2spatial</div>
-              <div class="col-status" id="status-ft"></div>
-            </div>
-            <div class="response-area" id="resp-ft"></div>
-            <div class="verdict-row" id="verdict-ft" style="display:none"></div>
-          </div>
+          <div class="response-area" id="resp-ft"></div>
+          <div class="verdict-row" id="verdict-ft" style="display:none"></div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -491,7 +492,8 @@ function selectPreset(preset, ex, btn) {
   // Grid
   document.getElementById("gridArea").style.display   = "block";
   document.getElementById("customCols").style.display = "none";
-  document.getElementById("cols").style.display       = "none";
+  document.getElementById("model-col-base").style.display = "none";
+  document.getElementById("model-col-ft").style.display   = "none";
   document.getElementById("liveNote").style.display   = "none";
   resetColPair("base", "ft");
 
@@ -523,38 +525,38 @@ function selectCustom(btn) {
 // SVG grid
 // ─────────────────────────────────────────────────────────────────────────────
 
-const NS  = "http://www.w3.org/2000/svg";
-const svg = () => document.getElementById("gridSvg");
+const NS = "http://www.w3.org/2000/svg";
 
-const LAYER = {};
+const LAYERS = { base: {}, ft: {} };
 
-function initSvg() {
-  const el = svg();
-  el.innerHTML = "";
+function initSvgs() {
+  [["base", "#56B6C2"], ["ft", "#E5A00D"]].forEach(([side, color]) => {
+    const el = document.getElementById(side === "base" ? "gridSvgBase" : "gridSvgFt");
+    el.innerHTML = "";
+    const L = LAYERS[side];
 
-  // Arrowhead markers
-  const defs = mkSvg("defs");
-  [["base","#56B6C2"],["ft","#E5A00D"]].forEach(([id, color]) => {
-    const m = mkSvg("marker", { id: `arr-${id}`, markerWidth:"8", markerHeight:"6", refX:"7", refY:"3", orient:"auto" });
+    // Arrowhead marker (each SVG gets only its own)
+    const defs = mkSvg("defs");
+    const m = mkSvg("marker", { id: `arr-${side}`, markerWidth:"8", markerHeight:"6", refX:"7", refY:"3", orient:"auto" });
     m.appendChild(mkSvg("polygon", { points:"0 0,8 3,0 6", fill: color }));
     defs.appendChild(m);
-  });
-  el.appendChild(defs);
+    el.appendChild(defs);
 
-  // Layers (order = draw order)
-  ["grid","connections","agents","query","predictions"].forEach(name => {
-    const g = mkSvg("g", { id: `layer-${name}` });
-    el.appendChild(g);
-    LAYER[name] = g;
-  });
+    // Layers (order = draw order)
+    ["grid","connections","agents","query","predictions"].forEach(name => {
+      const g = mkSvg("g");
+      el.appendChild(g);
+      L[name] = g;
+    });
 
-  // Grid lines
-  for (let i = 0; i <= COLS; i++) {
-    LAYER.grid.appendChild(mkSvg("line", { x1:i*CELL, y1:0, x2:i*CELL, y2:SVG_SIZE, stroke:"#e2e8f0", "stroke-width":1 }));
-  }
-  for (let j = 0; j <= ROWS; j++) {
-    LAYER.grid.appendChild(mkSvg("line", { x1:0, y1:j*CELL, x2:SVG_SIZE, y2:j*CELL, stroke:"#e2e8f0", "stroke-width":1 }));
-  }
+    // Grid lines
+    for (let i = 0; i <= COLS; i++) {
+      L.grid.appendChild(mkSvg("line", { x1:i*CELL, y1:0, x2:i*CELL, y2:SVG_SIZE, stroke:"#e2e8f0", "stroke-width":1 }));
+    }
+    for (let j = 0; j <= ROWS; j++) {
+      L.grid.appendChild(mkSvg("line", { x1:0, y1:j*CELL, x2:SVG_SIZE, y2:j*CELL, stroke:"#e2e8f0", "stroke-width":1 }));
+    }
+  });
 }
 
 function mkSvg(tag, attrs = {}) {
@@ -563,52 +565,64 @@ function mkSvg(tag, attrs = {}) {
   return el;
 }
 
-function clearLayer(name) {
-  const l = LAYER[name];
+function clearLayer(side, name) {
+  const l = LAYERS[side][name];
   while (l.firstChild) l.removeChild(l.firstChild);
+}
+
+function clearBothLayers(name) {
+  clearLayer("base", name);
+  clearLayer("ft", name);
 }
 
 function cellCx(col) { return col * CELL + CELL / 2; }
 function cellCy(row) { return row * CELL + CELL / 2; }
 
 function addAgent(id, col, row, fill = "#64748b") {
-  const g = mkSvg("g", { id: `ag-${id}`, style: "transition: opacity .3s" });
-  g.appendChild(mkSvg("circle", { cx: cellCx(col), cy: cellCy(row), r:22, fill, stroke:"#fff", "stroke-width":2 }));
-  const t = mkSvg("text", {
-    x: cellCx(col), y: cellCy(row),
-    "text-anchor":"middle", "dominant-baseline":"central",
-    fill:"#fff", "font-weight":"bold", "font-size":"14",
-    "font-family":"-apple-system,BlinkMacSystemFont,sans-serif",
+  ["base", "ft"].forEach(side => {
+    const g = mkSvg("g", { id: `ag-${side}-${id}`, style: "transition: opacity .3s" });
+    g.appendChild(mkSvg("circle", { cx: cellCx(col), cy: cellCy(row), r:22, fill, stroke:"#fff", "stroke-width":2 }));
+    const t = mkSvg("text", {
+      x: cellCx(col), y: cellCy(row),
+      "text-anchor":"middle", "dominant-baseline":"central",
+      fill:"#fff", "font-weight":"bold", "font-size":"14",
+      "font-family":"-apple-system,BlinkMacSystemFont,sans-serif",
+    });
+    t.textContent = id;
+    g.appendChild(t);
+    g.style.opacity = "0";
+    LAYERS[side].agents.appendChild(g);
+    requestAnimationFrame(() => { g.style.opacity = "1"; });
   });
-  t.textContent = id;
-  g.appendChild(t);
-  g.style.opacity = "0";
-  LAYER.agents.appendChild(g);
-  requestAnimationFrame(() => { g.style.opacity = "1"; });
 }
 
 function addConnection(fromId, toId, agents) {
   const [fc, fr] = agents[fromId];
   const [tc, tr] = agents[toId];
-  LAYER.connections.appendChild(mkSvg("line", {
-    x1: cellCx(fc), y1: cellCy(fr),
-    x2: cellCx(tc), y2: cellCy(tr),
-    stroke: "#cbd5e1", "stroke-width": 1.5, "stroke-dasharray": "5 3",
-  }));
+  ["base", "ft"].forEach(side => {
+    LAYERS[side].connections.appendChild(mkSvg("line", {
+      x1: cellCx(fc), y1: cellCy(fr),
+      x2: cellCx(tc), y2: cellCy(tr),
+      stroke: "#cbd5e1", "stroke-width": 1.5, "stroke-dasharray": "5 3",
+    }));
+  });
 }
 
 function setAgentFill(id, fill) {
-  const circle = document.getElementById(`ag-${id}`)?.querySelector("circle");
-  if (circle) circle.setAttribute("fill", fill);
+  ["base", "ft"].forEach(side => {
+    const circle = document.getElementById(`ag-${side}-${id}`)?.querySelector("circle");
+    if (circle) circle.setAttribute("fill", fill);
+  });
 }
 
 function addQueryMarker(id, agents) {
-  // Blue ring around the `from` agent
   const [col, row] = agents[id];
-  LAYER.query.appendChild(mkSvg("circle", {
-    cx: cellCx(col), cy: cellCy(row), r:28,
-    fill:"none", stroke:"#2563eb", "stroke-width":2, "stroke-dasharray":"4 2",
-  }));
+  ["base", "ft"].forEach(side => {
+    LAYERS[side].query.appendChild(mkSvg("circle", {
+      cx: cellCx(col), cy: cellCy(row), r:28,
+      fill:"none", stroke:"#2563eb", "stroke-width":2, "stroke-dasharray":"4 2",
+    }));
+  });
 }
 
 function addPrediction(fromPos, dir, side, length, prerecorded) {
@@ -618,8 +632,9 @@ function addPrediction(fromPos, dir, side, length, prerecorded) {
   const x2 = x1 + vec_x * length;
   const y2 = y1 + vec_y * length;
   const color = side === "base" ? "#56B6C2" : "#E5A00D";
+  const L = LAYERS[side];
 
-  LAYER.predictions.appendChild(mkSvg("line", {
+  L.predictions.appendChild(mkSvg("line", {
     x1, y1, x2, y2,
     stroke: color, "stroke-width": "3",
     "marker-end": `url(#arr-${side})`,
@@ -635,7 +650,7 @@ function addPrediction(fromPos, dir, side, length, prerecorded) {
     "font-family": "-apple-system,sans-serif",
   });
   txt.textContent = label;
-  LAYER.predictions.appendChild(txt);
+  L.predictions.appendChild(txt);
 }
 
 function arrowLength(fromId, toId, agents) {
@@ -655,7 +670,7 @@ async function animateStory(presetKey) {
   document.getElementById("runBtn").disabled = true;
   document.getElementById("storyStep").textContent = "";
 
-  initSvg();
+  initSvgs();
   const grid = PRESET_GRIDS[presetKey];
 
   await sleep(150);
@@ -677,15 +692,6 @@ async function animateStory(presetKey) {
   setAgentFill(grid.to,   "#1a202c");
   addQueryMarker(grid.from, grid.agents);
   document.getElementById("storyStep").textContent = `❓ Where is ${grid.to} relative to ${grid.from}?`;
-
-  // Update legend
-  const leg = document.getElementById("gridLegend");
-  leg.innerHTML = `
-    <span class="legend-item"><span class="legend-dot" style="background:#2563eb"></span>reference (${grid.from})</span>
-    <span class="legend-item"><span class="legend-dot" style="background:#1a202c"></span>target (${grid.to})</span>
-    <span class="legend-item"><span style="display:inline-block;width:20px;height:3px;background:#56B6C2;border-radius:2px"></span>LFM2 350M</span>
-    <span class="legend-item"><span style="display:inline-block;width:20px;height:3px;background:#E5A00D;border-radius:2px"></span>LFM2 350M StepGame</span>
-  `;
 
   animating = false;
   document.getElementById("runBtn").disabled = false;
@@ -712,8 +718,8 @@ async function runBoth() {
 
   // Reset grid predictions & query layer (allow re-run)
   if (activePresetKey) {
-    clearLayer("predictions");
-    clearLayer("query");
+    clearBothLayers("predictions");
+    clearBothLayers("query");
     const grid = PRESET_GRIDS[activePresetKey];
     setAgentFill(grid.from, "#2563eb");
     setAgentFill(grid.to,   "#1a202c");
@@ -727,7 +733,8 @@ async function runBoth() {
   if (isCustom) {
     document.getElementById("customCols").style.display = "block";
   } else {
-    document.getElementById("cols").style.display = "grid";
+    document.getElementById("model-col-base").style.display = "block";
+    document.getElementById("model-col-ft").style.display   = "block";
   }
   document.getElementById("liveNote").style.display = "block";
   resetCol(baseSide);
