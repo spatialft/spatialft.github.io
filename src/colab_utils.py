@@ -56,7 +56,23 @@ def prepare_notebook(
 
     repo_path = bootstrap_colab_repo(repo_root)
     if pull_latest:
-        subprocess.run(["git", "pull", "origin", "main"], check=True, cwd=repo_path)
+        # Authenticate with GITHUB_TOKEN if available — Colab's git can reject
+        # anonymous HTTPS pulls even on public repos.
+        try:
+            from google.colab import userdata
+            token = userdata.get("GITHUB_TOKEN")
+        except Exception:
+            token = None
+
+        if token:
+            authed_url = f"https://x-access-token:{token}@github.com/spatialft/spatialft.github.io.git"
+            subprocess.run(["git", "remote", "set-url", "origin", authed_url], check=True, cwd=repo_path)
+
+        try:
+            subprocess.run(["git", "pull", "origin", "main"], check=True, cwd=repo_path)
+        except subprocess.CalledProcessError:
+            print("Warning: git pull failed — continuing with local repo state.")
+
     return repo_path, get_repo_paths(repo_path)
 
 

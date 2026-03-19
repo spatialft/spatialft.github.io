@@ -13,6 +13,11 @@ datasets>=2.19.0
 numpy>=1.26.0,<2.1
 tqdm>=4.66.0
 
+# ONNX export (make export-onnx)
+optimum[onnxruntime]>=1.19.0
+onnx>=1.16.0
+onnxconverter-common>=1.14.0
+
 # Notebooks
 ipywidgets>=8.1.0
 matplotlib>=3.8.0

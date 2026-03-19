@@ -161,8 +161,8 @@
 
     /* ── Grid section ── */
     .grid-area {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1.25rem; margin: .75rem 0 0;
+      display: grid; grid-template-columns: 420px 1fr;
+      gap: 1.25rem; margin: 1.5rem 0 0;
       align-items: start;
     }
     @media (max-width: 720px) {
@@ -173,10 +173,16 @@
       border-radius: var(--radius); padding: 1rem;
       box-shadow: var(--shadow); overflow: hidden;
     }
-    #gridSvgBase, #gridSvgFt { display: block; width: 100%; height: auto; }
-    .grid-col-label {
-      font-size: .72rem; font-weight: 600; color: var(--muted);
-      text-align: center; padding: .4rem 0 0;
+    #gridSvg { display: block; width: 100%; height: auto; }
+    .grid-legend {
+      display: flex; flex-wrap: wrap; gap: .5rem;
+      font-size: .75rem; color: var(--muted); margin-top: .75rem;
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: .3rem; }
+    .legend-dot  { width: 10px; height: 10px; border-radius: 50%; }
+    .legend-line {
+      width: 20px; height: 3px; border-radius: 2px;
+      background: currentColor;
     }
 
     /* ── Side-by-side columns (text responses) ── */
@@ -293,46 +299,39 @@
     </div>
   </details>
 
-  <!-- ── Grid + model cards (preset mode) ── -->
+  <!-- ── Grid + step log (preset mode) ── -->
   <div id="gridArea" style="display:none">
-    <div class="section-label" style="margin-top:1.5rem">Story playback</div>
-    <div class="story-step" id="storyStep"></div>
     <div class="grid-area">
-
-      <!-- Left: base model -->
       <div>
         <div class="grid-wrap">
-          <svg id="gridSvgBase" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg"></svg>
-          <div class="grid-col-label">LFM2 350M (base)</div>
+          <svg id="gridSvg" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg"></svg>
         </div>
-        <div class="model-col" id="model-col-base" style="display:none; margin-top:.75rem">
-          <div class="col-header" style="border-top:3px solid var(--base)">
-            <div class="col-model-name" style="color:var(--base)">LFM2 350M</div>
-            <div class="col-model-sub">Base · lfm2mini</div>
-            <div class="col-status" id="status-base"></div>
-          </div>
-          <div class="response-area" id="resp-base"></div>
-          <div class="verdict-row" id="verdict-base" style="display:none"></div>
-        </div>
+        <div class="grid-legend" id="gridLegend" style="margin-top:.6rem"></div>
       </div>
-
-      <!-- Right: fine-tuned model -->
       <div>
-        <div class="grid-wrap">
-          <svg id="gridSvgFt" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg"></svg>
-          <div class="grid-col-label">LFM2 350M StepGame (fine-tuned)</div>
-        </div>
-        <div class="model-col" id="model-col-ft" style="display:none; margin-top:.75rem">
-          <div class="col-header" style="border-top:3px solid var(--ft)">
-            <div class="col-model-name" style="color:var(--ft)">LFM2 350M StepGame</div>
-            <div class="col-model-sub">Fine-tuned · lfm2spatial</div>
-            <div class="col-status" id="status-ft"></div>
+        <div class="section-label">Story playback</div>
+        <div class="story-step" id="storyStep"></div>
+        <div class="cols" id="cols" style="display:none; margin-top:0">
+          <div class="model-col">
+            <div class="col-header" style="border-top:3px solid var(--base)">
+              <div class="col-model-name" style="color:var(--base)">LFM2 350M</div>
+              <div class="col-model-sub">Base · lfm2mini</div>
+              <div class="col-status" id="status-base"></div>
+            </div>
+            <div class="response-area" id="resp-base"></div>
+            <div class="verdict-row" id="verdict-base" style="display:none"></div>
           </div>
-          <div class="response-area" id="resp-ft"></div>
-          <div class="verdict-row" id="verdict-ft" style="display:none"></div>
+          <div class="model-col">
+            <div class="col-header" style="border-top:3px solid var(--ft)">
+              <div class="col-model-name" style="color:var(--ft)">LFM2 350M StepGame</div>
+              <div class="col-model-sub">Fine-tuned · lfm2spatial</div>
+              <div class="col-status" id="status-ft"></div>
+            </div>
+            <div class="response-area" id="resp-ft"></div>
+            <div class="verdict-row" id="verdict-ft" style="display:none"></div>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -368,7 +367,7 @@
 <footer>
   <a href="https://github.com/spatialft/spatialft.github.io">spatialft/spatialft.github.io</a>
   &nbsp;·&nbsp;
-  <a href="https://chat.neevs.io">lm-arena</a>
+  <a href="https://huggingface.co/spatialft/LFM2-350M-StepGame-ONNX">spatialft/LFM2-350M-StepGame-ONNX</a>
 </footer>
 
 <script>
@@ -377,6 +376,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 const EXAMPLES = [{"story": "H is over there and A is on the top of it.", "question": "What is the relation of the agent H to the agent A?", "answer": "below", "baseline": "above", "finetuned": "below", "k": 1, "outcome": "improvement"}, {"story": "J and A are in a vertical line with A below J.", "question": "What is the relation of the agent A to the agent J?", "answer": "below", "baseline": "above", "finetuned": "below", "k": 1, "outcome": "improvement"}, {"story": "E is over there with M above. Z is on the top and P is at the bottom. P is sitting at the 6:00 position to M.", "question": "What is the relation of the agent Z to the agent E?", "answer": "above", "baseline": "above", "finetuned": "upper-left", "k": 3, "outcome": "regression"}, {"story": "V is positioned below and to the right of G. G and J are parallel, and G is under J. K is directly above J.", "question": "What is the relation of the agent K to the agent G?", "answer": "above", "baseline": "above", "finetuned": "upper-left", "k": 3, "outcome": "regression"}, {"story": "X is above T.", "question": "What is the relation of the agent X to the agent T?", "answer": "above", "baseline": "above", "finetuned": "above", "k": 1, "outcome": "stable_correct"}, {"story": "N presents over B.", "question": "What is the relation of the agent N to the agent B?", "answer": "above", "baseline": "above", "finetuned": "above", "k": 1, "outcome": "stable_correct"}, {"story": "N is to the right and above P at an angle of about 45 degrees.", "question": "What is the relation of the agent N to the agent P?", "answer": "upper-left", "baseline": "right", "finetuned": "upper-right", "k": 1, "outcome": "stable_wrong"}, {"story": "N is to the right and above K at an angle of about 45 degrees.", "question": "What is the relation of the agent K to the agent N?", "answer": "lower-right", "baseline": "right", "finetuned": "lower-left", "k": 1, "outcome": "stable_wrong"}];
+
+// Filled by the module script below when WebGPU is available.
+// null = no local inference; fall through to registry or pre-recorded.
+window._localInfer = null;
 
 const REGISTRY   = "https://tunnel-registry.jonasneves.workers.dev";
 const DIRECTIONS = ["upper-left","upper-right","lower-left","lower-right","left","right","above","below"];
@@ -492,8 +495,7 @@ function selectPreset(preset, ex, btn) {
   // Grid
   document.getElementById("gridArea").style.display   = "block";
   document.getElementById("customCols").style.display = "none";
-  document.getElementById("model-col-base").style.display = "none";
-  document.getElementById("model-col-ft").style.display   = "none";
+  document.getElementById("cols").style.display       = "none";
   document.getElementById("liveNote").style.display   = "none";
   resetColPair("base", "ft");
 
@@ -525,38 +527,38 @@ function selectCustom(btn) {
 // SVG grid
 // ─────────────────────────────────────────────────────────────────────────────
 
-const NS = "http://www.w3.org/2000/svg";
+const NS  = "http://www.w3.org/2000/svg";
+const svg = () => document.getElementById("gridSvg");
 
-const LAYERS = { base: {}, ft: {} };
+const LAYER = {};
 
-function initSvgs() {
-  [["base", "#56B6C2"], ["ft", "#E5A00D"]].forEach(([side, color]) => {
-    const el = document.getElementById(side === "base" ? "gridSvgBase" : "gridSvgFt");
-    el.innerHTML = "";
-    const L = LAYERS[side];
+function initSvg() {
+  const el = svg();
+  el.innerHTML = "";
 
-    // Arrowhead marker (each SVG gets only its own)
-    const defs = mkSvg("defs");
-    const m = mkSvg("marker", { id: `arr-${side}`, markerWidth:"8", markerHeight:"6", refX:"7", refY:"3", orient:"auto" });
+  // Arrowhead markers
+  const defs = mkSvg("defs");
+  [["base","#56B6C2"],["ft","#E5A00D"]].forEach(([id, color]) => {
+    const m = mkSvg("marker", { id: `arr-${id}`, markerWidth:"8", markerHeight:"6", refX:"7", refY:"3", orient:"auto" });
     m.appendChild(mkSvg("polygon", { points:"0 0,8 3,0 6", fill: color }));
     defs.appendChild(m);
-    el.appendChild(defs);
-
-    // Layers (order = draw order)
-    ["grid","connections","agents","query","predictions"].forEach(name => {
-      const g = mkSvg("g");
-      el.appendChild(g);
-      L[name] = g;
-    });
-
-    // Grid lines
-    for (let i = 0; i <= COLS; i++) {
-      L.grid.appendChild(mkSvg("line", { x1:i*CELL, y1:0, x2:i*CELL, y2:SVG_SIZE, stroke:"#e2e8f0", "stroke-width":1 }));
-    }
-    for (let j = 0; j <= ROWS; j++) {
-      L.grid.appendChild(mkSvg("line", { x1:0, y1:j*CELL, x2:SVG_SIZE, y2:j*CELL, stroke:"#e2e8f0", "stroke-width":1 }));
-    }
   });
+  el.appendChild(defs);
+
+  // Layers (order = draw order)
+  ["grid","connections","agents","query","predictions"].forEach(name => {
+    const g = mkSvg("g", { id: `layer-${name}` });
+    el.appendChild(g);
+    LAYER[name] = g;
+  });
+
+  // Grid lines
+  for (let i = 0; i <= COLS; i++) {
+    LAYER.grid.appendChild(mkSvg("line", { x1:i*CELL, y1:0, x2:i*CELL, y2:SVG_SIZE, stroke:"#e2e8f0", "stroke-width":1 }));
+  }
+  for (let j = 0; j <= ROWS; j++) {
+    LAYER.grid.appendChild(mkSvg("line", { x1:0, y1:j*CELL, x2:SVG_SIZE, y2:j*CELL, stroke:"#e2e8f0", "stroke-width":1 }));
+  }
 }
 
 function mkSvg(tag, attrs = {}) {
@@ -565,64 +567,52 @@ function mkSvg(tag, attrs = {}) {
   return el;
 }
 
-function clearLayer(side, name) {
-  const l = LAYERS[side][name];
+function clearLayer(name) {
+  const l = LAYER[name];
   while (l.firstChild) l.removeChild(l.firstChild);
-}
-
-function clearBothLayers(name) {
-  clearLayer("base", name);
-  clearLayer("ft", name);
 }
 
 function cellCx(col) { return col * CELL + CELL / 2; }
 function cellCy(row) { return row * CELL + CELL / 2; }
 
 function addAgent(id, col, row, fill = "#64748b") {
-  ["base", "ft"].forEach(side => {
-    const g = mkSvg("g", { id: `ag-${side}-${id}`, style: "transition: opacity .3s" });
-    g.appendChild(mkSvg("circle", { cx: cellCx(col), cy: cellCy(row), r:22, fill, stroke:"#fff", "stroke-width":2 }));
-    const t = mkSvg("text", {
-      x: cellCx(col), y: cellCy(row),
-      "text-anchor":"middle", "dominant-baseline":"central",
-      fill:"#fff", "font-weight":"bold", "font-size":"14",
-      "font-family":"-apple-system,BlinkMacSystemFont,sans-serif",
-    });
-    t.textContent = id;
-    g.appendChild(t);
-    g.style.opacity = "0";
-    LAYERS[side].agents.appendChild(g);
-    requestAnimationFrame(() => { g.style.opacity = "1"; });
+  const g = mkSvg("g", { id: `ag-${id}`, style: "transition: opacity .3s" });
+  g.appendChild(mkSvg("circle", { cx: cellCx(col), cy: cellCy(row), r:22, fill, stroke:"#fff", "stroke-width":2 }));
+  const t = mkSvg("text", {
+    x: cellCx(col), y: cellCy(row),
+    "text-anchor":"middle", "dominant-baseline":"central",
+    fill:"#fff", "font-weight":"bold", "font-size":"14",
+    "font-family":"-apple-system,BlinkMacSystemFont,sans-serif",
   });
+  t.textContent = id;
+  g.appendChild(t);
+  g.style.opacity = "0";
+  LAYER.agents.appendChild(g);
+  requestAnimationFrame(() => { g.style.opacity = "1"; });
 }
 
 function addConnection(fromId, toId, agents) {
   const [fc, fr] = agents[fromId];
   const [tc, tr] = agents[toId];
-  ["base", "ft"].forEach(side => {
-    LAYERS[side].connections.appendChild(mkSvg("line", {
-      x1: cellCx(fc), y1: cellCy(fr),
-      x2: cellCx(tc), y2: cellCy(tr),
-      stroke: "#cbd5e1", "stroke-width": 1.5, "stroke-dasharray": "5 3",
-    }));
-  });
+  LAYER.connections.appendChild(mkSvg("line", {
+    x1: cellCx(fc), y1: cellCy(fr),
+    x2: cellCx(tc), y2: cellCy(tr),
+    stroke: "#cbd5e1", "stroke-width": 1.5, "stroke-dasharray": "5 3",
+  }));
 }
 
 function setAgentFill(id, fill) {
-  ["base", "ft"].forEach(side => {
-    const circle = document.getElementById(`ag-${side}-${id}`)?.querySelector("circle");
-    if (circle) circle.setAttribute("fill", fill);
-  });
+  const circle = document.getElementById(`ag-${id}`)?.querySelector("circle");
+  if (circle) circle.setAttribute("fill", fill);
 }
 
 function addQueryMarker(id, agents) {
+  // Blue ring around the `from` agent
   const [col, row] = agents[id];
-  ["base", "ft"].forEach(side => {
-    LAYERS[side].query.appendChild(mkSvg("circle", {
-      cx: cellCx(col), cy: cellCy(row), r:28,
-      fill:"none", stroke:"#2563eb", "stroke-width":2, "stroke-dasharray":"4 2",
-    }));
-  });
+  LAYER.query.appendChild(mkSvg("circle", {
+    cx: cellCx(col), cy: cellCy(row), r:28,
+    fill:"none", stroke:"#2563eb", "stroke-width":2, "stroke-dasharray":"4 2",
+  }));
 }
 
 function addPrediction(fromPos, dir, side, length, prerecorded) {
@@ -632,9 +622,8 @@ function addPrediction(fromPos, dir, side, length, prerecorded) {
   const x2 = x1 + vec_x * length;
   const y2 = y1 + vec_y * length;
   const color = side === "base" ? "#56B6C2" : "#E5A00D";
-  const L = LAYERS[side];
 
-  L.predictions.appendChild(mkSvg("line", {
+  LAYER.predictions.appendChild(mkSvg("line", {
     x1, y1, x2, y2,
     stroke: color, "stroke-width": "3",
     "marker-end": `url(#arr-${side})`,
@@ -650,7 +639,7 @@ function addPrediction(fromPos, dir, side, length, prerecorded) {
     "font-family": "-apple-system,sans-serif",
   });
   txt.textContent = label;
-  L.predictions.appendChild(txt);
+  LAYER.predictions.appendChild(txt);
 }
 
 function arrowLength(fromId, toId, agents) {
@@ -670,7 +659,7 @@ async function animateStory(presetKey) {
   document.getElementById("runBtn").disabled = true;
   document.getElementById("storyStep").textContent = "";
 
-  initSvgs();
+  initSvg();
   const grid = PRESET_GRIDS[presetKey];
 
   await sleep(150);
@@ -692,6 +681,15 @@ async function animateStory(presetKey) {
   setAgentFill(grid.to,   "#1a202c");
   addQueryMarker(grid.from, grid.agents);
   document.getElementById("storyStep").textContent = `❓ Where is ${grid.to} relative to ${grid.from}?`;
+
+  // Update legend
+  const leg = document.getElementById("gridLegend");
+  leg.innerHTML = `
+    <span class="legend-item"><span class="legend-dot" style="background:#2563eb"></span>reference (${grid.from})</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#1a202c"></span>target (${grid.to})</span>
+    <span class="legend-item"><span style="display:inline-block;width:20px;height:3px;background:#56B6C2;border-radius:2px"></span>LFM2 350M</span>
+    <span class="legend-item"><span style="display:inline-block;width:20px;height:3px;background:#E5A00D;border-radius:2px"></span>LFM2 350M StepGame</span>
+  `;
 
   animating = false;
   document.getElementById("runBtn").disabled = false;
@@ -718,8 +716,8 @@ async function runBoth() {
 
   // Reset grid predictions & query layer (allow re-run)
   if (activePresetKey) {
-    clearBothLayers("predictions");
-    clearBothLayers("query");
+    clearLayer("predictions");
+    clearLayer("query");
     const grid = PRESET_GRIDS[activePresetKey];
     setAgentFill(grid.from, "#2563eb");
     setAgentFill(grid.to,   "#1a202c");
@@ -733,14 +731,19 @@ async function runBoth() {
   if (isCustom) {
     document.getElementById("customCols").style.display = "block";
   } else {
-    document.getElementById("model-col-base").style.display = "block";
-    document.getElementById("model-col-ft").style.display   = "block";
+    document.getElementById("cols").style.display = "grid";
   }
-  document.getElementById("liveNote").style.display = "block";
+  const useLocal = !!window._localInfer;
+  const online   = useLocal ? new Set() : await checkOnlineModels();
+
+  const noteEl = document.getElementById("liveNote");
+  noteEl.style.display = "block";
+  noteEl.textContent = useLocal
+    ? "Running locally via WebGPU (experimental). ONNX output may differ from benchmark results — the GGUF-quantized models served in the benchmark produce higher-quality responses. First run downloads ~400 MB, cached after that."
+    : "Responses streamed live from lm-arena. If a model is offline, the pre-recorded response is shown instead.";
+
   resetCol(baseSide);
   resetCol(ftSide);
-
-  const online = await checkOnlineModels();
 
   const [baseText, ftText] = await Promise.all([
     runSide(baseSide, "lfm2mini",    story, question, activeExample?.baseline,  online),
@@ -768,15 +771,68 @@ async function runBoth() {
 }
 
 async function runSide(colId, modelId, story, question, prerecorded, onlineModels) {
+  if (window._localInfer) {
+    return await localModel(colId, modelId, story, question);
+  }
   const statusEl = document.getElementById(`status-${colId}`);
   if (onlineModels.has(modelId)) {
     statusEl.textContent = "● live";
     statusEl.style.color = "var(--green)";
     return await streamModel(modelId, story, question, colId);
   } else {
-    statusEl.textContent = "● offline · pre-recorded";
+    statusEl.textContent = "● pre-recorded";
     statusEl.style.color = "var(--muted)";
     return await fakeStream(prerecorded || "—", colId);
+  }
+}
+
+async function localModel(colId, modelId, story, question) {
+  const statusEl = document.getElementById(`status-${colId}`);
+  const respEl   = document.getElementById(`resp-${colId}`);
+
+  const useSystem       = document.getElementById("useSystemPrompt").checked;
+  const systemPromptTxt = document.getElementById("systemPromptText").value;
+  const maxTokens       = parseInt(document.getElementById("maxTokens").value, 10) || 64;
+
+  const messages = [
+    ...(useSystem ? [{ role: "system", content: systemPromptTxt }] : []),
+    { role: "user", content: `${story}\n\n${question}` },
+  ];
+
+  respEl.innerHTML = '<span class="cursor"></span>';
+
+  try {
+    const onProgress = p => {
+      if (p.status === "downloading") {
+        const pct = p.progress?.toFixed(0) ?? 0;
+        statusEl.textContent = `↓ ${pct}%`;
+        statusEl.style.color = "var(--accent)";
+      } else if (p.status === "loading") {
+        statusEl.textContent = "loading…";
+        statusEl.style.color = "var(--accent)";
+      }
+    };
+
+    statusEl.textContent = "loading model…";
+    statusEl.style.color = "var(--accent)";
+
+    const fullText = await window._localInfer(modelId, messages, maxTokens, onProgress);
+
+    statusEl.textContent = "● local";
+    statusEl.style.color = "var(--accent)";
+    respEl.textContent = fullText;
+
+    const extracted = extractAnswer(fullText);
+    const answer = activeExample?.answer || document.getElementById("customAnswer")?.value.trim() || null;
+    renderVerdict(colId, extracted, answer);
+    return fullText;
+  } catch (e) {
+    respEl.textContent = "";
+    const note = document.createElement("span");
+    note.style.cssText = "color:var(--muted);font-size:.78rem";
+    note.textContent = `(local error: ${e?.message ?? String(e)})`;
+    respEl.appendChild(note);
+    return "";
   }
 }
 
@@ -938,6 +994,75 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 // ─────────────────────────────────────────────────────────────────────────────
 
 buildPresets();
+</script>
+
+<script type="module">
+  // Local WebGPU inference using the same ONNX models as lfm2-web.
+  // Sets window._localInfer when WebGPU is available; main script checks it before
+  // falling through to the registry or pre-recorded paths.
+  if (!navigator.gpu) return;
+
+  import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3/dist/transformers.min.js';
+
+  const ASSISTANT_MARKER = '<|im_start|>assistant\n';
+  function formatLFM2(messages) {
+    let s = '';
+    for (const { role, content } of messages) s += `<|im_start|>${role}\n${content.trim()}<|im_end|>\n`;
+    s += ASSISTANT_MARKER;
+    return s;
+  }
+
+  // Maps demo model IDs (matching lm-arena) to HF Hub ONNX identifiers.
+  const LOCAL_MODELS = {
+    'lfm2spatial': {
+      hfId: 'spatialft/LFM2-350M-StepGame-ONNX',
+      dtype: 'q4',
+      format_prompt: formatLFM2,
+      extract: text => text.replace(/<\|im_end\|>[\s\S]*$/, '').trim(),
+    },
+    'lfm2mini': {
+      hfId: 'onnx-community/LFM2-350M-ONNX',
+      dtype: 'q4',
+      format_prompt: null,
+      extract: text => text.at(-1).content,
+    },
+  };
+
+  const _generators = {};
+  const _loading    = {};
+
+  async function initModel(modelId, onProgress) {
+    if (_generators[modelId]) return _generators[modelId];
+    if (_loading[modelId]) return _loading[modelId];   // deduplicate concurrent calls
+    const { hfId, dtype } = LOCAL_MODELS[modelId];
+    _loading[modelId] = pipeline('text-generation', hfId, {
+      device: 'webgpu',
+      dtype,
+      progress_callback: onProgress,
+    }).then(gen => {
+      _generators[modelId] = gen;
+      delete _loading[modelId];
+      return gen;
+    }).catch(e => {
+      delete _loading[modelId];
+      throw e;
+    });
+    return _loading[modelId];
+  }
+
+  window._localInfer = async function(modelId, messages, maxTokens, onProgress) {
+    const cfg = LOCAL_MODELS[modelId];
+    if (!cfg) throw new Error(`Unknown model: ${modelId}`);
+    const gen   = await initModel(modelId, onProgress);
+    const input = cfg.format_prompt ? cfg.format_prompt(messages) : messages;
+    const out   = await gen(input, {
+      max_new_tokens: maxTokens,
+      temperature: 0.3,
+      repetition_penalty: 1.05,
+      return_full_text: false,
+    });
+    return cfg.extract(out[0].generated_text);
+  };
 </script>
 </body>
 </html>

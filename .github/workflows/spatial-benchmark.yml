@@ -1,81 +1,46 @@
-name: Spatial Benchmark
+name: Validate Scores
 
+# Runs on manual trigger or when static score files change.
+# No live inference — the authoritative accuracy numbers are in scores.json,
+# produced by the training pipeline (notebooks/04_eval_comparison.ipynb).
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'results/baseline/scores.json'
+      - 'results/finetuned/scores.json'
   workflow_dispatch:
 
 jobs:
-  detect:
+  validate:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    outputs:
-      models: ${{ steps.list.outputs.models }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install requests
-      - name: List online models
-        id: list
-        env:
-          REGISTRY: https://tunnel-registry.jonasneves.workers.dev
-        run: |
-          MODELS=$(python scripts/spatial_benchmark.py --list-models)
-          echo "models=$MODELS" >> $GITHUB_OUTPUT
-          echo "Online: $MODELS"
-
-  benchmark:
-    needs: detect
-    if: needs.detect.outputs.models != '[]'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    strategy:
-      matrix:
-        model: ${{ fromJson(needs.detect.outputs.models) }}
-      fail-fast: false
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - run: pip install requests
-      - name: Run benchmark
-        env:
-          REGISTRY: https://tunnel-registry.jonasneves.workers.dev
-          MODEL: ${{ matrix.model }}
-          PYTHONUNBUFFERED: "1"
-        run: python scripts/spatial_benchmark.py --model "$MODEL"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: result-${{ matrix.model }}
-          path: /tmp/spatial-bench-result.json
-
-  merge:
-    needs: benchmark
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          path: /tmp/results
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - run: pip install requests
-      - name: Merge results
-        run: python scripts/spatial_benchmark.py --merge /tmp/results
       - name: Quality gate
-        run: python scripts/spatial_benchmark.py --quality-gate "results/live/$(date -u +%Y-%m-%d).json"
-      - name: Commit results
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add results/live/
-          git diff --cached --quiet || git commit -m "chore: spatial benchmark $(date -u +%Y-%m-%d)"
-          git pull --rebase origin main
-          git push
-      # deploy.yml triggers automatically on push to main when results/live/** changes
+          python - <<'EOF'
+          import json, sys
+
+          base     = json.load(open("results/baseline/scores.json"))
+          finetuned = json.load(open("results/finetuned/scores.json"))
+
+          base_acc = base.get("accuracy", 0)
+          ft_acc   = finetuned.get("accuracy", 0)
+
+          print(f"Baseline accuracy:   {base_acc:.1%}")
+          print(f"Fine-tuned accuracy: {ft_acc:.1%}")
+
+          if ft_acc <= 0.125:
+              print("FAIL: fine-tuned accuracy at or below random baseline (12.5%)", file=sys.stderr)
+              sys.exit(1)
+
+          if ft_acc < base_acc:
+              print(f"WARN: fine-tuned ({ft_acc:.1%}) below baseline ({base_acc:.1%})")
+
+          print("OK")
+          EOF

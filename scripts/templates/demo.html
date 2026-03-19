@@ -367,7 +367,7 @@
 <footer>
   <a href="https://github.com/spatialft/spatialft.github.io">spatialft/spatialft.github.io</a>
   &nbsp;·&nbsp;
-  <a href="https://chat.neevs.io">lm-arena</a>
+  <a href="https://huggingface.co/spatialft/LFM2-350M-StepGame-ONNX">spatialft/LFM2-350M-StepGame-ONNX</a>
 </footer>
 
 <script>
@@ -376,6 +376,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 const EXAMPLES = __EXAMPLES_JSON__;
+
+// Filled by the module script below when WebGPU is available.
+// null = no local inference; fall through to registry or pre-recorded.
+window._localInfer = null;
 
 const REGISTRY   = "https://tunnel-registry.jonasneves.workers.dev";
 const DIRECTIONS = ["upper-left","upper-right","lower-left","lower-right","left","right","above","below"];
@@ -729,11 +733,17 @@ async function runBoth() {
   } else {
     document.getElementById("cols").style.display = "grid";
   }
-  document.getElementById("liveNote").style.display = "block";
+  const useLocal = !!window._localInfer;
+  const online   = useLocal ? new Set() : await checkOnlineModels();
+
+  const noteEl = document.getElementById("liveNote");
+  noteEl.style.display = "block";
+  noteEl.textContent = useLocal
+    ? "Running locally via WebGPU (experimental). ONNX output may differ from benchmark results — the GGUF-quantized models served in the benchmark produce higher-quality responses. First run downloads ~400 MB, cached after that."
+    : "Responses streamed live from lm-arena. If a model is offline, the pre-recorded response is shown instead.";
+
   resetCol(baseSide);
   resetCol(ftSide);
-
-  const online = await checkOnlineModels();
 
   const [baseText, ftText] = await Promise.all([
     runSide(baseSide, "lfm2mini",    story, question, activeExample?.baseline,  online),
@@ -761,15 +771,68 @@ async function runBoth() {
 }
 
 async function runSide(colId, modelId, story, question, prerecorded, onlineModels) {
+  if (window._localInfer) {
+    return await localModel(colId, modelId, story, question);
+  }
   const statusEl = document.getElementById(`status-${colId}`);
   if (onlineModels.has(modelId)) {
     statusEl.textContent = "● live";
     statusEl.style.color = "var(--green)";
     return await streamModel(modelId, story, question, colId);
   } else {
-    statusEl.textContent = "● offline · pre-recorded";
+    statusEl.textContent = "● pre-recorded";
     statusEl.style.color = "var(--muted)";
     return await fakeStream(prerecorded || "—", colId);
+  }
+}
+
+async function localModel(colId, modelId, story, question) {
+  const statusEl = document.getElementById(`status-${colId}`);
+  const respEl   = document.getElementById(`resp-${colId}`);
+
+  const useSystem       = document.getElementById("useSystemPrompt").checked;
+  const systemPromptTxt = document.getElementById("systemPromptText").value;
+  const maxTokens       = parseInt(document.getElementById("maxTokens").value, 10) || 64;
+
+  const messages = [
+    ...(useSystem ? [{ role: "system", content: systemPromptTxt }] : []),
+    { role: "user", content: `${story}\n\n${question}` },
+  ];
+
+  respEl.innerHTML = '<span class="cursor"></span>';
+
+  try {
+    const onProgress = p => {
+      if (p.status === "downloading") {
+        const pct = p.progress?.toFixed(0) ?? 0;
+        statusEl.textContent = `↓ ${pct}%`;
+        statusEl.style.color = "var(--accent)";
+      } else if (p.status === "loading") {
+        statusEl.textContent = "loading…";
+        statusEl.style.color = "var(--accent)";
+      }
+    };
+
+    statusEl.textContent = "loading model…";
+    statusEl.style.color = "var(--accent)";
+
+    const fullText = await window._localInfer(modelId, messages, maxTokens, onProgress);
+
+    statusEl.textContent = "● local";
+    statusEl.style.color = "var(--accent)";
+    respEl.textContent = fullText;
+
+    const extracted = extractAnswer(fullText);
+    const answer = activeExample?.answer || document.getElementById("customAnswer")?.value.trim() || null;
+    renderVerdict(colId, extracted, answer);
+    return fullText;
+  } catch (e) {
+    respEl.textContent = "";
+    const note = document.createElement("span");
+    note.style.cssText = "color:var(--muted);font-size:.78rem";
+    note.textContent = `(local error: ${e?.message ?? String(e)})`;
+    respEl.appendChild(note);
+    return "";
   }
 }
 
@@ -931,6 +994,75 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 // ─────────────────────────────────────────────────────────────────────────────
 
 buildPresets();
+</script>
+
+<script type="module">
+  // Local WebGPU inference using the same ONNX models as lfm2-web.
+  // Sets window._localInfer when WebGPU is available; main script checks it before
+  // falling through to the registry or pre-recorded paths.
+  if (!navigator.gpu) return;
+
+  import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3/dist/transformers.min.js';
+
+  const ASSISTANT_MARKER = '<|im_start|>assistant\n';
+  function formatLFM2(messages) {
+    let s = '';
+    for (const { role, content } of messages) s += `<|im_start|>${role}\n${content.trim()}<|im_end|>\n`;
+    s += ASSISTANT_MARKER;
+    return s;
+  }
+
+  // Maps demo model IDs (matching lm-arena) to HF Hub ONNX identifiers.
+  const LOCAL_MODELS = {
+    'lfm2spatial': {
+      hfId: 'spatialft/LFM2-350M-StepGame-ONNX',
+      dtype: 'q4',
+      format_prompt: formatLFM2,
+      extract: text => text.replace(/<\|im_end\|>[\s\S]*$/, '').trim(),
+    },
+    'lfm2mini': {
+      hfId: 'onnx-community/LFM2-350M-ONNX',
+      dtype: 'q4',
+      format_prompt: null,
+      extract: text => text.at(-1).content,
+    },
+  };
+
+  const _generators = {};
+  const _loading    = {};
+
+  async function initModel(modelId, onProgress) {
+    if (_generators[modelId]) return _generators[modelId];
+    if (_loading[modelId]) return _loading[modelId];   // deduplicate concurrent calls
+    const { hfId, dtype } = LOCAL_MODELS[modelId];
+    _loading[modelId] = pipeline('text-generation', hfId, {
+      device: 'webgpu',
+      dtype,
+      progress_callback: onProgress,
+    }).then(gen => {
+      _generators[modelId] = gen;
+      delete _loading[modelId];
+      return gen;
+    }).catch(e => {
+      delete _loading[modelId];
+      throw e;
+    });
+    return _loading[modelId];
+  }
+
+  window._localInfer = async function(modelId, messages, maxTokens, onProgress) {
+    const cfg = LOCAL_MODELS[modelId];
+    if (!cfg) throw new Error(`Unknown model: ${modelId}`);
+    const gen   = await initModel(modelId, onProgress);
+    const input = cfg.format_prompt ? cfg.format_prompt(messages) : messages;
+    const out   = await gen(input, {
+      max_new_tokens: maxTokens,
+      temperature: 0.3,
+      repetition_penalty: 1.05,
+      return_full_text: false,
+    });
+    return cfg.extract(out[0].generated_text);
+  };
 </script>
 </body>
 </html>
