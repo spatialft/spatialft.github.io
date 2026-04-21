@@ -2,6 +2,7 @@
 
 [![Deploy](https://github.com/spatialft/spatialft.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/spatialft/spatialft.github.io/actions/workflows/deploy.yml)
 [![Site](https://img.shields.io/badge/site-spatialft.github.io-green)](https://spatialft.github.io/)
+[![Duke AIPI 590.03](https://img.shields.io/badge/Duke-AIPI%20590.03-012169)](https://masters.pratt.duke.edu/)
 [![Model](https://img.shields.io/badge/%F0%9F%A4%97-GGUF_Model-yellow)](https://huggingface.co/spatialft/LFM2-350M-StepGame-GGUF)
 
 Fine-tune **LiquidAI/LFM2-350M** to improve spatial reasoning, measure baseline performance, then re-evaluate to show improvement.
